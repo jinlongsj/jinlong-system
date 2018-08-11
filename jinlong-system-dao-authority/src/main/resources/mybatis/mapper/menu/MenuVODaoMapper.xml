@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.menu.IMenuVODao">
+ 	
+ 	<!-- *********************不操作事务，查询 操作**************************-->
+	<!-- 通过菜单ID查询一条菜单信息 -->
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT
+			m.menu_id   	AS menuId,
+			m.type_id 		AS typeId,
+			t.name			AS typeName,
+			m.level_id		AS levelId,
+			l.name			AS levelName,
+			m.parent_id 	AS parentId,
+			m.menu_code 	AS menuCode,
+			m.menu_name 	AS menuName,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image,
+			m.description	AS description,
+			m.state			AS state,
+			s.name			AS stateName,
+  			m.process_state	AS processState,
+		  	p.name 			AS processStateName
+		FROM 
+			tbl_jinlong_system_menu m 
+			INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+			INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+			INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+			LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+		<where>
+			<if test="id != null and id != 0">
+				menu_id = #{id}
+			</if>
+		</where> 
+	</select>
+	
+ 	<!-- 查询所有菜单信息 -->
+ 	<select id="selectAll" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT
+			m.menu_id   	AS menuId,
+			m.type_id 		AS typeId,
+			t.name			AS typeName,
+			m.level_id		AS levelId,
+			l.name			AS levelName,
+			m.parent_id 	AS parentId,
+			m.menu_name 	AS menuName,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image,
+			m.description	AS description,
+			m.state			AS state,
+			s.name			AS stateName,
+  			m.process_state	AS processState,
+		  	p.name 			AS processStateName
+		FROM 
+			tbl_jinlong_system_menu m 
+			INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+			INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+			INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+			LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+		ORDER BY m.menu_id
+ 	</select>
+ 	
+ 	<!-- 通过条件查询一组菜单信息  -->
+	<select id="selectList" parameterType="com.jinlong.system.model.vo.menu.MenuVO" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT
+			m.menu_id   	AS menuId,
+			m.type_id 		AS typeId,
+			t.name			AS typeName,
+			m.level_id		AS levelId,
+			l.name			AS levelName,
+			m.parent_id 	AS parentId,
+			m.menu_code 	AS menuCode,
+			m.menu_name 	AS menuName,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image,
+			m.description	AS description,
+			m.state			AS state,
+			s.name			AS stateName,
+  			m.process_state	AS processState,
+		  	p.name 			AS processStateName
+		FROM 
+			tbl_jinlong_system_menu m 
+			INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+			INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+			INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+			LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+		<where>
+			<if test="typeId != null and typeId != 0">
+				m.type_id = #{typeId}
+			</if>
+			<if test="level != null and level != 0">
+				AND m.level = #{level}
+			</if>
+			<if test="parentId != null and parentId != 0">
+				AND m.parent_id = #{parentId}
+			</if>
+			<if test="menuCode != null and menuCode != ''">
+				AND m.menu_code = #{menuCode}
+			</if>
+			<if test="menuName != null and menuName != ''">
+				AND m.menu_name = #{menuName}
+			</if>
+			<if test="menuUrl != null and menuUrl != ''">
+				AND m.menu_url = #{menuUrl}
+			</if>
+			<if test="state != null and state != 0">
+				AND m.state = #{state}
+			</if>
+		</where>
+		ORDER BY m.menu_id 
+ 	</select>
+ 	
+ 	<!-- 查询最新的一条菜单信息 -->
+ 	<select id="selectNew" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT
+			m.menu_id   	AS menuId,
+			m.type_id 		AS typeId,
+			t.name			AS typeName,
+			m.level_id		AS levelId,
+			l.name			AS levelName,
+			m.parent_id 	AS parentId,
+			m.menu_code 	AS menuCode,
+			m.menu_name 	AS menuName,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image,
+			m.description	AS description,
+			m.state			AS state,
+			s.name			AS stateName,
+  			m.process_state	AS processState,
+		  	p.name 			AS processStateName
+		FROM 
+			tbl_jinlong_system_menu m 
+			INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+			INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+			INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+			LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+		ORDER BY m.menu_id DESC
+		LIMIT 1
+ 	</select>
+ 	
+ 	<!-- 查询最新的count条菜单信息 -->
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT
+			m.menu_id   	AS menuId,
+			m.type_id 		AS typeId,
+			t.name			AS typeName,
+			m.level_id		AS levelId,
+			l.name			AS levelName,
+			m.parent_id 	AS parentId,
+			m.menu_code 	AS menuCode,
+			m.menu_name 	AS menuName,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image,
+			m.description	AS description,
+			m.state			AS state,
+			s.name			AS stateName,
+  			m.process_state	AS processState,
+		  	p.name 			AS processStateName
+		FROM 
+			tbl_jinlong_system_menu m 
+			INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+			INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+			INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+			LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+		ORDER BY m.menu_id DESC
+		LIMIT #{count}
+ 	</select>
+ 	
+	<!-- 查询条件查询菜单列表 -->
+	<select id="selectAllParent" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT
+			m.menu_id   	AS menuId,
+			m.type_id 		AS typeId,
+			t.name			AS typeName,
+			m.level_id		AS levelId,
+			l.name			AS levelName,
+			m.parent_id 	AS parentId,
+			m.menu_code 	AS menuCode,
+			m.menu_name 	AS menuName,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image,
+			m.description	AS description,
+			m.state			AS state,
+			s.name			AS stateName,
+  			m.process_state	AS processState,
+		  	p.name 			AS processStateName
+		FROM 
+			tbl_jinlong_system_menu m 
+			INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+			INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+			INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+			LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+		<where>
+			m.parent_id = 0 
+		</where>
+		ORDER BY m.menu_id 
+	</select>
+	
+	<!-- 通过一级菜单查询它下面的所有二级菜单，并且按顺序排列 -->
+	<select id="selectSon" parameterType="int" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT
+			m.menu_id   	AS menuId,
+			m.type_id 		AS typeId,
+			t.name			AS typeName,
+			m.level_id		AS levelId,
+			l.name			AS levelName,
+			m.parent_id 	AS parentId,
+			m.menu_code 	AS menuCode,
+			m.menu_name 	AS menuName,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image,
+			m.description	AS description,
+			m.state			AS state,
+			s.name			AS stateName,
+  			m.process_state	AS processState,
+		  	p.name 			AS processStateName
+		FROM 
+			tbl_jinlong_system_menu m 
+			INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+			INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+			INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+			LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+		<where>
+			<if test="menuId != null and menuId != 0">
+				m.parent_id = #{menuId} 
+			</if>
+		</where>
+		ORDER BY m.menu_id 
+ 	</select>
+ 	
+	<!-- 通过userId查询此用户下所有菜单 -->
+	<select id="selectListByUser" parameterType="int" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT 
+			m.menu_id   	AS menuId,
+			m.type_id 		AS typeId,
+			m.level_id		AS levelId,
+			m.parent_id 	AS parentId,
+			m.menu_code 	AS menuCode,
+			m.menu_name 	AS menuName,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image,
+			m.description	AS description,
+			m.state			AS state
+    	FROM 
+    		tbl_jinlong_system_role_menu rm 
+      		LEFT JOIN tbl_jinlong_system_role r ON rm.role_id = r.role_id 
+      		LEFT JOIN tbl_jinlong_system_menu m ON rm.menu_id = m.menu_id
+		<where>
+			r.role_id = 
+			(
+				SELECT 
+					r.role_id 
+				FROM 
+					tbl_jinlong_system_user_base u INNER JOIN tbl_jinlong_system_role r ON u.role_id = r.role_id
+				<where>
+					<if test="userId != null and userId != 0">
+						u.user_id = #{userId}
+					</if>
+				</where>
+			)
+			AND m.parent_id = 0
+		</where>
+		ORDER BY m.menu_id
+	</select>
+	
+ 	<!-- ***************************分页操作***************************** -->
+	<!-- 查询全部菜单信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			tbl_jinlong_system_menu m 
+			INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+			INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+			INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+			LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+	</select>
+	
+	<!-- 分页查菜单色信息-->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.vo.menu.MenuVO">
+		SELECT 
+			id,
+      		IFNULL(
+				(SELECT 
+					p.rownum
+				FROM 
+				(
+					SELECT
+						@rownum:=@rownum+1 AS rownum,
+						p.menu_id
+					FROM
+					(SELECT @rownum:=0) r,
+					(
+						SELECT
+							menu_id						
+						FROM 
+								tbl_jinlong_system_menu 
+						ORDER BY menu_code
+					) p
+				) p 
+				WHERE 
+					p.menu_id = m.parentId), 0
+			) AS parent,
+			(CASE WHEN (SELECT COUNT(1) FROM tbl_jinlong_system_menu WHERE parent_id = m.menuId) > 0
+				THEN 0 ELSE 1 END) AS isLeaf,
+			(CASE WHEN (SELECT COUNT(1) FROM tbl_jinlong_system_menu WHERE parent_id = m.menuId) > 0
+				THEN 1 ELSE 0 END) AS loaded,
+			(CASE WHEN (SELECT COUNT(1) FROM tbl_jinlong_system_menu WHERE parent_id = m.menuId) > 0
+				THEN 0 ELSE 1 END) AS expanded,
+			m.menuId,
+			m.typeId,
+			m.typeName,
+			m.levelId,
+			m.levelName,
+			m.parentId,
+			m.menuCode,
+			m.menuName,
+			m.menuUrl,
+			m.image,
+			m.description,
+			m.state,
+			m.stateName,
+			m.processState,
+			m.processStateName
+		FROM
+		(
+			SELECT
+				@rownum:=@rownum+1 as id,
+				m.menuId,
+				m.typeId,
+				m.typeName,
+				m.levelId,
+				m.levelName,
+				m.parentId,
+				m.menuCode,
+				m.menuName,
+				m.menuUrl,
+				m.image,
+				m.description,
+				m.state,
+				m.stateName,
+				m.processState,
+				m.processStateName
+			FROM
+			(SELECT @rownum:=0) r,
+			(
+				SELECT
+					m.menu_id   		AS menuId,
+					m.type_id 			AS typeId,
+					t.name				AS typeName,
+					m.level_id			AS levelId,
+					l.name				AS levelName,
+					m.parent_id 		AS parentId,
+					m.menu_code 		AS menuCode,
+					m.menu_name 		AS menuName,
+					m.menu_url 			AS menuUrl,
+					m.image				AS image,
+					m.description		AS description,
+					m.state				AS state,
+					s.name				AS stateName,
+					m.process_state		AS processState,
+					p.name 				AS processStateName
+				FROM 
+					tbl_jinlong_system_menu m 
+					INNER JOIN dic_jinlong_system_menu_type t ON m.type_id = t.value
+					INNER JOIN dic_jinlong_system_menu_leval l ON m.level_id = l.value
+					INNER JOIN dic_jinlong_system_menu_state s ON m.state = s.value
+					LEFT JOIN dic_jinlong_system_menu_process_state p ON m.process_state = p.value
+				<where>
+					<if test="typeId != null and typeId != 0">
+						m.type_id = #{typeId}
+					</if>
+					<if test="levelId != null and levelId != 0">
+						AND m.level_id = #{levelId}
+					</if>
+					<!-- 模糊查询 -->
+					<if test="menuName != null and menuName != ''">
+						AND m.menu_name LIKE '%'|| #{menuName} ||'%'
+					</if>
+					<if test="menuUrl != null and menuUrl != menuUrl">
+						AND m.menu_url = #{menuUrl}
+					</if>
+					<if test="state != null and state != 0">
+						AND s.name = #{state}
+					</if>
+				</where>
+				ORDER BY m.menu_code
+			) m
+		) m
+	</select>
+	
+</mapper>

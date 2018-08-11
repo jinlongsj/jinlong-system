@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.menu.IMenuDao">
+
+	<!-- *********************操作事务：曾、删、改操作************************ -->
+	<!-- 新增一条菜单信息 -->
+	<insert id="insert" parameterType="com.jinlong.system.model.po.menu.MenuInfo">
+		INSERT 
+		INTO 
+			tbl_jinlong_system_menu
+		(
+			type_id,
+			level,
+			parent_id,
+			menu_code,
+			menu_name,
+			menu_url,
+			image,
+			description,
+			state
+		)
+		VALUES
+		(
+			#{typeId},
+			#{level},
+			#{parentId},
+			#{menuCode},
+			#{menuName},
+			#{menuUrl},
+			#{image},
+			#{description},
+			#{state}
+		)
+	</insert>
+	<!-- 通过条件删除一条菜单信息 -->
+	<delete id="delete" parameterType="com.jinlong.system.model.po.menu.MenuInfo">
+		DELETE 
+		FROM 
+			tbl_jinlong_system_menu
+		<where>
+			<if test="typeId != null and typeId != 0">
+				type_id = #{typeId}
+			</if>
+			<if test="level != null and level != 0">
+				AND level = #{level}
+			</if>
+			<if test="parentId != null and parentId != 0">
+				AND parent_id = #{parentId}
+			</if>
+			<if test="menuCode != null and menuCode != ''">
+				AND menu_code = #{menuCode}
+			</if>
+			<if test="menuName != null and menuName != ''">
+				AND menu_name = #{menuName}
+			</if>
+			<if test="menuUrl != null and menuUrl != ''">
+				AND menu_url = #{menuUrl}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where> 
+ 	</delete>
+	<!-- 通过菜单ID删除一个菜单信息 -->
+	<delete id="deleteById" parameterType="int">
+		DELETE 
+		FROM 
+			tbl_jinlong_system_menu
+		<where>
+			<if test="id != null and id != 0">
+				menu_id = #{id}
+			</if>
+		</where> 
+ 	</delete>
+	<!-- 通过菜单ID修改一条菜单信息 -->
+	<update id="update" parameterType="com.jinlong.system.model.po.menu.MenuInfo">
+		UPDATE 
+			tbl_jinlong_system_menu
+		<set>
+			<if test="menuCode != null and menuCode != ''">
+				menu_code = #{menuCode},
+			</if>
+			<if test="menuName != null and menuName != ''">
+				menu_name = #{menuName},
+			</if>
+			<if test="menuUrl != null and menuUrl != ''">
+				menu_url = #{menuUrl},
+			</if>
+			<if test="image != null and image != 0">
+				image = #{image},
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description},
+			</if>
+			<if test="state != null and state != 0">
+				state = #{state}
+			</if>
+		</set> 
+		<where>
+			<if test="menuId != null and menuId != 0">
+				menu_id = #{menuId}
+			</if>
+		</where> 
+	</update>
+ 	
+ 	<!-- *********************不操作事务，查询 操作**************************-->
+	<!-- 通过菜单ID查询一条菜单信息 -->
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+		SELECT
+			menu_id   	AS menuId,
+			type_id 	AS typeId,
+			level		AS level,
+			parent_id 	AS parentId,
+			menu_code	AS menuCode,
+			menu_name 	AS menuName,
+			menu_url 	AS menuUrl,
+			image		AS image,
+			description	AS description,
+			state		AS state
+		FROM 
+			tbl_jinlong_system_menu
+		<where>
+			<if test="id != null and id != 0">
+				menu_id = #{id}
+			</if>
+		</where> 
+	</select>
+	
+ 	<!-- 查询所有菜单信息 -->
+ 	<select id="selectAll" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+		SELECT
+			menu_id   	AS menuId,
+			type_id 	AS typeId,
+			level		AS level,
+			parent_id 	AS parentId,
+			menu_code	AS menuCode,
+			menu_name 	AS menuName,
+			menu_url 	AS menuUrl,
+			image		AS image,
+			description	AS description,
+			state		AS state
+		FROM 
+			tbl_jinlong_system_menu
+		ORDER BY menu_id
+ 	</select>
+ 	
+ 	<!-- 通过条件查询一组菜单信息  -->
+	<select id="selectList" parameterType="com.jinlong.system.model.po.menu.MenuInfo" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+		SELECT
+			menu_id   	AS menuId,
+			type_id 	AS typeId,
+			level		AS level,
+			parent_id 	AS parentId,
+			menu_code	AS menuCode,
+			menu_name 	AS menuName,
+			menu_url 	AS menuUrl,
+			image		AS image,
+			description	AS description,
+			state		AS state
+		FROM 
+			tbl_jinlong_system_menu
+		<where>
+			<if test="typeId != null and typeId != 0">
+				type_id = #{typeId}
+			</if>
+			<if test="level != null and level != 0">
+				AND level = #{level}
+			</if>
+			<if test="parentId != null and parentId != 0">
+				AND parent_id = #{parentId}
+			</if>
+			<if test="menuCode != null and menuCode != ''">
+				AND menu_code = #{menuCode}
+			</if>
+			<if test="menuName != null and menuName != ''">
+				AND menu_name = #{menuName}
+			</if>
+			<if test="menuUrl != null and menuUrl != ''">
+				AND menu_url = #{menuUrl}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+		ORDER BY menu_id 
+ 	</select>
+ 	
+ 	<!-- 查询最新的一条菜单信息 -->
+ 	<select id="selectNew" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+		SELECT
+			menu_id   	AS menuId,
+			type_id 	AS typeId,
+			level		AS level,
+			parent_id 	AS parentId,
+			menu_code	AS menuCode,
+			menu_name 	AS menuName,
+			menu_url 	AS menuUrl,
+			image		AS image,
+			description	AS description,
+			state		AS state
+		FROM 
+			tbl_jinlong_system_menu
+		ORDER BY menu_id DESC
+		LIMIT 1
+ 	</select>
+ 	
+ 	<!-- 查询最新的count条菜单信息 -->
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+		SELECT
+			menu_id   	AS menuId,
+			type_id 	AS typeId,
+			level		AS level,
+			parent_id 	AS parentId,
+			menu_code	AS menuCode,
+			menu_name 	AS menuName,
+			menu_url 	AS menuUrl,
+			image		AS image,
+			description	AS description,
+			state		AS state
+		FROM 
+			tbl_jinlong_system_menu
+		ORDER BY menu_id DESC
+		LIMIT #{count}
+ 	</select>
+	
+ 	<!-- ***************************分页操作***************************** -->
+	<!-- 查询全部菜单信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			tbl_jinlong_system_menu
+		<where>
+			parent_id = 0 
+		</where>
+	</select>
+	<!-- 分页查菜单色信息-->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+		SELECT
+			menu_id   	AS menuId,
+			type_id 	AS typeId,
+			level		AS level,
+			parent_id 	AS parentId,
+			menu_code	AS menuCode,
+			menu_name 	AS menuName,
+			menu_url 	AS menuUrl,
+			image		AS image,
+			description	AS description,
+			state		AS state
+		FROM 
+			tbl_jinlong_system_menu
+		<where>
+			parent_id = 0 
+		</where>
+		ORDER BY menu_id
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+	
+</mapper>
