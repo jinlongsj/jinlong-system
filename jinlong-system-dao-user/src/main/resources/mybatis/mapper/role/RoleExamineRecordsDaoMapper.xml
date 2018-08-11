@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.role.IRoleExamineRecordDao">
+
+	<!-- *********************操作事务：曾、删、改操作************************ -->
+	
+	<!-- 新增一条角色审核记录信息 -->
+	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		INSERT INTO 
+			tbl_jinlong_system_role_examine_record
+		(
+			role_id,
+			examine_user_id,
+			examine_time,
+			is_pass,
+			description,
+			state
+		)
+		VALUES
+		(
+			#{roleId},
+			#{examineUserId},
+			#{examineTime},
+			#{pass},
+			#{description},
+			#{state}
+		)
+	</insert>
+	
+	<!-- 通过条件删除一批角色审核记录信息 -->
+	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		DELETE FROM
+			tbl_jinlong_system_role_examine_record
+		<where>
+			<if test="roleId != null and roleId != 0">
+				role_id = #{roleId}
+			</if>
+			<if test="examineUserId != null and examineUserId != 0">
+				AND examine_user_id = #{examineUserId}
+			</if>
+			<if test="examineTime != null">
+				AND examine_time = #{examineTime}
+			</if>
+			<if test="pass != null and pass != 0">
+				AND is_pass = #{pass}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+	</delete>
+	
+	<!-- 通过ID删除一批角色审核记录信息 -->
+	<delete id="deleteById" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		DELETE FROM
+			tbl_jinlong_system_role_examine_record
+		<where>
+			<if test="id != null and id != 0">
+				examine_id = #{id}
+			</if>
+		</where>
+	</delete>
+	
+	<!-- 通过角色ID修改一条角色审核记录信息  -->
+	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		UPDATE
+			tbl_jinlong_system_role_examine_record
+		<set>
+			<if test="examineUserId != null and examineUserId != 0">
+				examine_user_id = #{examineUserId},
+			</if>
+			<if test="examineTime != null">
+				examine_time = #{examineTime},
+			</if>
+			<if test="pass != null and pass != 0">
+				is_pass = #{pass},
+			</if>
+			<if test="description != null and description ">
+				description = #{description},
+			</if>
+			<if test="state != null and state != 0">
+				state = #{state}
+			</if>
+		</set>
+		<where>
+			<if test="examineId != null and examineId != 0">
+				examine_id = #{examineId}
+			</if>
+		</where>
+	</update>
+ 	
+ 	<!-- *********************不操作事务，查询 操作************************** -->
+ 	
+	<!-- 通过角色ID查询一条角色审核记录信息 -->
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		SELECT 
+			examine_id		AS examineId,
+			role_id			AS roleId,
+			examine_user_id AS examineUserId,
+			examine_time	AS examineTime,
+			is_pass			AS pass,
+			description		AS description,
+			state			AS state
+		FROM
+			tbl_jinlong_system_role_examine_record
+		<where>
+			<if test="id != null and id != 0">
+				examine_id = #{id}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询所有的角色审核记录信息 -->
+	<select id="selectAll" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		SELECT 
+			examine_id		AS examineId,
+			role_id			AS roleId,
+			examine_user_id AS examineUserId,
+			examine_time	AS examineTime,
+			is_pass			AS pass,
+			description		AS description,
+			state			AS state
+		FROM
+			tbl_jinlong_system_role_examine_record
+		ORDER BY examine_id
+	</select>
+	
+	<!-- 通过条件查询一批的角色审核记录信息 -->
+	<select id="selectList" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord" 
+		resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		SELECT 
+			examine_id		AS examineId,
+			role_id			AS roleId,
+			examine_user_id AS examineUserId,
+			examine_time	AS examineTime,
+			is_pass			AS pass,
+			description		AS description,
+			state			AS state
+		FROM
+			tbl_jinlong_system_role_examine_record
+		<where>
+			<if test="roleId != null and roleId != 0">
+				role_id = #{roleId}
+			</if>
+			<if test="examineUserId != null and examineUserId != 0">
+				AND examine_user_id = #{examineUserId}
+			</if>
+			<if test="examineTime != null">
+				AND examine_time = #{examineTime}
+			</if>
+			<if test="pass != null and pass != 0">
+				AND is_pass = #{pass}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+		ORDER BY examine_id DESC
+	</select>
+	
+	<!-- 查询最新的一条角色审核记录信息 -->
+	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		SELECT 
+			examine_id		AS examineId,
+			role_id			AS roleId,
+			examine_user_id AS examineUserId,
+			examine_time	AS examineTime,
+			is_pass			AS pass,
+			description		AS description,
+			state			AS state
+		FROM
+			tbl_jinlong_system_role_examine_record
+		ORDER BY examine_id DESC
+		LIMIT 1
+	</select>
+	
+	<!-- 查询最新的数条角色审核记录信息 -->
+	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		SELECT 
+			examine_id		AS examineId,
+			role_id			AS roleId,
+			examine_user_id AS examineUserId,
+			examine_time	AS examineTime,
+			is_pass			AS pass,
+			description		AS description,
+			state			AS state
+		FROM
+			tbl_jinlong_system_role_examine_record
+		ORDER BY examine_id DESC
+		LIMIT #{count}
+	</select>
+ 	
+ 	<!-- ***************************分页操作***************************** -->
+ 	
+	<!-- 通过条件查询一批的角色的总条数 -->
+	<select id="getCount" parameterType="Map" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(1)
+		FROM
+			tbl_jinlong_system_role_examine_record
+		<where>
+			<if test="roleId != null and roleId != 0">
+				role_id = #{roleId}
+			</if>
+			<if test="examineUserId != null and examineUserId != 0">
+				AND examine_user_id = #{examineUserId}
+			</if>
+			<if test="examineTime != null">
+				AND examine_time = #{examineTime}
+			</if>
+			<if test="pass != null and pass != 0">
+				AND is_pass = #{pass}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+		ORDER BY examine_id DESC
+	</select>
+	
+	<!-- 通过条件分页查询一批角色审核记录信息 -->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+		SELECT 
+			examine_id		AS examineId,
+			role_id			AS roleId,
+			examine_user_id AS examineUserId,
+			examine_time	AS examineTime,
+			is_pass			AS pass,
+			description		AS description,
+			state			AS state
+		FROM
+			tbl_jinlong_system_role_examine_record
+		<where>
+			<if test="roleId != null and roleId != 0">
+				role_id = #{roleId}
+			</if>
+			<if test="examineUserId != null and examineUserId != 0">
+				AND examine_user_id = #{examineUserId}
+			</if>
+			<if test="examineTime != null">
+				AND examine_time = #{examineTime}
+			</if>
+			<if test="pass != null and pass != 0">
+				AND is_pass = #{pass}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+		ORDER BY examine_id DESC
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+			LIMIT #{startRow}, #{pageSize}
+		</if>
+	</select>
+	
+</mapper>

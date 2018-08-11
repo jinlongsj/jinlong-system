@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.user.IUserInfoDao">
+
+	<!-- *********************操作事务：曾、删、改操作************************ -->
+	<!-- 增加用户主信息 -->
+	<insert id="insert" parameterType="com.jinlong.system.model.po.user.UserInfo">
+		INSERT 
+			INTO tbl_jinlong_system_user_info
+		(
+			user_id,
+			real_name,
+			nick_name,
+			gender,
+			age,
+			id_number,
+			telephone,
+			zone_id,
+			address,
+			post_code,
+			home_page,
+			qq_number,
+			ali_pay,
+			image,
+			description,
+			state
+		)
+		VALUES
+	  	(
+	  		#{userId},
+	  		#{realName},
+	  		#{nickName},
+	  		#{gender},
+	  		#{age},
+	  		#{idNumber},
+	  		#{telephone},
+	  		#{zoneId},
+	  		#{address},
+	  		#{postCode},
+	  		#{homePage},
+			#{qqNumber},
+			#{aliPay},
+	  		#{image},
+	  		#{description},
+	  		#{state}
+	  	)
+	</insert>
+ 	<!-- 通过用户属性条件删除一组用户主信息 -->
+	<delete id="delete" parameterType="com.jinlong.system.model.po.user.UserInfo">
+		DELETE 
+		FROM 
+			tbl_jinlong_system_user_info
+		<where>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName}
+			</if>
+			<if test="nickName != null and nickName != ''">
+				AND nick_name = #{nickName}
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND id_number = #{idNumber}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND telephone = #{telephone}
+			</if>
+			<if test="zoneId != null and zoneId != 0">
+				AND zone_id = #{zoneId}
+			</if>
+			<if test="address != null and address != ''">
+				AND address = #{address}
+			</if>
+			<if test="postCode != null and postCode != ''">
+				AND post_code = #{postCode}
+			</if>
+			<if test="homePage != null and homePage != ''">
+				AND homePage = #{homePage}
+			</if>
+			<if test="qqNumber != null and qqNumber != ''">
+				AND qq_number = #{qqNumber}
+			</if>
+			<if test="aliPay != null and aliPay != ''">
+				AND aliPay = #{aliPay}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+ 	</delete>
+ 	<!-- 通过用户ID删除单条用户主信息 -->
+	<delete id="deleteById" parameterType="com.jinlong.system.model.po.user.UserInfo">
+		DELETE 
+		FROM 
+			tbl_jinlong_system_user_info
+		<where>
+			<if test="id != null and id != 0">
+				user_id = #{id}
+			</if>
+		</where>
+ 	</delete>
+	<!-- 通过用户ID修改单条用户主信息 -->
+	<update id="update" parameterType="com.jinlong.system.model.po.user.UserInfo">
+		UPDATE 
+			tbl_jinlong_system_user_info
+		<set>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName},
+			</if>
+			<if test="nickName != null and nickName != ''">
+				nick_name = #{nickName},
+			</if>
+			<if test="gender != null and gender != 0">
+				gender = #{gender},
+			</if>
+			<if test="age != null and age != 0">
+				age = #{age},
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				id_number = #{idNumber},
+			</if>
+			<if test="telephone != null and telephone != ''">
+				telephone = #{telephone},
+			</if>
+			<if test="zoneId != null and zoneId != 0">
+				zone_id = #{zoneId},
+			</if>
+			<if test="address != null and address != ''">
+				address = #{address},
+			</if>
+			<if test="postCode != null and postCode != ''">
+				post_code = #{postCode},
+			</if>
+			<if test="homePage != null and homePage != ''">
+				home_page = #{homePage},
+			</if>
+			<if test="qqNumber != null and qqNumber != ''">
+				qq_number = #{qqNumber},
+			</if>
+			<if test="aliPay != null and aliPay != ''">
+				ali_pay = #{aliPay},
+			</if>
+			<if test="image != null and image != ''">
+				image = #{image},
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description},
+			</if>
+			<if test="state != null and state != 0">
+				state = #{state}
+			</if>
+		</set> 
+		<where>
+			<if test="userId != null and userId != 0">
+		 		user_id = #{userId}
+		 	</if>
+		</where>
+	</update>
+ 	
+ 	<!-- *********************不操作事务，查询 操作************************** -->
+ 	<!-- 通过用户ID查询单条用户主信息 -->
+ 	<select id="select" parameterType="com.jinlong.system.model.po.user.UserInfo" resultType="com.jinlong.system.model.po.user.UserInfo">
+	    SELECT 
+	    	user_id			AS userId,
+			real_name		AS realName,
+			nick_name		AS nickName,
+			gender			AS gender,
+			age				AS age,
+			id_number		AS idNumber,
+			telephone       AS telephone,
+			zone_id			AS zoneId,
+			address			AS address,
+			post_code		AS postCode,
+			home_page		AS homePage,
+			qq_number		AS qqNumber,
+			ali_pay			AS aliPay,
+			image			AS image,
+			description		AS description,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_info
+		<where>
+			<if test="id != null and id != 0">
+		 		user_id = #{id}
+		 	</if>
+		</where>
+ 	</select>
+ 	<!-- 查询所有的用户主信息 -->
+	<select id="selectAll" resultType="com.jinlong.system.model.po.user.UserInfo">
+	    SELECT 
+	    	user_id			AS userId,
+			real_name		AS realName,
+			nick_name		AS nickName,
+			gender			AS gender,
+			age				AS age,
+			id_number		AS idNumber,
+			telephone       AS telephone,
+			zone_id			AS zoneId,
+			address			AS address,
+			post_code		AS postCode,
+			home_page		AS homePage,
+			qq_number		AS qqNumber,
+			ali_pay			AS aliPay,
+			image			AS image,
+			description		AS description,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_info
+	    ORDER BY user_id
+ 	</select>
+ 	<!-- 通过条件查询一批用户主信息 -->
+ 	<select id="selectList" parameterType="com.jinlong.system.model.po.user.UserInfo" resultType="com.jinlong.system.model.po.user.UserInfo">
+	    SELECT 
+	    	user_id			AS userId,
+			real_name		AS realName,
+			nick_name		AS nickName,
+			gender			AS gender,
+			age				AS age,
+			id_number		AS idNumber,
+			telephone       AS telephone,
+			zone_id			AS zoneId,
+			address			AS address,
+			post_code		AS postCode,
+			home_page		AS homePage,
+			qq_number		AS qqNumber,
+			ali_pay			AS aliPay,
+			image			AS image,
+			description		AS description,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_info
+		<where>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName}
+			</if>
+			<if test="nickName != null and nickName != ''">
+				AND nick_name = #{nickName}
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND id_number = #{idNumber}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND telephone = #{telephone}
+			</if>
+			<if test="zoneId != null and zoneId != 0">
+				AND zone_id = #{zoneId}
+			</if>
+			<if test="address != null and address != ''">
+				AND address = #{address}
+			</if>
+			<if test="postCode != null and postCode != ''">
+				AND post_code = #{postCode}
+			</if>
+			<if test="homePage != null and homePage != ''">
+				AND homePage = #{homePage}
+			</if>
+			<if test="qqNumber != null and qqNumber != ''">
+				AND qq_number = #{qqNumber}
+			</if>
+			<if test="aliPay != null and aliPay != ''">
+				AND aliPay = #{aliPay}
+			</if>
+		</where>
+		ORDER BY user_id
+ 	</select>
+ 	<!-- 查询最新的一条用户主信息 -->
+ 	<select id="selectNew" resultType="com.jinlong.system.model.po.user.UserInfo">
+	    SELECT 
+	    	user_id			AS userId,
+			real_name		AS realName,
+			nick_name		AS nickName,
+			gender			AS gender,
+			age				AS age,
+			id_number		AS idNumber,
+			telephone       AS telephone,
+			zone_id			AS zoneId,
+			address			AS address,
+			post_code		AS postCode,
+			home_page		AS homePage,
+			qq_number		AS qqNumber,
+			ali_pay			AS aliPay,
+			image			AS image,
+			description		AS description,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_info
+		ORDER BY user_id DESC
+	    LIMIT 1
+ 	</select>
+ 	<!-- 查询最新的count条用户主信息 -->
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.user.UserInfo">
+	    SELECT 
+	    	user_id			AS userId,
+			real_name		AS realName,
+			nick_name		AS nickName,
+			gender			AS gender,
+			age				AS age,
+			id_number		AS idNumber,
+			telephone       AS telephone,
+			zone_id			AS zoneId,
+			address			AS address,
+			post_code		AS postCode,
+			home_page		AS homePage,
+			qq_number		AS qqNumber,
+			ali_pay			AS aliPay,
+			image			AS image,
+			description		AS description,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_info
+		ORDER BY user_id DESC
+	    LIMIT #{count}
+ 	</select>
+ 	
+ 	<!-- ***************************分页操作***************************** -->
+	<!-- 查询全部用户主信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="integer">
+		SELECT 
+			COUNT(1) 
+	    FROM 
+	    	tbl_jinlong_system_user_info
+		<where>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName}
+			</if>
+			<if test="nickName != null and nickName != ''">
+				AND nick_name = #{nickName}
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND id_number = #{idNumber}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND telephone = #{telephone}
+			</if>
+			<if test="zoneId != null and zoneId != 0">
+				AND zone_id = #{zoneId}
+			</if>
+			<if test="address != null and address != ''">
+				AND address = #{address}
+			</if>
+			<if test="postCode != null and postCode != ''">
+				AND post_code = #{postCode}
+			</if>
+			<if test="homePage != null and homePage != ''">
+				AND homePage = #{homePage}
+			</if>
+			<if test="qqNumber != null and qqNumber != ''">
+				AND qq_number = #{qqNumber}
+			</if>
+			<if test="aliPay != null and aliPay != ''">
+				AND aliPay = #{aliPay}
+			</if>
+		</where>
+	</select>
+	<!-- 分页查询用户主信息-->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.user.UserInfo">
+	    SELECT 
+	    	user_id			AS userId,
+			real_name		AS realName,
+			nick_name		AS nickName,
+			gender			AS gender,
+			age				AS age,
+			id_number		AS idNumber,
+			telephone       AS telephone,
+			zone_id			AS zoneId,
+			address			AS address,
+			post_code		AS postCode,
+			home_page		AS homePage,
+			qq_number		AS qqNumber,
+			ali_pay			AS aliPay,
+			image			AS image,
+			description		AS description,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_info
+		ORDER BY user_id DESC
+		<where>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName}
+			</if>
+			<if test="nickName != null and nickName != ''">
+				AND nick_name = #{nickName}
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND id_number = #{idNumber}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND telephone = #{telephone}
+			</if>
+			<if test="zoneId != null and zoneId != 0">
+				AND zone_id = #{zoneId}
+			</if>
+			<if test="address != null and address != ''">
+				AND address = #{address}
+			</if>
+			<if test="postCode != null and postCode != ''">
+				AND post_code = #{postCode}
+			</if>
+			<if test="homePage != null and homePage != ''">
+				AND homePage = #{homePage}
+			</if>
+			<if test="qqNumber != null and qqNumber != ''">
+				AND qq_number = #{qqNumber}
+			</if>
+			<if test="aliPay != null and aliPay != ''">
+				AND aliPay = #{aliPay}
+			</if>
+		</where>
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+	
+</mapper>

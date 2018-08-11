@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.user.IUserVODao">
+ 	
+ 	<!-- *********************不操作事务，查询 操作************************** -->
+ 	<!-- 通过用户ID查询单条用户信息 -->
+ 	<select id="select" parameterType="com.jinlong.system.model.vo.user.UserVO" resultType="com.jinlong.system.model.vo.user.UserVO">
+	    SELECT 
+		  	u.user_id 		AS userId,
+		  	u.role_id 		AS roleId,
+		  	r.role_name 	AS roleName,
+		  	u.affiliated_id	AS affiliatedId,
+		  	u.register_time	AS registerTime,
+		  	u.user_name 	AS userName,
+		  	u.password		AS password,
+			u.mobile_phone 	AS mobilePhone,
+			u.email			AS email,
+		  	u.state			AS state,
+		  	s.name 			AS stateName,
+			i.real_name 	AS realName,
+			i.nick_name 	AS nickName,
+			i.gender		AS gender,
+			CASE i.gender WHEN 1 THEN '男' ELSE '女' END
+							AS genderName,
+			i.age			AS age,
+			i.id_number 	AS idNumber,
+			i.telephone		AS telephone,
+			(SELECT zone_name FROM tbl_jinlong_system_zone zzz
+			WHERE zzz.zone_id = 
+			(SELECT parent_id FROM tbl_jinlong_system_zone zz
+			WHERE zz.zone_id = z.parent_id))
+							AS province,
+			(SELECT zone_name FROM tbl_jinlong_system_zone zz
+			WHERE zz.zone_id = z.parent_id)
+							AS city,
+			i.zone_id 		AS zoneId,
+			z.zone_name 	AS region,
+			i.address		AS address, 
+			i.post_code 	AS postCode,
+			i.home_page		AS homePage,
+			i.qq_number		AS qqNumber,
+			i.ali_pay		AS aliPay,
+			i.image			AS image,
+			i.description   AS description,
+			i.state			AS processState,
+			p.name			AS processStateName,
+			f.file_id 		AS fileId,
+			f.type_id 		AS typeId,
+			f.user_id 		AS userId,
+			f.init_name 	AS initName,
+			f.file_name 	AS fileName,
+			f.file_path 	AS filePath,
+			f.submit_time 	AS submitTime,
+			f.description   AS imageDescription
+	    FROM 
+	    	tbl_jinlong_system_user_base u 
+		    INNER JOIN tbl_jinlong_system_role r ON u.role_id = r.role_id
+		    INNER JOIN dic_jinlong_system_user_state s ON u.state = s.value
+		    INNER JOIN tbl_jinlong_system_user_info i ON u.user_id = i.user_id
+		    INNER JOIN dic_jinlong_system_user_process_state p ON i.state = p.value
+		    INNER JOIN tbl_jinlong_system_zone z ON i.zone_id = z.zone_id
+		    LEFT JOIN tbl_jinlong_system_file_info f ON i.image = f.file_id
+		<where>
+			<if test="id != null and id != 0">
+		 		u.user_id = #{id} AND i.user_id = #{id}
+		 	</if>
+		</where>
+ 	</select>
+ 	
+ 	<!-- 查询所有的用户信息 -->
+	<select id="selectAll" resultType="com.jinlong.system.model.vo.user.UserVO">
+	    SELECT 
+		  	u.user_id 		AS userId,
+		  	u.role_id 		AS roleId,
+		  	r.role_name 	AS roleName,
+		  	u.affiliated_id	AS affiliatedId,
+		  	u.register_time	AS registerTime,
+		  	u.user_name 	AS userName,
+		  	u.password		AS password,
+			u.mobile_phone 	AS mobilePhone,
+			u.email			AS email,
+		  	u.state			AS state,
+		  	s.name 			AS stateName,
+			i.real_name 	AS realName,
+			i.nick_name 	AS nickName,
+			i.gender		AS gender,
+			CASE i.gender WHEN 1 THEN '男' ELSE '女' END
+							AS genderName,
+			i.age			AS age,
+			i.id_number 	AS idNumber,
+			i.telephone		AS telephone,
+			i.zone_id 		AS zoneId,
+			z.zone_name 	AS region,
+			i.address		AS address, 
+			i.post_code 	AS postCode,
+			i.home_page		AS homePage,
+			i.qq_number		AS qqNumber,
+			i.ali_pay		AS aliPay,
+			i.image			AS image,
+			i.description   AS description,
+			i.state			AS processState,
+			p.name			AS processStateName,
+			f.file_id 		AS fileId,
+			f.type_id 		AS typeId,
+			f.user_id 		AS userId,
+			f.init_name 	AS initName,
+			f.file_name 	AS fileName,
+			f.file_path 	AS filePath,
+			f.submit_time 	AS submitTime,
+			f.description   AS imageDescription
+	    FROM 
+	    	tbl_jinlong_system_user_base u 
+		    INNER JOIN tbl_jinlong_system_role r ON u.role_id = r.role_id
+		    INNER JOIN dic_jinlong_system_user_state s ON u.state = s.value
+		    INNER JOIN tbl_jinlong_system_user_info i ON u.user_id = i.user_id
+		    INNER JOIN dic_jinlong_system_user_process_state p ON i.state = p.value
+		    INNER JOIN tbl_jinlong_system_zone z ON i.zone_id = z.zone_id
+		    LEFT JOIN tbl_jinlong_system_file_info f ON i.image = f.file_id
+	    ORDER BY u.user_id
+ 	</select>
+ 	
+ 	<!-- 通过条件查询一批用户信息 -->
+ 	<select id="selectList" parameterType="com.jinlong.system.model.vo.user.UserVO" resultType="com.jinlong.system.model.vo.user.UserVO">
+	    SELECT 
+		  	u.user_id 		AS userId,
+		  	u.role_id 		AS roleId,
+		  	r.role_name 	AS roleName,
+		  	u.affiliated_id	AS affiliatedId,
+		  	u.register_time	AS registerTime,
+		  	u.user_name 	AS userName,
+		  	u.password		AS password,
+			u.mobile_phone 	AS mobilePhone,
+			u.email			AS email,
+		  	u.state			AS state,
+		  	s.name 			AS stateName,
+			i.real_name 	AS realName,
+			i.nick_name 	AS nickName,
+			i.gender		AS gender,
+			CASE i.gender WHEN 1 THEN '男' ELSE '女' END
+							AS genderName,
+			i.age			AS age,
+			i.id_number 	AS idNumber,
+			i.telephone		AS telephone,
+			i.zone_id 		AS zoneId,
+			z.zone_name 	AS region,
+			i.address		AS address, 
+			i.post_code 	AS postCode,
+			i.home_page		AS homePage,
+			i.qq_number		AS qqNumber,
+			i.ali_pay		AS aliPay,
+			i.image			AS image,
+			i.description   AS description,
+			i.state			AS processState,
+			p.name			AS processStateName,
+			f.file_id 		AS fileId,
+			f.type_id 		AS typeId,
+			f.user_id 		AS userId,
+			f.init_name 	AS initName,
+			f.file_name 	AS fileName,
+			f.file_path 	AS filePath,
+			f.submit_time 	AS submitTime,
+			f.description   AS imageDescription
+	    FROM 
+	    	tbl_jinlong_system_user_base u 
+		    INNER JOIN tbl_jinlong_system_role r ON u.role_id = r.role_id
+		    INNER JOIN dic_jinlong_system_user_state s ON u.state = s.value
+		    INNER JOIN tbl_jinlong_system_user_info i ON u.user_id = i.user_id
+		    INNER JOIN dic_jinlong_system_user_process_state p ON i.state = p.value
+		    INNER JOIN tbl_jinlong_system_zone z ON i.zone_id = z.zone_id
+		    LEFT JOIN tbl_jinlong_system_file_info f ON i.image = f.file_id
+		<where>
+			<if test="userId != null and userId != 0">
+		 		u.user_id = #{userId} AND i.user_id = #{userId}
+		 	</if>
+			<if test="roleId != null and roleId != 0">
+				AND u.role_id = #{roleId} AND r.role_id = #{roleId}
+			</if>
+			<if test="affiliatedId != null and affiliatedId != 0">
+				AND u.affiliated_id = #{affiliatedId}
+			</if>
+			<if test="registerTime != null and registerTime != 0">
+				AND u.register_time = #{registerTime}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND u.user_name = #{userName} 
+			</if>
+			<if test="mobilePhone != null and mobilePhone != 0">
+				AND u.mobile_phone = #{mobilePhone}
+			</if>
+			<if test="email != null and email != 0">
+				AND u.email = #{email}
+			</if>
+			<if test="state != null and state != 0">
+				AND u.state = #{state} AND s.value = #{state}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND i.real_name = #{realName}
+			</if>
+			<if test="nickName != null and nickName != ''">
+				AND i.nick_name = #{nickName}
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND i.id_number = #{idNumber}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND i.telephone = #{telephone}
+			</if>
+			<if test="zoneId != null and zoneId != 0">
+				AND i.zone_id = #{zoneId} AND z.zone_id = #{zoneId}
+			</if>
+			<if test="address != null and address != ''">
+				AND i.address = #{address}
+			</if>
+			<if test="postCode != null and postCode != ''">
+				AND i.post_code = #{postCode}
+			</if>
+			<if test="homePage != null and homePage != ''">
+				AND i.home_page = #{homePage}
+			</if>
+			<if test="qqNumber != null and qqNumber != ''">
+				AND i.qq_number = #{qqNumber}
+			</if>
+			<if test="aliPay != null and aliPay != ''">
+				AND i.aliPay = #{aliPay}
+			</if>
+			<if test="processState != null and processState != 0">
+				AND i.state = #{processState} AND p.value = #{processState}
+			</if>
+		</where>
+	    ORDER BY u.user_id DESC
+ 	</select>
+ 	
+ 	<!-- 查询最新的一条用户信息 -->
+ 	<select id="selectNew" resultType="com.jinlong.system.model.vo.user.UserVO">
+	    SELECT 
+		  	u.user_id 		AS userId,
+		  	u.role_id 		AS roleId,
+		  	r.role_name 	AS roleName,
+		  	u.affiliated_id	AS affiliatedId,
+		  	u.register_time	AS registerTime,
+		  	u.user_name 	AS userName,
+		  	u.password		AS password,
+			u.mobile_phone 	AS mobilePhone,
+			u.email			AS email,
+		  	u.state			AS state,
+		  	s.name 			AS stateName,
+			i.real_name 	AS realName,
+			i.nick_name 	AS nickName,
+			i.gender		AS gender,
+			CASE i.gender WHEN 1 THEN '男' ELSE '女' END
+							AS genderName,
+			i.age			AS age,
+			i.id_number 	AS idNumber,
+			i.telephone		AS telephone,
+			i.zone_id 		AS zoneId,
+			z.zone_name 	AS region,
+			i.address		AS address, 
+			i.post_code 	AS postCode,
+			i.home_page		AS homePage,
+			i.qq_number		AS qqNumber,
+			i.ali_pay		AS aliPay,
+			i.image			AS image,
+			i.description   AS description,
+			i.state			AS processState,
+			p.name			AS processStateName,
+			f.file_id 		AS fileId,
+			f.type_id 		AS typeId,
+			f.user_id 		AS userId,
+			f.init_name 	AS initName,
+			f.file_name 	AS fileName,
+			f.file_path 	AS filePath,
+			f.submit_time 	AS submitTime,
+			f.description   AS imageDescription
+	    FROM 
+	    	tbl_jinlong_system_user_base u 
+		    INNER JOIN tbl_jinlong_system_role r ON u.role_id = r.role_id
+		    INNER JOIN dic_jinlong_system_user_state s ON u.state = s.value
+		    INNER JOIN tbl_jinlong_system_user_info i ON u.user_id = i.user_id
+		    INNER JOIN dic_jinlong_system_user_process_state p ON i.state = p.value
+		    INNER JOIN tbl_jinlong_system_zone z ON i.zone_id = z.zone_id
+		    LEFT JOIN tbl_jinlong_system_file_info f ON i.image = f.file_id
+	    ORDER BY u.register_time DESC
+	    LIMIT 1
+ 	</select>
+ 	
+ 	<!-- 查询最新的count条用户信息 -->
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.vo.user.UserVO">
+	    SELECT 
+		  	u.user_id 		AS userId,
+		  	u.role_id 		AS roleId,
+		  	r.role_name 	AS roleName,
+		  	u.affiliated_id	AS affiliatedId,
+		  	u.register_time	AS registerTime,
+		  	u.user_name 	AS userName,
+		  	u.password		AS password,
+			u.mobile_phone 	AS mobilePhone,
+			u.email			AS email,
+		  	u.state			AS state,
+		  	s.name 			AS stateName,
+			i.real_name 	AS realName,
+			i.nick_name 	AS nickName,
+			i.gender		AS gender,
+			CASE i.gender WHEN 1 THEN '男' ELSE '女' END
+							AS genderName,
+			i.age			AS age,
+			i.id_number 	AS idNumber,
+			i.telephone		AS telephone,
+			i.zone_id 		AS zoneId,
+			z.zone_name 	AS region,
+			i.address		AS address, 
+			i.post_code 	AS postCode,
+			i.home_page		AS homePage,
+			i.qq_number		AS qqNumber,
+			i.ali_pay		AS aliPay,
+			i.image			AS image,
+			i.description   AS description,
+			i.state			AS processState,
+			p.name			AS processStateName,
+			f.file_id 		AS fileId,
+			f.type_id 		AS typeId,
+			f.user_id 		AS userId,
+			f.init_name 	AS initName,
+			f.file_name 	AS fileName,
+			f.file_path 	AS filePath,
+			f.submit_time 	AS submitTime,
+			f.description   AS imageDescription
+	    FROM 
+	    	tbl_jinlong_system_user_base u 
+		    INNER JOIN tbl_jinlong_system_role r ON u.role_id = r.role_id
+		    INNER JOIN dic_jinlong_system_user_state s ON u.state = s.value
+		    INNER JOIN tbl_jinlong_system_user_info i ON u.user_id = i.user_id
+		    INNER JOIN dic_jinlong_system_user_process_state p ON i.state = p.value
+		    INNER JOIN tbl_jinlong_system_zone z ON i.zone_id = z.zone_id
+		    LEFT JOIN tbl_jinlong_system_file_info f ON i.image = f.file_id
+	    ORDER BY u.register_time DESC
+	    LIMIT #{count}
+ 	</select>
+ 	
+ 	<!-- ***************************分页操作***************************** -->
+ 	
+	<!-- 查询全部用户信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="integer">
+		SELECT 
+			COUNT(1) 
+	    FROM 
+	    	tbl_jinlong_system_user_base u 
+		    INNER JOIN tbl_jinlong_system_role r ON u.role_id = r.role_id
+		    INNER JOIN dic_jinlong_system_user_state s ON u.state = s.value
+		    INNER JOIN tbl_jinlong_system_user_info i ON u.user_id = i.user_id
+		    INNER JOIN dic_jinlong_system_user_process_state p ON i.state = p.value
+		    INNER JOIN tbl_jinlong_system_zone z ON i.zone_id = z.zone_id
+		    LEFT JOIN tbl_jinlong_system_file_info f ON i.image = f.file_id
+		<where>
+			<if test="userId != null and userId != 0">
+		 		u.user_id = #{userId} AND i.user_id = #{userId}
+		 	</if>
+			<if test="roleId != null and roleId != 0">
+				AND u.role_id = #{roleId} AND r.role_id = #{roleId}
+			</if>
+			<if test="affiliatedId != null and affiliatedId != 0">
+				AND u.affiliated_id = #{affiliatedId}
+			</if>
+			<if test="registerTime != null and registerTime != 0">
+				AND u.register_time = #{registerTime}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND u.user_name LIKE '%' #{userName} '%' 
+			</if>
+			<if test="mobilePhone != null and mobilePhone != 0">
+				AND u.mobile_phone LIKE '%' #{mobilePhone} '%'
+			</if>
+			<if test="email != null and email != 0">
+				AND u.email LIKE '%' #{email} '%'
+			</if>
+			<if test="state != null and state != 0">
+				AND u.state = #{state} AND s.value = #{state}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND i.real_name LIKE '%' #{realName} '%'
+			</if>
+			<if test="nickName != null and nickName != ''">
+				AND i.nick_name LIKE '%' #{nickName} '%'
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND i.id_number = #{idNumber}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND i.telephone = #{telephone}
+			</if>
+			<if test="provinceId != null and provinceId != 0">
+				AND (SELECT parent_id FROM tbl_jinlong_system_zone zz
+					WHERE zz.zone_id = z.parent_id) = #{provinceId}
+			</if>
+			<if test="cityId != null and cityId != 0">
+				AND z.parent_id = #{cityId}
+			</if>
+			<if test="zoneId != null and zoneId != 0">
+				AND i.zone_id = #{zoneId} AND z.zone_id = #{zoneId}
+			</if>
+			<if test="address != null and address != ''">
+				AND i.address = #{address}
+			</if>
+			<if test="postCode != null and postCode != ''">
+				AND i.post_code LIKE '%' #{postCode} '%'
+			</if>
+			<if test="homePage != null and homePage != ''">
+				AND i.home_page LIKE '%' #{homePage} '%'
+			</if>
+			<if test="qqNumber != null and qqNumber != ''">
+				AND i.qq_number LIKE '%' #{qqNumber} '%'
+			</if>
+			<if test="aliPay != null and aliPay != ''">
+				AND i.aliPay LIKE '%' #{aliPay}
+			</if>
+			<if test="processState != null and processState != 0">
+				AND i.state = #{processState} AND p.value = #{processState}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询用户信息-->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.vo.user.UserVO">
+	    SELECT 
+		  	u.user_id 		AS userId,
+		  	u.role_id 		AS roleId,
+		  	r.role_name 	AS roleName,
+		  	u.affiliated_id	AS affiliatedId,
+		  	u.register_time	AS registerTime,
+		  	u.user_name 	AS userName,
+		  	u.password		AS password,
+			u.mobile_phone 	AS mobilePhone,
+			u.email			AS email,
+		  	u.state			AS state,
+		  	s.name 			AS stateName,
+			i.real_name 	AS realName,
+			i.nick_name 	AS nickName,
+			i.gender		AS gender,
+			CASE i.gender WHEN 1 THEN '男' ELSE '女' END
+							AS genderName,
+			i.age			AS age,
+			i.id_number 	AS idNumber,
+			i.telephone		AS telephone,
+			(SELECT zone_name FROM tbl_jinlong_system_zone zzz
+			WHERE zzz.zone_id = 
+			(SELECT parent_id FROM tbl_jinlong_system_zone zz
+			WHERE zz.zone_id = z.parent_id))
+							AS province,
+			(SELECT zone_name FROM tbl_jinlong_system_zone zz
+			WHERE zz.zone_id = z.parent_id)
+							AS city,
+			i.zone_id 		AS zoneId,
+			z.zone_name 	AS region,
+			i.address		AS address, 
+			i.post_code 	AS postCode,
+			i.home_page		AS homePage,
+			i.qq_number		AS qqNumber,
+			i.ali_pay		AS aliPay,
+			i.image			AS image,
+			i.description   AS description,
+			i.state			AS processState,
+			p.name			AS processStateName,
+			f.file_id 		AS fileId,
+			f.type_id 		AS typeId,
+			f.user_id 		AS userId,
+			f.init_name 	AS initName,
+			f.file_name 	AS fileName,
+			f.file_path 	AS filePath,
+			f.submit_time 	AS submitTime,
+			f.description   AS imageDescription
+	    FROM 
+	    	tbl_jinlong_system_user_base u 
+		    INNER JOIN tbl_jinlong_system_role r ON u.role_id = r.role_id
+		    INNER JOIN dic_jinlong_system_user_state s ON u.state = s.value
+		    INNER JOIN tbl_jinlong_system_user_info i ON u.user_id = i.user_id
+		    INNER JOIN dic_jinlong_system_user_process_state p ON i.state = p.value
+		    INNER JOIN tbl_jinlong_system_zone z ON i.zone_id = z.zone_id
+		    LEFT JOIN tbl_jinlong_system_file_info f ON i.image = f.file_id
+		<where>
+			<if test="userId != null and userId != 0">
+		 		u.user_id = #{userId} AND i.user_id = #{userId}
+		 	</if>
+			<if test="roleId != null and roleId != 0">
+				AND u.role_id = #{roleId} AND r.role_id = #{roleId}
+			</if>
+			<if test="affiliatedId != null and affiliatedId != 0">
+				AND u.affiliated_id = #{affiliatedId}
+			</if>
+			<if test="registerTime != null and registerTime != 0">
+				AND u.register_time = #{registerTime}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND u.user_name LIKE '%' #{userName} '%' 
+			</if>
+			<if test="mobilePhone != null and mobilePhone != 0">
+				AND u.mobile_phone LIKE '%' #{mobilePhone} '%'
+			</if>
+			<if test="email != null and email != 0">
+				AND u.email LIKE '%' #{email} '%'
+			</if>
+			<if test="state != null and state != 0">
+				AND u.state = #{state} AND s.value = #{state}
+			</if>
+			<if test="realName != null and realName != ''">
+				AND i.real_name LIKE '%' #{realName} '%'
+			</if>
+			<if test="nickName != null and nickName != ''">
+				AND i.nick_name LIKE '%' #{nickName} '%'
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND i.id_number = #{idNumber}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND i.telephone = #{telephone}
+			</if>
+			<if test="provinceId != null and provinceId != 0">
+				AND (SELECT parent_id FROM tbl_jinlong_system_zone zz
+					WHERE zz.zone_id = z.parent_id) = #{provinceId}
+			</if>
+			<if test="cityId != null and cityId != 0">
+				AND z.parent_id = #{cityId}
+			</if>
+			<if test="zoneId != null and zoneId != 0">
+				AND i.zone_id = #{zoneId} AND z.zone_id = #{zoneId}
+			</if>
+			<if test="address != null and address != ''">
+				AND i.address = #{address}
+			</if>
+			<if test="postCode != null and postCode != ''">
+				AND i.post_code LIKE '%' #{postCode} '%'
+			</if>
+			<if test="homePage != null and homePage != ''">
+				AND i.home_page LIKE '%' #{homePage} '%'
+			</if>
+			<if test="qqNumber != null and qqNumber != ''">
+				AND i.qq_number LIKE '%' #{qqNumber} '%'
+			</if>
+			<if test="aliPay != null and aliPay != ''">
+				AND i.aliPay LIKE '%' #{aliPay}
+			</if>
+			<if test="processState != null and processState != 0">
+				AND i.state = #{processState} AND p.value = #{processState}
+			</if>
+		</where>
+	    ORDER BY u.register_time DESC
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+	
+</mapper>

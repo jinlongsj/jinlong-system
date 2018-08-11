@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.jinlong.system.dao.role.IRoleDao">
+
+	<!-- ********************************操作事务：增、删、改操作**********************************-->
+	   
+   	<!-- 新增一条角色信息 -->
+   	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleInfo">
+		<!-- 返回主键 -->
+		<selectKey keyProperty="roleId" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID() AS roleId
+		</selectKey>
+  		INSERT 
+  		INTO 
+  			tbl_jinlong_system_role 
+  		(
+  			role_id,
+  			type_id,
+  			role_code,
+  			role_name,
+  			description,
+  			state,
+  			process_state
+  		)
+  		VALUES
+  		(
+  			#{roleId},
+  			#{typeId},
+  			#{roleCode},
+  			#{roleName},
+  			#{description},
+  			#{state},
+  			#{processState}
+  		)
+   	</insert>
+   	
+	<!-- 通过条件删除一条角色信息 -->
+	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleInfo">  
+    	DELETE
+    	FROM 
+    		tbl_jinlong_system_role 
+		<where> 
+    		<if test="roleName != null and roleName != ''">
+    			role_name = #{roleName}
+    		</if>
+		</where>  
+   	</delete>
+   	
+	<!-- 通过角色ID删除一条角色信息 -->
+	<delete id="deleteById" parameterType="int">  
+    	DELETE 
+    	FROM 
+    		tbl_jinlong_system_role 
+		<where> 
+			<if test="id != null and id != 0">
+				role_id = #{id}
+			</if>
+		</where>  
+   	</delete>
+   	
+   	<!-- 通过角色ID修改一条角色信息 -->
+   	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleInfo">
+		UPDATE 
+			tbl_jinlong_system_role 
+		<set>
+			<if test="typeId != null and typeId != 0">
+				type_id = #{typeId},
+			</if>
+			<if test="roleCode != null and roleCode != ''">
+				role_code = #{roleCode},
+			</if>
+			<if test="roleName != null and roleName != ''">
+				role_name = #{roleName},
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description},
+			</if>
+			<if test="state != null and state != 0">
+				state = #{state},
+			</if>
+			<if test="processState != null and processState != 0">
+				process_state = #{processState}
+			</if>
+		</set>
+		<where> 
+			<if test="roleId != null and roleId != 0">
+				role_id = #{roleId}
+			</if>
+		</where>
+	</update>
+	
+	<!-- ********************************** 不操作事务、查询操作 *************************************** -->
+	
+   	<!-- 通过角色ID查询一条角色信息 -->
+   	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleInfo">  
+    	SELECT
+  			role_id 		AS roleId,
+  			type_id			AS typeId,
+  			role_code		AS roleCode,
+  			role_name 		AS roleName,
+  			description		AS description,
+  			state			AS state,
+  			process_state	AS processState
+    	FROM 
+    		tbl_jinlong_system_role 
+    	<where> 
+    		<if test="id != null and id != 0">
+    			role_id = #{id}
+    		</if>
+    	</where>
+   	</select>
+   	
+   	<!-- 查询所有的角色信息 -->
+   	<select id="selectAll" parameterType="com.jinlong.system.model.po.role.RoleInfo" resultType="com.jinlong.system.model.po.role.RoleInfo">  
+    	SELECT
+  			role_id 		AS roleId,
+  			type_id			AS typeId,
+  			role_code		AS roleCode,
+  			role_name 		AS roleName,
+  			description		AS description,
+  			state			AS state,
+  			process_state	AS processState
+    	FROM 
+    		tbl_jinlong_system_role
+    	ORDER BY role_id
+    </select>
+    
+   	<!-- 通过条件查询一批角色信息 -->
+   	<select id="selectList" parameterType="com.jinlong.system.model.po.role.RoleInfo" resultType="com.jinlong.system.model.po.role.RoleInfo">
+    	SELECT
+  			role_id 		AS roleId,
+  			type_id			AS typeId,
+  			role_code		AS roleCode,
+  			role_name 		AS roleName,
+  			description		AS description,
+  			state			AS state,
+  			process_state	AS processState
+    	FROM 
+    		tbl_jinlong_system_role 
+    	<where>
+    		<if test="roleName != null and roleName != ''">
+    			role_name = #{roleName}
+    		</if>
+    	</where>
+    	ORDER BY role_id
+   	</select>
+   	
+   	<!-- 查询最新的一条有角色信息 -->
+   	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleInfo" >  
+    	SELECT
+  			role_id 		AS roleId,
+  			type_id			AS typeId,
+  			role_code		AS roleCode,
+  			role_name 		AS roleName,
+  			description		AS description,
+  			state			AS state,
+  			process_state	AS processState
+    	FROM 
+    		tbl_jinlong_system_role
+    	ORDER BY role_id DESC
+    	LIMIT 1
+    </select>
+    
+   	<!-- 查询最新的count条角色信息 -->
+   	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleInfo" >  
+    	SELECT
+  			role_id 		AS roleId,
+  			type_id			AS typeId,
+  			role_code		AS roleCode,
+  			role_name 		AS roleName,
+  			description		AS description,
+  			state			AS state,
+  			process_state	AS processState
+    	FROM 
+    		tbl_jinlong_system_role
+    	ORDER BY role_id DESC
+    	LIMIT #{count}
+    </select>
+ 	
+ 	<!-- *************************** 分页操作 ***************************** -->
+ 	
+	<!-- 查询全部角色信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			tbl_jinlong_system_role 
+		<where>
+			<!-- 模糊查询 -->
+    		<if test="roleName != null and roleName != ''">
+				role_name LIKE '%'|| #{roleName} ||'%' 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询角色信息 -->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleInfo">
+		SELECT
+  			role_id 		AS roleId,
+  			type_id			AS typeId,
+  			role_code		AS roleCode,
+  			role_name 		AS roleName,
+  			description		AS description,
+  			state			AS state,
+  			process_state	AS processState
+		FROM 
+			tbl_jinlong_system_role 
+		<where>
+			<!-- 模糊查询 -->
+    		<if test="roleName != null and roleName != ''">
+				role_name LIKE '%'|| {roleName} ||'%'
+			</if>
+		</where>
+	    ORDER BY role_id
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+
+</mapper>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.rolemenu.IRoleMenuDao">
+		
+	<!-- ********************* 操作事务：曾、删、改操作 ************************ -->
+	
+	<!-- 新增一条菜单角色关系信息  -->
+	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleMenu">
+		INSERT 
+		INTO 
+			tbl_jinlong_system_role_menu
+		(
+			role_id,
+			menu_id
+		) 
+		VALUES 
+		(
+			#{roleId},
+			#{menuId}
+		)
+	</insert>
+	
+	<!-- 批量新增角色菜单关系信息  -->
+	<insert id="bathInsert" parameterType="java.util.List">
+		<selectKey keyProperty="roleMenuId" order="AFTER"
+			resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT 
+		INTO 
+			tbl_jinlong_system_role_menu
+		(
+			role_id,
+			menu_id
+		) 
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">  
+			(
+				#{item.roleId}, 
+				#{item.menuId}
+			) 
+		</foreach>
+	</insert>
+	
+	<!-- 通过条件删除一条菜单角色关系信息  -->
+	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleMenu">
+		DELETE 
+		FROM 
+			tbl_jinlong_system_role_menu rm 
+			LEFT JOIN tbl_jinlong_system_menu m ON rm.menu_id = m.menu_id 
+			LEFT JOIN tbl_jinlong_system_role r ON rm.role_id = r.role_id
+		<where>
+			<if test="roleId != null and roleId != 0">
+				rm.role_id = #{roleId}
+				AND r.role_id = #{roleId}
+			</if>
+			<if test="menuId != null and menuId != 0">
+				AND rm.menu_id = #{menuId}
+				AND m.menu_id = #{menuId}
+			</if>
+		</where>
+ 	</delete>
+ 	
+	<!-- 通过角色ID删除一个菜单角色关系信息 -->
+	<delete id="deleteById" parameterType="int">
+		DELETE 
+		FROM 
+			tbl_jinlong_system_role_menu
+		<where>
+			<if test="id != null and id != 0">
+				role_id = #{id}
+			</if>
+		</where>
+ 	</delete>
+ 	
+	<!-- 修改菜单角色关系对象 -->
+	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleMenu">
+		UPDATE 
+			tbl_jinlong_system_role_menu
+		<set>
+			<if test="roleId != null">
+				role_id = #{roleId},
+			</if>
+			<if test="menuId != null">
+				menu_id = #{menuId}
+			</if>
+		</set> 
+		<where>
+			<if test="roleMenuId != null and roleMenuId != 0">
+				role_menu_id = #{roleMenuId}
+			</if>
+		</where>
+	</update>
+ 	
+ 	<!-- ********************* 不操作事务，查询 操作 **************************-->
+ 	
+ 	<!-- 通过菜单角色关系对象的ID查询单条菜单角色关系对象信息 -->
+ 	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleMenu">
+		SELECT
+			role_menu_id 	AS roleMenuId,
+			role_id 		AS roleId,
+			menu_id 		AS menuId
+		FROM tbl_jinlong_system_role_menu
+		<where>
+			<if test="id != null and id != 0">
+				role_menu_id = #{id}
+			</if>
+		</where>
+		ORDER BY role_menu_id
+ 	</select>
+ 	
+	<!-- 按顺序查询所有菜单角色关系信息  -->
+	<select id="selectAll" resultType="com.jinlong.system.model.po.role.RoleMenu">
+		SELECT 
+			rm.role_menu_id AS roleMenuId,
+			r.role_id 		AS roleId,
+			r.role_name 	AS roleName,
+			r.description 	AS roleInfo,
+			m.menu_id 		AS menuId,
+			m.menu_name 	AS menuName,
+			m.parent_id 	AS parentId,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image
+		FROM 
+			tbl_jinlong_system_role_menu rm 
+			LEFT JOIN tbl_jinlong_system_menu m ON rm.menu_id = m.menu_id 
+			LEFT JOIN tbl_jinlong_system_role r ON rm.role_id = r.role_id
+		ORDER BY role_menu_id
+ 	</select>
+ 	
+ 	<!-- 通过菜单对象Roles单条菜单角色关系信息  -->
+ 	<select id="selectList" resultType="com.jinlong.system.model.po.role.RoleMenu">
+		SELECT
+			role_menu_id 	AS roleMenuId,
+			role_id 		AS roleId,
+			menu_id 		AS menuId
+		FROM 
+			tbl_jinlong_system_role_menu
+		<where>
+			<if test="roleId != null and roleId != 0">
+				role_id = #{roleId}
+			</if>
+			<if test="menuId != null and menuId != 0">
+				AND menu_id = #{menuId}
+			</if>
+		</where>
+ 	</select>
+ 	
+	<!-- 查询最新的一条菜单角色关系对象 -->
+	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleMenu">
+		SELECT 
+			rm.role_menu_id AS roleMenuId,
+			r.role_id 		AS roleId,
+			r.role_name 	AS roleName,
+			r.description 	AS roleInfo,
+			m.menu_id 		AS menuId,
+			m.menu_name 	AS menuName,
+			m.parent_id 	AS parentId,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image
+		FROM 
+			tbl_jinlong_system_role_menu rm 
+			LEFT JOIN tbl_jinlong_system_menu m ON rm.menu_id = m.menu_id 
+			LEFT JOIN tbl_jinlong_system_role r ON rm.role_id = r.role_id
+		ORDER BY role_menu_id DESC
+		LIMIT 1
+ 	</select>
+ 	
+	<!-- 查询最新的count条用户角色关系信息 -->
+	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleMenu">
+		SELECT 
+			rm.role_menu_id AS roleMenuId,
+			r.role_id 		AS roleId,
+			r.role_name 	AS roleName,
+			r.description 	AS roleInfo,
+			m.menu_id 		AS menuId,
+			m.menu_name 	AS menuName,
+			m.parent_id 	AS parentId,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image
+		FROM 
+			tbl_jinlong_system_role_menu rm 
+			LEFT JOIN tbl_jinlong_system_menu m ON rm.menu_id = m.menu_id 
+			LEFT JOIN tbl_jinlong_system_role r ON rm.role_id = r.role_id
+		ORDER BY role_menu_id DESC
+		LIMIT #{count}
+ 	</select>
+ 	
+ 	<!-- 通过用户角色名称查询单条用户角色关系信息  -->
+ 	<select id="selectMenuRolesListByRoleId" resultType="com.jinlong.system.model.po.role.RoleMenu">
+		SELECT 
+			rm.role_menu_id AS roleMenuId,
+			r.role_id 		AS roleId,
+			r.role_name 	AS roleName,
+			r.description 	AS roleInfo,
+			m.menu_id 		AS menuId,
+			m.menu_name 	AS menuName,
+			m.parent_id 	AS parentId,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image
+		FROM 
+			tbl_jinlong_system_role_menu rm
+			LEFT JOIN tbl_jinlong_system_menu m ON rm.menu_id = m.menu_id 
+			LEFT JOIN tbl_jinlong_system_role r ON rm.role_id = r.role_id
+		ORDER BY role_menu_id DESC
+		<where>
+			<if test="roleId != null and roleId != 0">
+				rm.role_id = #{roleId}
+				AND r.role_id = #{roleId}
+			</if>
+			<if test="menuId != null and menuId != 0">
+				AND rm.menu_id = #{menuId}
+				AND m.menu_id = #{menuId}
+			</if>
+		</where>
+ 	</select>
+ 	
+ 	<!-- *************************** 分页操作 ***************************** -->
+ 	
+	<!-- 查询全部用户角色关系信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			tbl_jinlong_system_role_menu rm 
+			LEFT JOIN tbl_jinlong_system_menu m ON rm.menu_id = m.menu_id 
+			LEFT JOIN tbl_jinlong_system_role r ON rm.role_id = r.role_id
+		<where>
+			<if test="roleId != null and roleId != 0">
+				rm.role_id = #{roleId}
+				AND r.role_id = #{roleId}
+			</if>
+			<if test="menuId != null and menuId != 0">
+				AND rm.menu_id = #{menuId}
+				AND m.menu_id = #{menuId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询用户角色关系信息 -->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleMenu">
+		SELECT 
+			rm.role_menu_id AS roleMenuId,
+			r.role_id 		AS roleId,
+			r.role_name 	AS roleName,
+			r.description 	AS roleInfo,
+			m.menu_id 		AS menuId,
+			m.menu_name 	AS menuName,
+			m.parent_id 	AS parentId,
+			m.menu_url 		AS menuUrl,
+			m.image			AS image
+		FROM 
+			tbl_jinlong_system_role_menu rm 
+			LEFT JOIN tbl_jinlong_system_menu m ON rm.menu_id = m.menu_id 
+			LEFT JOIN tbl_jinlong_system_role r ON rm.role_id = r.role_id
+		<where>
+			<if test="roleId != null and roleId != 0">
+				rm.role_id = #{roleId}
+				AND r.role_id = #{roleId}
+			</if>
+			<if test="menuId != null and menuId != 0">
+				AND rm.menu_id = #{menuId}
+				AND m.menu_id = #{menuId}
+			</if>
+		</where>
+		ORDER BY role_menu_id
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+
+</mapper>

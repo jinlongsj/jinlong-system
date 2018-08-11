@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.jinlong.system.dao.role.IRoleVODao">
+	
+   	<!-- 查询所有数据 -->
+   	<select id="selectAll" resultType="com.jinlong.system.model.vo.role.RoleVO" >  
+    	SELECT
+  			r.role_id 		AS roleId,
+  			r.type_id     	AS typeId,
+  			t.name			AS typeName,
+  			r.role_code		AS roleCode,
+  			r.role_name 	AS roleName,
+  			r.description	AS description,
+  			r.state			AS state,
+  			s.name 			AS stateName,
+  			r.process_state	AS processState,
+		  	p.name 		AS processStateName
+    	FROM 
+    		tbl_jinlong_system_role r 
+    		INNER JOIN dic_jinlong_system_role_type t ON r.type_id = t.value
+    		INNER JOIN dic_jinlong_system_role_state s ON r.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON r.process_state = p.value
+    </select>
+    
+   	<!-- 查询指定数据 -->
+   	<select id="select" resultType="com.jinlong.system.model.vo.role.RoleVO" > 
+    	SELECT
+  			r.role_id 		AS roleId,
+  			r.type_id     	AS typeId,
+  			t.name			AS typeName,
+  			r.role_code		AS roleCode,
+  			r.role_name 	AS roleName,
+  			r.description	AS description,
+  			r.state			AS state,
+  			s.name 			AS stateName,
+  			r.process_state	AS processState,
+		  	p.name 		 	AS processStateName
+    	FROM 
+    		tbl_jinlong_system_role r 
+    		INNER JOIN dic_jinlong_system_role_type t ON r.type_id = t.value
+    		INNER JOIN dic_jinlong_system_role_state s ON r.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON r.process_state = p.value
+    	<where> 
+    		<if test="id != null and id != 0">
+    			r.role_id = #{id}
+    		</if>
+    	</where>
+   	</select>
+   	
+   	<!-- 查询一批信息 -->
+   	<select id="selectList" parameterType="com.jinlong.system.model.vo.role.RoleVO" resultType="com.jinlong.system.model.vo.role.RoleVO">
+    	SELECT
+  			r.role_id 		AS roleId,
+  			r.type_id     	AS typeId,
+  			t.name			AS typeName,
+  			r.role_code		AS roleCode,
+  			r.role_name 	AS roleName,
+  			r.description	AS description,
+  			r.state			AS state,
+  			s.name 			AS stateName,
+  			r.process_state	AS processState,
+		  	p.name 			AS processStateName
+    	FROM 
+    		tbl_jinlong_system_role r 
+    		INNER JOIN dic_jinlong_system_role_type t ON r.type_id = t.value
+    		INNER JOIN dic_jinlong_system_role_state s ON r.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON r.process_state = p.value
+    	<where>
+    		<if test="roleName != null and roleName != ''">
+    			r.role_name LIKE '%' #{roleName} '%'
+    		</if>
+    		<if test="typeId != null and typeId != 0">
+    			AND r.type_id = #{typeId}
+    		</if>
+    		<if test="state != null and state != 0">
+    			AND r.state = #{state}
+    		</if>
+    		<if test="processState != null and processState != 0">
+    			AND r.process_state = #{processState}
+    		</if>
+    	</where>
+    	ORDER BY r.role_id
+   	</select>
+   	
+   	<!-- 查询最新的一条角色信息 -->
+   	<select id="selectNew" resultType="com.jinlong.system.model.vo.role.RoleVO" >  
+    	SELECT
+  			r.role_id 		AS roleId,
+  			r.type_id     	AS typeId,
+  			t.name			AS typeName,
+  			r.role_code		AS roleCode,
+  			r.role_name 	AS roleName,
+  			r.description	AS description,
+  			r.state			AS state,
+  			s.name 			AS stateName,
+  			r.process_state	AS processState,
+		  	p.name 			AS processStateName
+    	FROM 
+    		tbl_jinlong_system_role r 
+    		INNER JOIN dic_jinlong_system_role_type t ON r.type_id = t.value
+    		INNER JOIN dic_jinlong_system_role_state s ON r.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON r.process_state = p.value
+    	ORDER BY r.role_id DESC
+    	LIMIT 1
+    </select>
+    
+   	<!-- 查询最新的count条角色信息 -->
+   	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.vo.role.RoleVO" >  
+    	SELECT
+  			r.role_id 		AS roleId,
+  			r.type_id     	AS typeId,
+  			t.name			AS typeName,
+  			r.role_code		AS roleCode,
+  			r.role_name 	AS roleName,
+  			r.description	AS description,
+  			r.state			AS state,
+  			s.name 			AS stateName,
+  			r.process_state	AS processState,
+		  	p.name 			AS processStateName
+    	FROM 
+    		tbl_jinlong_system_role r 
+    		INNER JOIN dic_jinlong_system_role_type t ON r.type_id = t.value
+    		INNER JOIN dic_jinlong_system_role_state s ON r.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON r.process_state = p.value
+    	ORDER BY r.role_id DESC
+    	LIMIT #{count}
+    </select>
+ 	
+ 	<!-- ***************************分页操作***************************** -->
+ 	
+	<!-- 查询全部角色信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(*)
+    	FROM 
+    		tbl_jinlong_system_role r 
+    		INNER JOIN dic_jinlong_system_role_type t ON r.type_id = t.value
+    		INNER JOIN dic_jinlong_system_role_state s ON r.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON r.process_state = p.value
+		<where>
+    		<if test="roleName != null and roleName != ''">
+    			r.role_name LIKE '%' #{roleName} '%'
+    		</if>
+    		<if test="typeId != null and typeId != 0">
+    			AND r.type_id = #{typeId}
+    		</if>
+    		<if test="state != null and state != 0">
+    			AND r.state = #{state}
+    		</if>
+    		<if test="processState != null and processState != 0">
+    			AND r.process_state = #{processState}
+    		</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询角色信息-->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.vo.role.RoleVO">
+    	SELECT
+  			r.role_id 		AS roleId,
+  			r.type_id     	AS typeId,
+  			t.name			AS typeName,
+  			r.role_code		AS roleCode,
+  			r.role_name 	AS roleName,
+  			r.description	AS description,
+  			r.state			AS state,
+  			s.name 			AS stateName,
+  			r.process_state	AS processState,
+		  	p.name 			AS processStateName
+    	FROM 
+    		tbl_jinlong_system_role r 
+    		INNER JOIN dic_jinlong_system_role_type t ON r.type_id = t.value
+    		INNER JOIN dic_jinlong_system_role_state s ON r.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON r.process_state = p.value
+    	<where>
+    		<if test="roleName != null and roleName != ''">
+    			r.role_name LIKE '%' #{roleName} '%'
+    		</if>
+    		<if test="typeId != null and typeId != 0">
+    			AND r.type_id = #{typeId}
+    		</if>
+    		<if test="state != null and state != 0">
+    			AND r.state = #{state}
+    		</if>
+    		<if test="processState != null and processState != 0">
+    			AND r.process_state = #{processState}
+    		</if>
+    	</where>
+    	ORDER BY r.role_id
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+	
+</mapper>

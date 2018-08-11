@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.user.IUserBaseDao">
+
+	<!-- *********************操作事务：曾、删、改操作************************ -->
+	<!-- 增加用户基础信息 -->
+	<insert id="insert" parameterType="com.jinlong.system.model.po.user.UserBase">
+		<!-- 返回主键 -->
+		<selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID() AS userId
+		</selectKey>
+		INSERT 
+		INTO 
+			tbl_jinlong_system_user_base
+		(
+		  	user_id,
+		  	role_id,
+		  	affiliated_id,
+		  	register_time,
+		  	user_name,
+		  	password,
+		  	mobile_phone,
+		  	email,
+		  	state
+		)
+		VALUES
+	  	(
+	  		#{userId},
+	  		#{roleId},
+	  		#{affiliatedId},
+	  		#{registerTime},
+	  		#{userName},
+	  		#{password}, 
+	  		#{mobilePhone},
+	  		#{email},
+	  		#{state}
+	  	)
+	</insert>
+	<insert id="bathInsert" parameterType="list">
+		INSERT 
+		INTO 
+			tbl_jinlong_system_user_base
+		(
+		  	user_id,
+		  	role_id,
+		  	affiliated_id,
+		  	register_time,
+		  	user_name,
+		  	password,
+		  	mobile_phone,
+		  	email,
+		  	state
+		)
+		<foreach collection="list" item="item" index="index" separator=";">  
+			VALUES
+		  	(
+		  		#{item.userId},
+		  		#{item.roleId},
+	  			#{item.affiliatedId},
+	  			#{item.registerTime},
+		  		#{item.userName},
+		  		#{item.password}, 
+		  		#{item.mobilePhone},
+		  		#{item.email},
+		  		#{item.state}
+		  	)
+		</foreach>
+	</insert>
+ 	<!-- 通过用户属性条件除单条用户基础信息 -->
+	<delete id="delete" parameterType="com.jinlong.system.model.po.user.UserBase">
+		DELETE 
+		FROM 
+			tbl_jinlong_system_user_base
+		<where>
+			<if test="roleId != null and roleId != 0">
+				role_id = #{roleId}
+			</if>
+			<if test="registerTime != null and registerTime != ''">
+				AND register_time = #{registerTime}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND user_name = #{userName} 
+			</if>
+			<if test="mobilePhone != null and mobilePhone != ''">
+				AND mobile_phone = #{mobilePhone}
+			</if>
+			<if test="email != null and email != ''">
+				AND email = #{email}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+ 	</delete>
+ 	<!-- 通过用户ID删除单条用户基础信息 -->
+	<delete id="deleteById" parameterType="int">
+		DELETE 
+		FROM 
+			tbl_jinlong_system_user_base		
+		<where>
+			<if test="id != null and id != 0">
+				user_id = #{id}
+			</if>
+		</where>
+ 	</delete>
+ 	<!-- 批量删除一批用户基础信息 -->
+ 	<delete id="batchDelete" parameterType="list">
+		DELETE 
+			b,
+			i
+		FROM 
+			tbl_jinlong_system_user_base b LEFT JOIN
+			tbl_jinlong_system_user_info i ON b.user_id = i.user_id
+		<where>
+			b.user_id 
+			IN
+			<foreach collection="array" index="index" item="userId" 
+				open="(" separator="," close=")">
+				<if test="userId != null and userId != 0">
+					#{userId}
+				</if>
+			</foreach>
+		</where>
+ 	</delete>
+	<!-- 通过用户ID修改单条用户基础信息 -->
+	<update id="update" parameterType="com.jinlong.system.model.po.user.UserBase">
+		UPDATE 
+			tbl_jinlong_system_user_base
+		<set>
+			<if test="userName != null and userName != ''">
+				user_name = #{userName},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+			<if test="mobilePhone != null and mobilePhone != ''">
+				mobile_phone = #{mobilePhone},
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email},
+			</if>
+			<if test="state != null and state != 0">
+				state = #{state}
+			</if>
+		</set> 
+		<where>
+			<if test="userId != null and userId != 0">
+		 		user_id = #{userId}
+		 	</if>
+		</where>
+	</update>
+ 	
+ 	<!-- *********************不操作事务，查询 操作************************** -->
+ 	<!-- 通过用户ID查询单条用户基础信息 -->
+ 	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.user.UserBase">
+	    SELECT
+		  	user_id 		AS userId,
+		  	role_id 		AS roleId,
+		  	affiliated_id	AS affiliatedId,
+		  	register_time 	AS registerTime,
+		  	user_name 		AS userName,
+		  	password		AS password,
+		  	mobile_phone 	AS mobilePhone,
+		  	email			AS email,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_base
+		<where>
+			<if test="id != null and id != 0">
+		 		user_id = #{id}
+		 	</if>
+		</where>
+ 	</select>
+ 	<!-- 查询所有的用户基础信息 -->
+	<select id="selectAll" resultType="com.jinlong.system.model.po.user.UserBase">
+	    SELECT
+		  	user_id 		AS userId,
+		  	role_id 		AS roleId,
+		  	affiliated_id	AS affiliatedId,
+		  	register_time 	AS registerTime,
+		  	user_name 		AS userName,
+		  	password		AS password,
+		  	mobile_phone 	AS mobilePhone,
+		  	email			AS email,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_base
+	    ORDER BY user_id
+ 	</select>
+ 	<!-- 通过条件查询一组用户基础信息 -->
+ 	<select id="selectList" parameterType="com.jinlong.system.model.po.user.UserBase" resultType="com.jinlong.system.model.po.user.UserBase">
+	    SELECT
+		  	user_id 		AS userId,
+		  	role_id 		AS roleId,
+		  	affiliated_id	AS affiliatedId,
+		  	register_time 	AS registerTime,
+		  	user_name 		AS userName,
+		  	password		AS password,
+		  	mobile_phone 	AS mobilePhone,
+		  	email			AS email,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_base
+		<where>
+			<if test="userId != null and userId != 0">
+		 		user_id = #{userId}
+		 	</if>
+			<if test="roleId != null and roleId != 0">
+				AND role_id = #{roleId}
+			</if>
+			<if test="registerTime != null and registerTime != ''">
+				AND register_time = #{registerTime}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND user_name = #{userName} 
+			</if>
+			<if test="mobilePhone != null and mobilePhone != ''">
+				AND mobile_phone = #{mobilePhone}
+			</if>
+			<if test="email != null and email != ''">
+				AND email = #{email}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+	    ORDER BY user_id
+ 	</select>
+ 	<!-- 查询最新的一条用户基础信息 -->
+ 	<select id="selectNew" resultType="com.jinlong.system.model.po.user.UserBase">
+	    SELECT
+		  	user_id 		AS userId,
+		  	role_id 		AS roleId,
+		  	affiliated_id	AS affiliatedId,
+		  	register_time 	AS registerTime,
+		  	user_name 		AS userName,
+		  	password		AS password,
+		  	mobile_phone 	AS mobilePhone,
+		  	email			AS email,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_base u
+	    ORDER BY user_id DESC
+	    LIMIT 1
+ 	</select>
+ 	<!-- 查询最新的count条用户基础信息 -->
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.user.UserBase">
+	    SELECT
+		  	user_id 		AS userId,
+		  	role_id 		AS roleId,
+		  	affiliated_id	AS affiliatedId,
+		  	register_time 	AS registerTime,
+		  	user_name 		AS userName,
+		  	password		AS password,
+		  	mobile_phone 	AS mobilePhone,
+		  	email			AS email,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_base u
+	    ORDER BY user_id DESC
+	    LIMIT #{count}
+ 	</select>
+ 	
+ 	<!-- ***************************分页操作***************************** -->
+	<!-- 查询全部用户基础信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(1) 
+	    FROM 
+	    	tbl_jinlong_system_user_base
+		<where>
+			<if test="userId != null and userId != 0">
+		 		user_id = #{userId}
+		 	</if>
+			<if test="roleId != null and roleId != 0">
+				AND role_id = #{roleId}
+			</if>
+			<if test="registerTime != null and registerTime != ''">
+				AND register_time = #{registerTime}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND user_name = #{userName} 
+			</if>
+			<if test="mobilePhone != null and mobilePhone != ''">
+				AND mobile_phone = #{mobilePhone}
+			</if>
+			<if test="email != null and email != ''">
+				AND email = #{email}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+	</select>
+	<!-- 分页查询用户基础信息-->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.user.UserBase">
+	    SELECT
+		  	user_id 		AS userId,
+		  	role_id 		AS roleId,
+		  	affiliated_id	AS affiliatedId,
+		  	register_time 	AS registerTime,
+		  	user_name 		AS userName,
+		  	password		AS password,
+		  	mobile_phone 	AS mobilePhone,
+		  	email			AS email,
+		  	state			AS state
+	    FROM 
+	    	tbl_jinlong_system_user_base
+		<where>
+			<if test="userId != null and userId != 0">
+		 		user_id = #{userId}
+		 	</if>
+			<if test="roleId != null and roleId != 0">
+				AND role_id = #{roleId}
+			</if>
+			<if test="registerTime != null and registerTime != ''">
+				AND register_time = #{registerTime}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND user_name = #{userName} 
+			</if>
+			<if test="mobilePhone != null and mobilePhone != ''">
+				AND mobile_phone = #{mobilePhone}
+			</if>
+			<if test="email != null and email != ''">
+				AND email = #{email}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+		</where>
+	    ORDER BY user_id DESC
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+	
+</mapper>
