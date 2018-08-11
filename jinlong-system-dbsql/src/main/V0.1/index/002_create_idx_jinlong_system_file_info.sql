@@ -1,0 +1,5 @@
+-- 索引1 ：文件类型字典表 (dic_jinlong_system_file_type)
+create index idx_jinlong_system_file_type on tbl_jinlong_system_file_info.file_type;
+create index idx_jinlong_system_file_init_name on tbl_jinlong_system_file_info.init_name;
+create index idx_jinlong_system_file_name on tbl_jinlong_system_file_info.file_name;
+create index idx_jinlong_system_file_submit_time on tbl_jinlong_system_file_info.submit_time;
