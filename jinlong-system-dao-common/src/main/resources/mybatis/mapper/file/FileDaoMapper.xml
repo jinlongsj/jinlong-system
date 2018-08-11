@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.jinlong.system.dao.file.IFileDao">
+
+	<!-- 新增上传下载文件 -->
+	<insert id="insert" parameterType="com.jinlong.system.model.po.file.FileInfo" >
+		<!-- 影响列 -->
+		<selectKey keyProperty="fileId" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO 
+			tbl_jinlong_common_file_info
+		(
+		    file_type_id,
+			user_id,
+			init_name,
+			file_name,
+			file_path,
+			submit_time,
+			description,
+			state
+		)
+		VALUES
+		(
+			#{fileTypeId},
+			#{userId},
+			#{initName},
+			#{fileName},
+			#{filePath},
+			#{submitTime},
+			#{description},
+			#{state}
+		)
+	</insert>
+	<!-- 通过条件删除一条上传下载文件 -->
+	<delete id="delete" parameterType="com.jinlong.system.model.po.file.FileInfo">
+		DELETE 
+		FROM 
+			tbl_jinlong_common_file_info 
+		<where>
+			<if test="fileTypeId != null and fileTypeId != 0">
+				file_type_id = #{fileTypeId}
+			</if>
+			<if test="userId != null and userId != 0">
+				AND user_id = #{userId}
+			</if>
+			<if test="initName != null and initName !=''">
+				AND init_name = #{initName}
+			</if>
+			<if test="fileName != null and fileName !=''">
+				AND file_name = #{fileName}
+			</if>
+			<if test="submitTime != null and submitTime != ''">
+				AND submitTime = #{submitTime}
+			</if>
+		</where>
+	</delete>
+	<!-- 通过文件ID删除一条上传下载文件 -->
+	<delete id="deleteById" parameterType="int">
+		DELETE 
+		FROM 
+			tbl_jinlong_common_file_info 
+		<where>
+			<if test="id != null and id != 0">
+				file_id = #{id}
+			</if>
+		</where>
+	</delete>
+	<!-- 批量删除文件 -->
+	<delete id="batchDelete" parameterType="int">
+		DELETE 
+		FROM
+			tbl_jinlong_common_file_info 
+		<where>
+			file_id IN 
+			<foreach collection="list" item="fileId" open="(" separator="," close=")">
+				#{fileId}
+			</foreach>
+		</where>
+	</delete>
+	<!-- 修改一条上传下载文件 -->
+	<update id="update" parameterType="com.jinlong.system.model.po.file.FileInfo">
+		UPDATE 
+			tbl_jinlong_common_file_info
+		<set>
+			<if test="initName != null and initName != ''">
+				init_name = #{initName},
+			</if>
+			<if test="fileName != null and fileName != ''">
+				file_name = #{fileName}
+			</if>
+		</set>
+		<where>
+			<if test="fileId != 0">
+				file_id = #{fileId}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 通过条件查询一条上传下载文件 -->
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfo">
+		SELECT
+			file_id 		AS fileId,
+			file_type_id 	AS fileTypeId,
+			user_id 		AS userId,
+			init_name 		AS initName,
+			file_name 		AS fileName,
+			file_path 		AS filePath,
+			submit_time 	AS submitTime,
+			description		AS description,
+			state			AS state
+		FROM 
+			tbl_jinlong_common_file_info
+		<where>
+			<if test="id != null and id != 0">
+				file_id = #{id}
+			</if>
+		</where>
+	</select>
+	<!-- 查询所有的文件信息 -->
+	<select id="selectAll" resultType="com.jinlong.system.model.po.file.FileInfo">
+		SELECT
+			file_id 		AS fileId,
+			file_type_id 	AS fileTypeId,
+			user_id 		AS userId,
+			init_name 		AS initName,
+			file_name 		AS fileName,
+			file_path 		AS filePath,
+			submit_time 	AS submitTime,
+			description		AS description,
+			state			AS state
+		FROM 
+			tbl_jinlong_common_file_info
+		ORDER BY file_id
+	</select>
+	<!-- 通过文件ID查询一条上传下载文件 -->
+	<select id="selectList" parameterType="com.jinlong.system.model.po.file.FileInfo" resultType="com.jinlong.system.model.po.file.FileInfo">
+		SELECT
+			file_id 		AS fileId,
+			file_type_id 	AS fileTypeId,
+			user_id 		AS userId,
+			init_name 		AS initName,
+			file_name 		AS fileName,
+			file_path 		AS filePath,
+			submit_time 	AS submitTime,
+			description		AS description,
+			state			AS state
+		FROM 
+			tbl_jinlong_common_file_info
+		<where>
+			<if test="initName != null and initName != ''">
+				init_name = #{initName}
+			</if>
+			<if test="fileName != null and fileName != ''">
+				AND file_name = #{fileName}
+			</if>
+		</where>
+	</select>
+	<!-- 查询最新添加的一条文件信息 -->
+	<select id="selectNew" resultType="com.jinlong.system.model.po.file.FileInfo">
+		SELECT
+			file_id 		AS fileId,
+			file_type_id 	AS fileTypeId,
+			user_id 		AS userId,
+			init_name 		AS initName,
+			file_name 		AS fileName,
+			file_path 		AS filePath,
+			submit_time 	AS submitTime,
+			description		AS description,
+			state			AS state
+		FROM 
+			tbl_jinlong_common_file_info
+		ORDER BY file_id DESC
+		LIMIT 1
+	</select>
+	<!-- 查询最新添加的count条文件信息 -->
+	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfo">
+		SELECT
+			file_id 		AS fileId,
+			file_type_id 	AS fileTypeId,
+			user_id 		AS userId,
+			init_name 		AS initName,
+			file_name 		AS fileName,
+			file_path 		AS filePath,
+			submit_time 	AS submitTime,
+			description		AS description,
+			state			AS state
+		FROM 
+			tbl_jinlong_common_file_info
+		ORDER BY file_id DESC
+		LIMIT #{count}
+	</select>
+	<!-- 通过用户ID，查询最新添加的一条文件信息 -->
+	<select id="selectNewFileByUser" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfo">
+		SELECT
+			file_id 		AS fileId,
+			file_type_id 	AS fileTypeId,
+			user_id 		AS userId,
+			init_name 		AS initName,
+			file_name 		AS fileName,
+			file_path 		AS filePath,
+			submit_time 	AS submitTime,
+			description		AS description,
+			state			AS state
+		FROM 
+			tbl_jinlong_common_file_info
+		<where>
+			<if test="userId != null and userId != 0">
+				user_id = #{userId}
+			</if>
+			ORDER BY file_id DESC
+		</where>
+		LIMIT 1
+	</select>
+	<!-- 根据fileId集合得到FileInfo集合 -->
+	<select id="selectFileInfoByFileIds" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfo">
+		SELECT
+			file_id 		AS fileId,
+			file_type_id 	AS fileTypeId,
+			user_id 		AS userId,
+			init_name 		AS initName,
+			file_name 		AS fileName,
+			file_path 		AS filePath,
+			submit_time 	AS submitTime,
+			description		AS description,
+			state			AS state
+		FROM 
+			tbl_jinlong_common_file_info
+		WHERE
+			file_id IN
+			<foreach item="fileId" collection="list" open="(" separator="," close=")">
+				#{fileId}
+			</foreach>
+	</select>
+	
+	<!-- 分页查询 -->
+	<!-- 查询上传下载文件总条数 -->
+	<select id="getCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			tbl_jinlong_common_file_info
+		<where>
+			<if test="fileTypeId != null and fileTypeId != 0">
+				file_type_id = #{fileTypeId}
+			</if>
+			<if test="userId != null and userId != 0">
+				AND user_id = #{userId}
+			</if>
+			<if test="initName != null and initName !=''">
+				AND init_name = #{initName}
+			</if>
+			<if test="fileName != null and fileName !=''">
+				AND file_name = #{fileName}
+			</if>
+			<if test="submitTime != null and submitTime != ''">
+				AND submitTime = #{submitTime}
+			</if>
+		</where>
+	</select>
+	<!-- 分页查询上传下载文件 -->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.file.FileInfo">
+		SELECT
+			file_id 		AS fileId,
+			file_type_id 	AS fileTypeId,
+			user_id 		AS userId,
+			init_name 		AS initName,
+			file_name 		AS fileName,
+			file_path 		AS filePath,
+			submit_time 	AS submitTime,
+			description		AS description,
+			state			AS state
+		FROM 
+			tbl_jinlong_common_file_info
+		<where>
+			<if test="fileTypeId != null and fileTypeId != 0">
+				file_type_id = #{fileTypeId}
+			</if>
+			<if test="userId != null and userId != 0">
+				AND user_id = #{userId}
+			</if>
+			<if test="initName != null and initName !=''">
+				AND init_name = #{initName}
+			</if>
+			<if test="fileName != null and fileName !=''">
+				AND file_name = #{fileName}
+			</if>
+			<if test="submitTime != null and submitTime != ''">
+				AND submitTime = #{submitTime}
+			</if>
+		</where>
+		ORDER BY file_id DESC
+		<if test="startRow != null and pageSize != null and pageSize != 0">
+			LIMIT #{startRow} , #{pageSize}
+		</if>
+	</select>
+	
+</mapper>

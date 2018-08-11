@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.jinlong.system.dao.zone.IZoneVODao">
+ 	
+ 	<!-- *********************不操作事务，查询 操作**************************-->
+	<!-- 通过地区ID查询所有地区信息 -->
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.vo.zone.ZoneVO">
+		SELECT
+			zone_id 	AS zoneId,
+  			parent_id 	AS parentId,
+  			zone_name 	AS zoneName,
+  			description	AS description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			<if test="id != null and id != 0">
+				zone_id = #{id}
+			</if>
+		</where> 
+	</select>
+ 	<!-- 查询所有的地区信息 -->
+ 	<select id="selectAll" resultType="com.jinlong.system.model.vo.zone.ZoneVO">
+		SELECT
+			zone_id 	AS zoneId,
+  			parent_id 	AS parentId,
+  			zone_name 	AS zoneName,
+  			description	AS description
+		FROM 
+			tbl_jinlong_system_zone
+		ORDER BY zone_id
+ 	</select>
+ 	<!-- 通过条件查询一组地区信息 -->
+	<select id="selectList" parameterType="com.jinlong.system.model.vo.zone.ZoneVO" resultType="com.jinlong.system.model.vo.zone.ZoneVO">
+		SELECT
+			zone_id 	AS zoneId,
+  			parent_id 	AS parentId,
+  			zone_name 	AS zoneName,
+  			description	AS description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			<if test="parentId != null and parentId != 0">
+				parent_id = #{parentId}
+			</if>
+			<!-- 模糊查询 -->
+			<if test="zoneName != null and zoneName != ''">
+				AND zone_name like '%'|| #{zoneName} ||'%'
+			</if>
+		</where>
+		ORDER BY zone_id
+ 	</select>
+ 	<!-- 查询最新的一条地区信息 -->
+ 	<select id="selectNew" resultType="com.jinlong.system.model.vo.zone.ZoneVO">
+		SELECT
+			zone_id 	AS zoneId,
+  			parent_id 	AS parentId,
+  			zone_name 	AS zoneName,
+  			description	AS description
+		FROM 
+			tbl_jinlong_system_zone
+		ORDER BY zone_id DESC
+		LIMIT 1
+ 	</select>
+ 	<!-- 查询最新的count条地区信息 -->
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.vo.zone.ZoneVO">
+		SELECT
+			zone_id 	AS zoneId,
+  			parent_id 	AS parentId,
+  			zone_name 	AS zoneName,
+  			description	AS description
+		FROM 
+			tbl_jinlong_system_zone
+		ORDER BY zone_id DESC
+		LIMIT #{count}
+ 	</select>
+	<!-- 查询条件查询地区信息列表 -->
+	<select id="selectAllParent" resultType="com.jinlong.system.model.vo.zone.ZoneVO">
+		SELECT
+			zone_id 	AS zoneId,
+  			parent_id 	AS parentId,
+  			zone_name 	AS zoneName,
+  			description	AS description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			parent_id = 0 
+		</where>
+		ORDER BY zone_id
+	</select>
+	<!-- 通过下一级地区信息查询上一级地区信息 -->
+	<select id="selectParent" parameterType="int" resultType="com.jinlong.system.model.vo.zone.ZoneVO">
+		SELECT
+			zone_id 	AS zoneId,
+  			parent_id 	AS parentId,
+  			zone_name 	AS zoneName,
+  			description	AS description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			zone_id = 
+			(
+				SELECT 
+		  			parent_id
+				FROM 
+					tbl_jinlong_system_zone
+				<where>
+					<if test="zoneId != null and zoneId != 0">
+						zone_id = #{zoneId}
+					</if>
+				</where>
+			)
+		</where>
+	</select>
+	<!-- 通过一级地区查询它下面的所有二级地区，并且按顺序排列 -->
+	<select id="selectSon" parameterType="int" resultType="com.jinlong.system.model.vo.zone.ZoneVO">
+		SELECT
+			zone_id 	AS zoneId,
+  			parent_id 	AS parentId,
+  			zone_name 	AS zoneName,
+  			description	AS description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			<if test="zoneId != null and zoneId != 0">
+				parent_id = #{zoneId} 
+			</if>
+		</where>
+		ORDER BY zone_id
+ 	</select>
+	
+</mapper>

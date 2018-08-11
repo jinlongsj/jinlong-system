@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.jinlong.system.dao.file.IFileVODao">
+	
+	<!-- 通过条件查询一条上传下载文件 -->
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.vo.file.FileVO">
+		SELECT
+			f.file_id 			AS fileId,
+			f.file_type_id 		AS fileTypeId,
+			t.file_type_name 	AS fileTypeName,
+			f.user_id 			AS userId,
+			f.init_name 		AS initName,
+			f.file_name 		AS fileName,
+			f.file_path 		AS filePath,
+			f.submit_time 		AS submitTime,
+			f.description		AS description,
+			f.state				AS state
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_type t ON f.file_type_id = t.file_type_id
+		<where>
+			<if test="id != null and id != 0">
+				f.file_id = #{id}
+			</if>
+		</where>
+	</select>
+	<!-- 查询所有的文件信息 -->
+	<select id="selectAll" resultType="com.jinlong.system.model.vo.file.FileVO">
+		SELECT
+			f.file_id 			AS fileId,
+			f.file_type_id 		AS fileTypeId,
+			t.file_type_name 	AS fileTypeName,
+			f.user_id 			AS userId,
+			f.init_name 		AS initName,
+			f.file_name 		AS fileName,
+			f.file_path 		AS filePath,
+			f.submit_time 		AS submitTime,
+			f.description		AS description,
+			f.state				AS state
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_type t ON f.file_type_id = t.file_type_id
+		ORDER BY f.file_id
+	</select>
+	<!-- 通过文件ID查询一条上传下载文件 -->
+	<select id="selectList" parameterType="com.jinlong.system.model.vo.file.FileVO" resultType="com.jinlong.system.model.vo.file.FileVO">
+		SELECT
+			f.file_id 			AS fileId,
+			f.file_type_id 		AS fileTypeId,
+			t.file_type_name 	AS fileTypeName,
+			f.user_id 			AS userId,
+			f.init_name 		AS initName,
+			f.file_name 		AS fileName,
+			f.file_path 		AS filePath,
+			f.submit_time 		AS submitTime,
+			f.description		AS description,
+			f.state				AS state
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_type t ON f.file_type_id = t.file_type_id
+		<where>
+			<if test="initName != null and initName != ''">
+				f.init_name = #{initName}
+			</if>
+			<if test="fileName != null and fileName != ''">
+				AND f.file_name = #{fileName}
+			</if>
+		</where>
+	</select>
+	<!-- 查询最新添加的一条文件信息 -->
+	<select id="selectNew" resultType="com.jinlong.system.model.vo.file.FileVO">
+		SELECT
+			f.file_id 			AS fileId,
+			f.file_type_id 		AS fileTypeId,
+			t.file_type_name 	AS fileTypeName,
+			f.user_id 			AS userId,
+			f.init_name 		AS initName,
+			f.file_name 		AS fileName,
+			f.file_path 		AS filePath,
+			f.submit_time 		AS submitTime,
+			f.description		AS description,
+			f.state				AS state
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_type t ON f.file_type_id = t.file_type_id
+		ORDER BY f.file_id DESC
+		LIMIT 1
+	</select>
+	<!-- 查询最新添加的count条文件信息 -->
+	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.vo.file.FileVO">
+		SELECT
+			f.file_id 			AS fileId,
+			f.file_type_id 		AS fileTypeId,
+			t.file_type_name 	AS fileTypeName,
+			f.user_id 			AS userId,
+			f.init_name 		AS initName,
+			f.file_name 		AS fileName,
+			f.file_path 		AS filePath,
+			f.submit_time 		AS submitTime,
+			f.description		AS description,
+			f.state				AS state
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_type t ON f.file_type_id = t.file_type_id
+		ORDER BY f.file_id DESC
+		LIMIT #{count}
+	</select>
+	<!-- 通过用户ID，查询最新添加的一条文件信息 -->
+	<select id="selectNewFileByUser" parameterType="int" resultType="com.jinlong.system.model.vo.file.FileVO">
+		SELECT
+			f.file_id 			AS fileId,
+			f.file_type_id 		AS fileTypeId,
+			t.file_type_name 	AS fileTypeName,
+			f.user_id 			AS userId,
+			f.init_name 		AS initName,
+			f.file_name 		AS fileName,
+			f.file_path 		AS filePath,
+			f.submit_time 		AS submitTime,
+			f.description		AS description,
+			f.state				AS state
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_type t ON f.file_type_id = t.file_type_id
+		<where>
+			<if test="userId != null and userId != 0">
+				f.user_id = #{userId}
+			</if>
+			ORDER BY f.file_id DESC
+		</where>
+		LIMIT 1
+	</select>
+	<!-- 根据fileId集合得到FileInfoVO集合 -->
+	<select id="selectFileInfoVOByFileIds" parameterType="int" resultType="com.jinlong.system.model.vo.file.FileVO">
+		SELECT
+			f.file_id 			AS fileId,
+			f.file_type_id 		AS fileTypeId,
+			t.file_type_name 	AS fileTypeName,
+			f.user_id 			AS userId,
+			f.init_name 		AS initName,
+			f.file_name 		AS fileName,
+			f.file_path 		AS filePath,
+			f.submit_time 		AS submitTime,
+			f.description		AS description,
+			f.state				AS state
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_type t ON f.file_type_id = t.file_type_id
+		WHERE
+			f.file_id IN
+		<foreach item="fileId" collection="list" open="(" separator="," close=")">
+			#{fileId}
+		</foreach>
+	</select>
+	
+	<!-- 分页查询 -->
+	<!-- 查询上传下载文件总条数 -->
+	<select id="getCount" parameterType="Map" resultType="int">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_file_type c ON f.file_type_id = c.file_type_id
+		<where>
+			<if test="fileTypeId != null and fileTypeId != 0">
+				f.file_type_id = #{fileTypeId}
+				AND c.file_type_id = #{fileTypeId}
+			</if>
+			<if test="userId != null and userId != 0">
+				AND f.user_id = #{userId}
+			</if>
+			<if test="initName != null and initName !=''">
+				AND f.init_name = #{initName}
+			</if>
+			<if test="fileName != null and fileName !=''">
+				AND f.file_name = #{fileName}
+			</if>
+			<if test="submitTime != null and submitTime != ''">
+				AND f.submitTime = #{submitTime}
+			</if>
+		</where>
+	</select>
+	<!-- 分页查询上传下载文件 -->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.vo.file.FileVO">
+		SELECT
+			f.file_id 			AS fileId,
+			f.file_type_id 		AS fileTypeId,
+			t.file_type_name 	AS fileTypeName,
+			f.user_id 			AS userId,
+			f.init_name 		AS initName,
+			f.file_name 		AS fileName,
+			f.file_path 		AS filePath,
+			f.submit_time 		AS submitTime,
+			f.description		AS description,
+			f.state				AS state
+		FROM 
+			tbl_jinlong_common_file_info f
+			LEFT JOIN tbl_jinlong_common_file_type t ON f.file_type_id = t.file_type_id
+		<where>
+			<if test="fileTypeId != null and fileTypeId != 0">
+				f.file_type_id = #{fileTypeId}
+				AND c.file_type_id = #{fileTypeId}
+			</if>
+			<if test="userId != null and userId != 0">
+				AND f.user_id = #{userId}
+			</if>
+			<if test="initName != null and initName !=''">
+				AND f.init_name = #{initName}
+			</if>
+			<if test="fileName != null and fileName !=''">
+				AND f.file_name = #{fileName}
+			</if>
+			<if test="submitTime != null and submitTime != ''">
+				AND f.submitTime = #{submitTime}
+			</if>
+		</where>
+		ORDER BY f.file_id DESC
+		<if test="startRow != null and pageSize != null and pageSize != 0">
+			LIMIT #{startRow} , #{pageSize}
+		</if>
+	</select>
+	
+</mapper>

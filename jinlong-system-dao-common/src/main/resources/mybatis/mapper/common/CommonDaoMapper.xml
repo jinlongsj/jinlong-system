@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.common.ICommonDao">
+
+	<!-- 查询所有的用户状态字典信息 -->
+	<select id="selectUserState" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_user_state
+	</select>
+	
+	<!-- 查询所有的用户流程状态字典信息 -->
+	<select id="selectUserProcessState" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_user_process_state
+	</select>
+
+	<!-- 查询所有的角色类别字典信息 -->
+	<select id="selectRoleType" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_role_type
+	</select>
+
+	<!-- 查询所有的角色状态字典信息 -->
+	<select id="selectRoleState" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_role_state
+	</select>
+	
+	<!-- 查询所有的角色流程状态字典信息 -->
+	<select id="selectRoleProcessState" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_role_process_state
+	</select>
+	
+	<!-- 查询所有的菜单类别字典信息 -->
+	<select id="selectMenuType" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_menu_type
+	</select>
+	
+	<!-- 查询所有的菜单类别字典信息 -->
+	<select id="selectMenuLeval" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_menu_leval
+	</select>
+	
+	<!-- 查询所有的菜单状态字典信息 -->
+	<select id="selectMenuState" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_menu_state
+	</select>
+	
+	<!-- 查询所有的角色流程状态字典信息 -->
+	<select id="selectMenuProcessState" resultType="Map">
+		SELECT value, name FROM dic_jinlong_system_menu_process_state
+	</select>
+
+</mapper>

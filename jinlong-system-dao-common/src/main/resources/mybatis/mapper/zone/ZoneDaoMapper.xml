@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.jinlong.system.dao.zone.IZoneDao">
+
+	<!-- *********************操作事务：曾、删、改操作************************ -->
+	
+	<!-- 增加地区信息 -->
+	<insert id="insert" parameterType="com.jinlong.system.model.po.zone.ZoneInfo">
+		INSERT INTO 
+			tbl_jinlong_system_zone
+		(
+  			parent_id,
+  			zone_name,
+  			image,
+  			description
+		)
+		VALUES
+		(
+			#{parentId},
+			#{zoneName},
+			#{image},
+			#{description}
+		)
+	</insert>
+	
+	<!-- 通过ID删除一条地区信息 -->
+	<delete id="delete" parameterType="com.jinlong.system.model.po.zone.ZoneInfo">
+		DELETE FROM 
+			tbl_jinlong_system_zone
+		<where>
+			<if test="zoneId != null and zoneId != 0">
+				zone_id = #{zoneId}
+			</if>
+		</where> 
+ 	</delete>
+ 	
+	<!-- 通过ID删除一条地区信息 -->
+	<delete id="deleteById" parameterType="com.jinlong.system.model.po.zone.ZoneInfo">
+		DELETE FROM 
+			tbl_jinlong_system_zone
+		<where>
+			<if test="zoneId != null and zoneId != 0">
+				zone_id = #{zoneId}
+			</if>
+		</where> 
+ 	</delete>
+ 	
+	<!-- 修改地区信息 -->
+	<update id="update" parameterType="com.jinlong.system.model.po.zone.ZoneInfo">
+		UPDATE 
+			tbl_jinlong_system_zone
+		<set>
+			<if test="parentId != null and parentId != 0">
+				parent_id = #{parentId},
+			</if>
+			<if test="zoneName != null">
+				zone_name = #{zoneName},
+			</if>
+			<if test="image != null">
+				image = #{image},
+			</if>
+			<if test="description != null">
+				description = #{description}
+			</if>
+		</set> 
+		<where>
+			<if test="zoneId != null and zoneId != 0">
+				zone_id = #{zoneId}
+			</if>
+		</where> 
+	</update>
+ 	
+ 	<!-- *********************不操作事务，查询 操作**************************-->
+ 	
+	<!-- 通过地区ID查询所有地区信息 -->
+	<select id="select" parameterType="com.jinlong.system.model.po.zone.ZoneInfo" resultType="com.jinlong.system.model.po.zone.ZoneInfo">
+		SELECT
+			zone_id as zoneId,
+  			parent_id as parentId,
+  			zone_name as zoneName,
+  			image,
+  			description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			<if test="zoneId != null and zoneId != 0">
+				zone_id = #{zoneId}
+			</if>
+		</where> 
+	</select>
+	
+ 	<!-- 查询所有地区信息 -->
+ 	<select id="selectAll" resultType="com.jinlong.system.model.po.zone.ZoneInfo">
+		SELECT
+			zone_id as zoneId,
+  			parent_id as parentId,
+  			zone_name as zoneName,
+  			image,
+  			description
+		FROM 
+			tbl_jinlong_system_zone
+		ORDER BY zone_id
+ 	</select>
+ 	
+ 	<!-- 通过条件查询一批地区信息 -->
+	<select id="selectList" parameterType="com.jinlong.system.model.po.zone.ZoneInfo" resultType="com.jinlong.system.model.po.zone.ZoneInfo">
+		SELECT
+			zone_id as zoneId,
+  			parent_id as parentId,
+  			zone_name as zoneName,
+  			image,
+  			description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			<if test="parentId != null and parentId != 0">
+				parent_id = #{parentId}
+			</if>
+			<!-- 模糊查询 -->
+			<if test="zoneName != null and zoneName != ''">
+				and zone_name like '%'|| #{zoneName} ||'%'
+			</if>
+		</where>
+		ORDER BY zone_id
+ 	</select>
+ 	
+	<!-- 查询条件查询地区信息列表 -->
+	<select id="selectAllParent" resultType="com.jinlong.system.model.po.zone.ZoneInfo">
+		SELECT
+			zone_id as zoneId,
+  			parent_id as parentId,
+  			zone_name as zoneName,
+  			image,
+  			description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			parent_id = 0 
+		</where>
+		ORDER BY zone_id
+	</select>
+	
+	<!-- 通过下一级地区信息查询上一级地区信息 -->
+	<select id="selectParent" parameterType="com.jinlong.system.model.po.zone.ZoneInfo" resultType="com.jinlong.system.model.po.zone.ZoneInfo">
+		SELECT
+			zone_id as zoneId,
+  			parent_id as parentId,
+  			zone_name as zoneName,
+  			image,
+  			description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			zone_id = 
+			(
+				SELECT 
+		  			parent_id
+				FROM 
+					tbl_jinlong_system_zone
+				<where>
+					<if test="zoneId != 0">
+						zone_id = #{zoneId}
+					</if>
+				</where>
+			) z
+		</where>
+	</select>
+	
+	<!-- 通过一级地区查询它下面的所有二级地区，并且按顺序排列 -->
+	<select id="selectSon" parameterType="com.jinlong.system.model.po.zone.ZoneInfo" resultType="com.jinlong.system.model.po.zone.ZoneInfo">
+		SELECT
+			zone_id as zoneId,
+  			parent_id as parentId,
+  			zone_name as zoneName,
+  			image,
+  			description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			<if test="zoneId != null and zoneId != 0">
+				parent_id = #{zoneId} 
+			</if>
+		</where>
+		ORDER BY zone_id
+ 	</select>
+	
+ 	<!-- ***************************分页操作***************************** -->
+ 	
+	<!-- 查询全部地区信息的总数 -->
+	<select id="getCount" parameterType="Map" resultType="integer">
+		SELECT 
+			count(*)
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			parent_id = 0 
+		</where>
+	</select>
+	
+	<!-- 分页查询地区信息-->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.zone.ZoneInfo">
+		SELECT
+			zone_id as zoneId,
+  			parent_id as parentId,
+  			zone_name as zoneName,
+  			image,
+  			description
+		FROM 
+			tbl_jinlong_system_zone
+		<where>
+			parent_id = 0 
+		</where>
+		ORDER BY zone_id
+	    <if test="startRow != null and endRow != null and endRow != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+	
+</mapper>
