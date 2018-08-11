@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.jinlong.system</groupId>
+		<artifactId>jinlong-system</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>jinlong-system-cache</artifactId>
+	<name>jinlong-system-cache</name>
+	<description>金龙系统管理平台缓存模块工程</description>
+	
+	<dependencies>
+        <!-- 引用jinlong-system-common子项目 -->
+        <dependency>
+            <groupId>com.jinlong.system</groupId>
+            <artifactId>jinlong-system-common</artifactId>
+        </dependency>
+        <!-- 引用jinlong-system-common-model子项目 -->
+        <dependency>
+            <groupId>com.jinlong.system</groupId>
+            <artifactId>jinlong-system-model</artifactId>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+		</dependency>
+    </dependencies>
+    
+</project>
