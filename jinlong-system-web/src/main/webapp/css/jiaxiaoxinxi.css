@@ -1,0 +1,119 @@
+
+.con_con {
+    width: 98.5%;
+    min-height: 540px;
+    border: 1px solid #cccccc;
+    margin: 10px auto;
+    border-radius: 5px;}
+/*头像*/
+#form0{
+    width: 50%;
+    height:auto;
+    float: left;
+    position: relative;
+}
+#file0{
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    left: 266px;
+    top: 230px;
+    opacity: 0;
+    z-index: 999;
+}
+#img0{
+    width: 240px;
+    height: 220px;
+    border: 1px solid dimgrey;
+    position: absolute;
+    top: 30px;
+    left: 22px;
+
+}
+#p0{
+    width: 80px;
+    height: 30px;
+    position: absolute;
+    top: 230px;left: 260px;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+}
+#ul0{
+    width: 290px;
+    height: 30px;
+    margin:10px 0 0 80px;
+}
+#ul0 li{
+    width: 60px;
+    height: 30px;
+    float: left;
+    font-size: 16px;
+    line-height: 30px;text-align: center;
+    border: 1px solid dimgrey;
+}
+#ul0 li+li{
+    margin-left: 15px;
+}
+#ul1{
+
+    margin-top: 30px;
+}
+#ul1 li{
+   line-height: 30px;
+    font-size: 16px;
+    height: 30px;
+    margin-bottom:20px ;
+}
+#ul1 li span{
+    margin-left: 18px;
+}
+#p1{
+    font-size:25px;
+    color: #333333;
+    text-indent: 20px;
+    height: 50px;
+    line-height: 50px;
+}
+.js{
+    width: 100%;
+    line-height: 30px;
+    clear: both;
+}
+#ul2 li{
+    line-height: 30px;
+    text-indent: 20px;
+    margin: 5px 10px;
+}
+
+
+.right{
+    width: 50%;
+    height: 260px;
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

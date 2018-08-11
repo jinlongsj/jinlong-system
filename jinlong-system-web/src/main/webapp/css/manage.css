@@ -1,0 +1,63 @@
+.con_con{
+    min-height: 500px;
+    height: auto;
+    !important;
+    margin-button: 30px;
+}
+.form{
+    min-height: 150px;
+}
+input{
+    border: 1px solid #cccccc;
+}
+.ul_li{
+    height: 20px;
+}
+.ul_li li{
+    float: left;
+    width: 46%;
+    height: 20px;
+    margin-top: 35px;
+    font-size: 15px;
+    margin-left: 20px;
+}
+.ul_li li input{
+    width: 280px;
+    height: 30px;
+    border-radius: 5px;
+}
+.ul_li li a{
+    display: inline-block;
+    width: 60px;
+}
+.ul_li select{
+    width: 280px;border-radius: 5px;
+    height: 30px;
+    border: 1px solid #cccccc;
+}
+
+.operate_bar{
+    width: 100%;
+    height: 50px;
+    margin-left: 20px;
+}
+.operate_button {
+    width: 10%;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    color: #32c5d2;
+    font-weight: bold;
+    position: relative;
+}
+.operate_button .button{
+    background-color: #32c5d2;
+    width: 80px;
+    height: 30px;
+    color: #ffffff;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}

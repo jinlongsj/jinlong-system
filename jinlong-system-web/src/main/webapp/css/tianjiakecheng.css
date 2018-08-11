@@ -1,0 +1,42 @@
+
+.ke{
+    width: 400px;
+    height: 450px;
+    position: fixed;
+    bottom: 50px;
+    margin-left: 300px;
+    background: #cccccc;
+    z-index: 999;
+    display: none;
+}
+
+.form ul li{
+    line-height: 30px;
+    margin-top: 30px;
+}
+.form ul li span{
+    display: inline-block;
+    width: 100px;
+    line-height: 30px;
+    text-align: center;
+}
+.form ul li input{
+    width: 200px;
+    border-radius: 5px;
+
+}
+.form ul li textarea {
+    width: 260px;margin-left: 100px;
+}
+.form ul li+li+li+li{
+    position: relative;
+}
+.form ul li+li+li+li span{
+    position: absolute;
+}
+.ke .submit,.ke .reset{
+    width: 60px;
+    height: 30px;
+    background: #67CC67;
+    margin-left: 30px;
+}

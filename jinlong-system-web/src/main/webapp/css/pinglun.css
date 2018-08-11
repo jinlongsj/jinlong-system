@@ -1,0 +1,163 @@
+@charset "utf-8";
+/* CSS Document */
+*{ padding:0; margin:0;}
+body{ padding:0; margin:0; font-family:"Microsoft Yahei"; font-size:14px; color:#000;min-width:1200px;}
+p,div,a,h1,h2,h3,h4,h5,h6,span,ul,li,img,form,input,br{ padding:0; margin:0; border:0;}
+ol,ul{ list-style:none;}
+a{ text-decoration:none; color:#000;}
+a:hover{text-decoration:underline}
+img{ border:0; }
+input{ outline:0;}
+.clear{ clear:both;}
+.fix{*zoom:1;}
+.fix:after{content:""; display:block; clear:both;}
+.a{font-size: 14px;color: #ff0000}
+/*-----------开关------------*/
+
+.switch-btn {position: relative; display: block;right: -150px; top: -10px;width: 80px; height: 30px; border-radius: 18px; cursor: pointer;margin: 0 auto}
+.checked-switch {position: absolute; top: 0; left: 0; opacity: 0;}
+.text-switch {background-color: green; border: 1px solid #d2402e; border-radius: inherit; color: #fff; display: block; font-size: 15px; height: inherit; position: relative; text-transform: uppercase;}
+.text-switch:before, .text-switch:after {position: absolute; top: 50%; margin-top: -.5em; line-height: 1; -webkit-transition: inherit; -moz-transition: inherit; -o-transition: inherit; transition: inherit;}
+.text-switch:before {content: attr(data-yes); right: 11px;}
+.text-switch:after {content: attr(data-no); left: 11px; color: #FFFFFF; opacity: 0;}
+.checked-switch:checked ~ .text-switch {background-color: #ed5b49; border: 1px solid #068506;}
+.checked-switch:checked ~ .text-switch:before {opacity: 0;}
+.checked-switch:checked ~ .text-switch:after {opacity: 1;}
+.toggle-btn {background: linear-gradient(#eee, #fafafa); border-radius: 100%; height: 28px; left: 1px; position: absolute; top: 1px; width: 28px;}
+.toggle-btn::before {color: #aaaaaa; display: inline-block; font-size: 12px; letter-spacing: -2px; padding: 4px 0; vertical-align: middle;}
+.checked-switch:checked ~ .toggle-btn {left: 51px;}
+.text-switch, .toggle-btn {transition: All 0.3s ease; -webkit-transition: All 0.3s ease; -moz-transition: All 0.3s ease; -o-transition: All 0.3s ease;}
+.sapm{
+  color: #ff0000;
+  font-size: 14px
+
+}
+.psq{
+  line-height: 25px;
+  margin-left: 90px;
+}
+.spans{
+  display: inline-block;
+  color: #cccccc;  font-size: 14px
+}
+/*----------------------------------------------------*/
+.top{
+    width: 100%;
+    line-height: 50px;
+    font-size: 16px;
+    border-bottom: 1px solid #cccccc;
+}
+.span{
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    margin-left: 20px;
+    line-height: 30px;
+}
+.psd{
+    width: 70%;
+    font-size: 50px;
+    text-align: center;
+    /*line-height: 100px;*/
+    margin-top: 18px;
+}
+.psds{
+    width: 70%;
+    /*line-height: 35px;*/
+    text-align: center;
+    font-size: 16px;
+}
+.pl_ul{
+    margin-top: 25px;
+}
+.pl_ul li .sp{
+    display: block;
+    float: left;
+    padding: 0 10px;
+}
+.pl_ul li .spa{
+    display: block;
+    float: right;
+}
+/*tab*/
+.tab{
+    width: 100%;
+    height: 544px;
+}
+.tops{
+    width: 100%;
+    height: 35px;
+}
+.tops li{
+    float: left;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 22px;
+    /*border: 1px solid #cccccc;*/
+}
+.con_boxs{
+    width: 100%;
+    height: 360px;
+}
+.con{
+    width: 100%;
+    height: 350px;
+    overflow-y: auto;
+}
+.con_ul li{
+    width: 15%;
+    float: left;
+    text-align: center;
+}
+.con_ul{
+    height: 130px;
+    padding-top: 10px;
+    border-top: 1px solid #cccccc;
+}
+.con_ul .li1 .ps{
+   width: 100%;
+    height: 30px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.con_ul .li1 .sp{
+    width: 98%;
+    height: 100px;
+}
+.con_ul .li2{
+    width: 55%;
+    text-align: left;
+}
+.psa{
+    margin-top: 18px;
+}
+.con_ul .li3{
+    width: 20%;
+    text-align: center;
+}
+.con_ul .li4{
+  width: 10%;
+  hight:30px;
+  float: right;
+
+}
+.con_ul .li4 input{
+  width: 60px;
+  height: 30px;
+  margin-left: 20px;
+  margin-top: 30px;
+  display: block;
+  border-radius: 5px;
+  background: green;
+  color: #fff
+}
+.con_ul .li4 input+input{
+  background: red;
+}
+.tops .li{
+    cursor:pointer
+}

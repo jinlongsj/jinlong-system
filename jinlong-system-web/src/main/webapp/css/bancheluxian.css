@@ -1,0 +1,101 @@
+a:link,a:visited,a:hover,a:active{ text-decoration:none;}
+.one{
+    width: 95%;
+    height: auto;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+
+}
+.lx_box{
+    height: 120px;
+}
+.lx{
+    height: 30px;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
+.lx li{
+
+    float: left;
+    font-size: 16px;
+    padding: 0 10px;
+    line-height: 25px;
+}
+.lx li+li{
+    margin-left: 20px;
+    width: 160px;
+}
+.lx li+li span{
+    display: inline-block;
+    padding: 0 10px;
+}
+.lx li+li a{
+    color: #000000;
+}
+.lx li+li+li{
+    width: 150px;
+    float: right;
+    margin-top: -3px;
+}
+.lx li+li+li input{
+   width: 50px;height: 25px;
+    font-size: 14px;
+    color: #000;margin-right: 15px;
+    cursor: pointer;margin-right:15px;background: #32c5d2;
+}
+
+.lx_ul li {
+    width: 100%;
+    height: auto;
+    line-height: 30px;
+    font-size: 15px;
+}
+.lx_ul li span{
+    display: inline-block;
+     padding: 0 10px;
+    text-align: center;
+    color: #333;
+}
+
+.lx_ul li a{
+    color: #000000;
+}
+.lx_ul li ul li+li{
+    border: none;
+    line-height: 50px;
+}
+.spa{
+    cursor:pointer;
+}
+.bc{
+    width: 78%;
+    height: 300px;
+    background: dimgrey;
+    position: fixed;
+    z-index: 999;
+    display: none;
+    top: 20%;
+}
+.bot{
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    right: 36px;
+    bottom: 15px;
+}
+.bot input{
+    width: 60px;
+    height: 30px;
+    background: #1aba9c;
+    margin-left: 15px;
+    font-size: 15px;
+    border-radius: 5px;
+}
+.bj ul li span{
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 30px;
+    font-size: 16px;
+}

@@ -1,0 +1,23 @@
+server:
+  port: 8090
+
+spring:
+  mvc:
+    view:
+      prefix: /jsp/
+      suffix: .jsp
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jinlong_system?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 
+    type: com.alibaba.druid.pool.DruidDataSource
+    
+
+mybatis:
+  mapper-locations: classpath*:mybatis/mapper/*/*.xml
+  
+  
+#security:
+#    basic:
+#      enabled: true

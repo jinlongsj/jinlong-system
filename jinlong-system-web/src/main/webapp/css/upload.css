@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+.btn-active {
+	background-color: #3AC0C3;
+	color: #FFF;
+	border: 0px solid #3AC0C3;
+	border-radius: 2px;
+	cursor: pointer;
+	margin:0px;
+	height:30px;
+}

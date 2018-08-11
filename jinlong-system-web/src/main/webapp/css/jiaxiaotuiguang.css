@@ -1,0 +1,103 @@
+.clear{
+    clear: both;
+}
+.form0{
+    border-top: 1px solid #cccccc;position: relative;
+}
+.img0{
+    height: 100px;width: 200px;margin: 10px 0 0 50px;
+    border: 1px solid #cccccc;
+}
+.file0{
+  width: 100px;
+    height: 35px;
+    background: darkcyan;
+    position: absolute;
+    bottom: 0px;
+    /*opacity: 0;*/
+}
+.p{
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: #666;
+    margin-left: 13%;
+    margin-top: -36px;
+    margin-bottom: 20px;
+   font-weight: bold;
+    text-align: center;
+    line-height: 35px;
+    border: 1px solid #cccccc;
+}
+
+.texts{
+    width: 100%;
+    height: 150px;
+}
+.text{
+    height: 120px;
+    width: 100%;
+    margin-top: 8px;
+    font-size: 15px;
+    border: 1px solid #CCCCCC;
+}
+.texts span{
+  display: inline-block;
+  margin-left: 10px;
+    margin-top: 20px;
+}
+ .but{
+  width: 80px;
+  height: 30px;
+  background: #32c5d2;
+  position: absolute;
+  right: 5px;
+  top: 8px;
+border-radius: 5px;
+color: #fff;
+}
+.int{
+  width: 400px;
+  height: 30px;
+  font-size: 22px;
+    border: 1px solid #CCCCCC;margin-left: -10px;
+
+}
+
+
+/*�ϴ�ͼƬ*/
+.warp .pid{
+    width: 30%;
+    height: 200px;
+    float: left;
+    margin-bottom: 20px;
+}
+.warp .pis{
+    width: 68%;  float: left;
+}
+.file{
+    width: 80px;
+    position: absolute;
+    top: 180px;
+    z-index: 9999;
+    opacity: 0;
+    left: 15px;
+}
+.warp .pid img{
+    margin-top: 30px;
+    margin-left: 15px;
+}
+.warp .pid span{
+    width: 80px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid #CCCCCC;
+    margin-left: 15px;
+    line-height: 30px;
+    display: inline-block;
+}
+.con_con{
+    height: 910px;
+}
+

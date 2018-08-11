@@ -1,0 +1,19 @@
+<!-- 邮箱自动提示的css -->
+
+
+.list_box{
+	cursor: pointer;
+}
+.mailHover{
+	cursor: pointer;
+}
+.focus_box { 
+	background: #f0f3f9;
+	cursor: pointer;
+}
+
+.mark_box { 
+	color:#c00;
+	margin-left:10px;
+	cursor: pointer;
+}

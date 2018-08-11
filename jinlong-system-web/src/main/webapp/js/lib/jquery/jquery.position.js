@@ -1,0 +1,17 @@
+       $(function(){ 
+    $(".plant_bt").click(function(){ 
+        $.scrollTo('#zzsy_info_tit',100); 
+    }); 
+    $(".process_bt").click(function(){ 
+        $.scrollTo('#jgsy_info_tit',100); 
+    }); 
+    $(".warehouse_bt").click(function(){ 
+        $.scrollTo('#cksy_info_tit',100); 
+    }); 
+    $(".logistic_bt").click(function(){ 
+        $.scrollTo('#wlsy_info_tit',100); 
+    }); 
+    $(".sale_bt").click(function(){ 
+        $.scrollTo('#xssy_info_tit',100); 
+    }); 
+}); 

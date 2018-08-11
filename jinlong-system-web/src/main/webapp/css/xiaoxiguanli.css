@@ -1,0 +1,50 @@
+
+.s_box_le,.s_box_ri{
+    width: 50%;
+    float: left;
+}
+.s_box_le input{
+    width: 230px;
+    height: 30px;
+    margin-left: 83px;
+    border: 1px solid #cccccc;
+}
+.s_box_le button{
+    width: 60px;
+    height: 30px;
+  margin-left: 10px;
+    border-radius: 5px;
+}
+.s_box_le ul{
+    margin-top: 15px;
+}
+
+.s_box_le ul li+li{
+    height: 360px;
+    margin-top: 15px;
+}
+.s_box_le ul li+li textarea{
+    width: 260px;
+    height: 300px;
+    margin-left: 10px;
+    position: absolute;border: 1px solid #cccccc;
+}
+
+.s-box{
+    width: 200px;
+    height: 350px;
+    border: 1px solid #cccccc;
+    overflow-y: auto;
+}
+.s-box li{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
