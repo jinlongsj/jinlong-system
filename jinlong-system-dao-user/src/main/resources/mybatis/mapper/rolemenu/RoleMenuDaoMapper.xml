@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jinlong.system.dao.rolemenu.IRoleMenuDao">
+<mapper namespace="com.jinlong.system.dao.rolemenu.IRoleMenuPODao">
 		
 	<!-- ********************* 操作事务：曾、删、改操作 ************************ -->
 	
 	<!-- 新增一条菜单角色关系信息  -->
-	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleMenu">
+	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleMenuPO">
 		INSERT 
 		INTO 
 			tbl_jinlong_system_role_menu
@@ -45,7 +45,7 @@
 	</insert>
 	
 	<!-- 通过条件删除一条菜单角色关系信息  -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleMenu">
+	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleMenuPO">
 		DELETE 
 		FROM 
 			tbl_jinlong_system_role_menu rm 
@@ -76,7 +76,7 @@
  	</delete>
  	
 	<!-- 修改菜单角色关系对象 -->
-	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleMenu">
+	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleMenuPO">
 		UPDATE 
 			tbl_jinlong_system_role_menu
 		<set>
@@ -97,7 +97,7 @@
  	<!-- ********************* 不操作事务，查询 操作 **************************-->
  	
  	<!-- 通过菜单角色关系对象的ID查询单条菜单角色关系对象信息 -->
- 	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleMenu">
+ 	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleMenuPO">
 		SELECT
 			role_menu_id 	AS roleMenuId,
 			role_id 		AS roleId,
@@ -112,7 +112,7 @@
  	</select>
  	
 	<!-- 按顺序查询所有菜单角色关系信息  -->
-	<select id="selectAll" resultType="com.jinlong.system.model.po.role.RoleMenu">
+	<select id="selectAll" resultType="com.jinlong.system.model.po.role.RoleMenuPO">
 		SELECT 
 			rm.role_menu_id AS roleMenuId,
 			r.role_id 		AS roleId,
@@ -131,7 +131,7 @@
  	</select>
  	
  	<!-- 通过菜单对象Roles单条菜单角色关系信息  -->
- 	<select id="selectList" resultType="com.jinlong.system.model.po.role.RoleMenu">
+ 	<select id="selectList" resultType="com.jinlong.system.model.po.role.RoleMenuPO">
 		SELECT
 			role_menu_id 	AS roleMenuId,
 			role_id 		AS roleId,
@@ -149,7 +149,7 @@
  	</select>
  	
 	<!-- 查询最新的一条菜单角色关系对象 -->
-	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleMenu">
+	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleMenuPO">
 		SELECT 
 			rm.role_menu_id AS roleMenuId,
 			r.role_id 		AS roleId,
@@ -169,7 +169,7 @@
  	</select>
  	
 	<!-- 查询最新的count条用户角色关系信息 -->
-	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleMenu">
+	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleMenuPO">
 		SELECT 
 			rm.role_menu_id AS roleMenuId,
 			r.role_id 		AS roleId,
@@ -189,7 +189,7 @@
  	</select>
  	
  	<!-- 通过用户角色名称查询单条用户角色关系信息  -->
- 	<select id="selectMenuRolesListByRoleId" resultType="com.jinlong.system.model.po.role.RoleMenu">
+ 	<select id="selectMenuRolesListByRoleId" resultType="com.jinlong.system.model.po.role.RoleMenuPO">
 		SELECT 
 			rm.role_menu_id AS roleMenuId,
 			r.role_id 		AS roleId,
@@ -240,7 +240,7 @@
 	</select>
 	
 	<!-- 分页查询用户角色关系信息 -->
-	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleMenu">
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleMenuPO">
 		SELECT 
 			rm.role_menu_id AS roleMenuId,
 			r.role_id 		AS roleId,

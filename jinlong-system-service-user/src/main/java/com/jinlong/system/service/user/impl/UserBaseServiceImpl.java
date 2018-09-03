@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseServiceImpl;
 import com.jinlong.system.common.utils.md5.MD5;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
 import com.jinlong.system.dao.user.IUserBaseDao;
-import com.jinlong.system.model.po.user.UserBase;
-import com.jinlong.system.service.impl.BaseServiceImpl;
+import com.jinlong.system.model.po.user.UserBasePO;
 import com.jinlong.system.service.user.IUserBaseService;
 
 /**
@@ -27,7 +27,7 @@ import com.jinlong.system.service.user.IUserBaseService;
  * @author 肖学进
  */
 @Service
-public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao> implements IUserBaseService {
+public class UserBaseServiceImpl extends BaseServiceImpl<UserBasePO, IUserBaseDao> implements IUserBaseService {
 	
 	/**
 	 * 本业务层实现类所在的包的位置和类名称
@@ -58,7 +58,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(UserBase userBase) throws LogicException {
+	public int add(UserBasePO userBase) throws LogicException {
 		try {
 			return userBaseDao.insert(setRegisterTimeAndPassword(userBase));
 		} catch (Exception e) {
@@ -74,7 +74,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 * @see com.jinlong.system.service.user.IUserBaseService#bathAddUserBase(java.util.List)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int bathAddUserBase(List<UserBase> userBaseList)
+	public int bathAddUserBase(List<UserBasePO> userBaseList)
 			throws LogicException {
 		try {
 			return userBaseDao.bathInsert(userBaseList);
@@ -92,7 +92,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(UserBase userBase) throws LogicException {
+	public int delete(UserBasePO userBase) throws LogicException {
 		try {
 			return userBaseDao.delete(userBase);
 		} catch (Exception e) {
@@ -142,7 +142,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(UserBase userBase) throws LogicException {
+	public int update(UserBasePO userBase) throws LogicException {
 		try {
 			return userBaseDao.update(userBase);
 		} catch (Exception e) {
@@ -164,7 +164,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#find(int)
 	 */
 	@Override
-	public UserBase find(int id) throws LogicException {
+	public UserBasePO find(int id) throws LogicException {
 		try {
 			return userBaseDao.select(id);
 		} catch (Exception e) {
@@ -180,7 +180,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findAll()
 	 */
 	@Override
-	public List<UserBase> findAll() throws LogicException {
+	public List<UserBasePO> findAll() throws LogicException {
 		try {
 			return userBaseDao.selectAll();
 		} catch (Exception e) {
@@ -195,7 +195,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findList(java.lang.Object)
 	 */
-	public List<UserBase> findList(UserBase userBase) throws LogicException {
+	public List<UserBasePO> findList(UserBasePO userBase) throws LogicException {
 		try {
 			return userBaseDao.selectList(userBase);
 		} catch (Exception e) {
@@ -210,7 +210,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findNew()
 	 */
-	public UserBase findNew() throws LogicException {
+	public UserBasePO findNew() throws LogicException {
 		try {
 			return userBaseDao.selectNew();
 		} catch (Exception e) {
@@ -225,7 +225,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findNewList(int)
 	 */
-	public List<UserBase> findNewList(int count) throws LogicException {
+	public List<UserBasePO> findNewList(int count) throws LogicException {
 		try {
 			return userBaseDao.selectNewList(count);
 		} catch (Exception e) {
@@ -261,7 +261,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findPageList(com.jinlong.common.page.PageProperty)
 	 */
-	public PageList<UserBase> findPageList(PageProperty pp) throws LogicException {
+	public PageList<UserBasePO> findPageList(PageProperty pp) throws LogicException {
 		try {
 			int count = userBaseDao.getCount(pp.getParamMap());
 			int startRow = PageUtil.getStart(pp.getNpage(), count, pp.getNpagesize());
@@ -269,7 +269,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 			pp.putParamMap("startRow", startRow - 1);
 			pp.putParamMap("endRow", endRow);
 			pp.putParamMap("pageSize", pp.getNpagesize());
-			return new PageList<UserBase>(pp, count, userBaseDao.getSplitList(pp.getParamMap()));
+			return new PageList<UserBasePO>(pp, count, userBaseDao.getSplitList(pp.getParamMap()));
 		} catch (Exception e) {
 			log.error("********** findPageList UserInfo ERROR ********** Exception = " + e);
 			e.printStackTrace();
@@ -289,7 +289,7 @@ public class UserBaseServiceImpl extends BaseServiceImpl<UserBase, IUserBaseDao>
 	 * @return
 	 * @throws LogicException
 	 */
-	public UserBase setRegisterTimeAndPassword(UserBase userBase) throws Exception{
+	public UserBasePO setRegisterTimeAndPassword(UserBasePO userBase) throws Exception{
 		userBase.setRegisterTime(new Date());
 		userBase.setPassword(MD5.md5crypt(userBase.getPassword()) + userBase.getRegisterTime().getTime());
 		return userBase;

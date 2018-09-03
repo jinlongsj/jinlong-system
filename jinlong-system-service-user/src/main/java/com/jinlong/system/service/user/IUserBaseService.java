@@ -2,15 +2,15 @@ package com.jinlong.system.service.user;
 
 import java.util.List;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.model.po.user.UserBase;
-import com.jinlong.system.service.IBaseService;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.service.IBaseService;
+import com.jinlong.system.model.po.user.UserBasePO;
 
 /**
  * @description 用户基础信息Service业务层接口z
  * @author 肖学进
  */
-public interface IUserBaseService extends IBaseService<UserBase>{
+public interface IUserBaseService extends IBaseService<UserBasePO>{
 	
 	// 增、删、改方法
 	
@@ -28,7 +28,7 @@ public interface IUserBaseService extends IBaseService<UserBase>{
 	 * @return
 	 * @throws LogicException
 	 */
-	public int bathAddUserBase(List<UserBase> userBaseList) throws LogicException;
+	public int bathAddUserBase(List<UserBasePO> userBaseList) throws LogicException;
 	
 	/**
 	 * @Description:删除一条用户基础信息

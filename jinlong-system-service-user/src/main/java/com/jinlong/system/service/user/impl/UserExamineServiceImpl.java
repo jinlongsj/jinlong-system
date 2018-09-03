@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseServiceImpl;
 import com.jinlong.system.dao.user.IUserBaseDao;
 import com.jinlong.system.dao.user.IUserExamineDao;
 import com.jinlong.system.dao.user.IUserExamineRecordDao;
@@ -25,12 +26,11 @@ import com.jinlong.system.dao.user.IUserProcessDao;
 import com.jinlong.system.model.enums.user.UserExamineState;
 import com.jinlong.system.model.enums.user.UserProcessState;
 import com.jinlong.system.model.enums.user.UserState;
-import com.jinlong.system.model.po.user.UserBase;
-import com.jinlong.system.model.po.user.UserExamine;
-import com.jinlong.system.model.po.user.UserExamineRecord;
-import com.jinlong.system.model.po.user.UserInfo;
-import com.jinlong.system.model.po.user.UserProcess;
-import com.jinlong.system.service.impl.BaseServiceImpl;
+import com.jinlong.system.model.po.user.UserBasePO;
+import com.jinlong.system.model.po.user.UserExaminePO;
+import com.jinlong.system.model.po.user.UserExamineRecordPO;
+import com.jinlong.system.model.po.user.UserInfoPO;
+import com.jinlong.system.model.po.user.UserProcessPO;
 import com.jinlong.system.service.user.IUserExamineService;
 
 /**
@@ -38,7 +38,7 @@ import com.jinlong.system.service.user.IUserExamineService;
  * @author 肖学进
  */
 @Service
-public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserExamineDao> implements IUserExamineService {
+public class UserExamineServiceImpl extends BaseServiceImpl<UserExaminePO, IUserExamineDao> implements IUserExamineService {
 	
 	/**
 	 * 本业务层实现类所在的包的位置和类名称
@@ -93,7 +93,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(UserExamine userExamine) throws LogicException {
+	public int add(UserExaminePO userExamine) throws LogicException {
 		try {
 			// 设置审核时间
 			userExamine.setExamineTime(new Date());
@@ -102,15 +102,15 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 			// 新增审核信息
 			int ueIndex = userExamineDao.insert(userExamine);
 			// 复制属性
-			UserExamineRecord uer = new UserExamineRecord();
+			UserExamineRecordPO uer = new UserExamineRecordPO();
 			BeanUtils.copyProperties(userExamine, uer);
 			// 新增用户审核记录信息
 			int uerIndex = userExamineRecordDao.insert(uer);
 			// 修改用户基础信息和用户详细信息的状态
-			UserBase ub = userBaseDao.select(userExamine.getUserId());
-			UserInfo ui = userInfoDao.select(userExamine.getUserId());
+			UserBasePO ub = userBaseDao.select(userExamine.getUserId());
+			UserInfoPO ui = userInfoDao.select(userExamine.getUserId());
 			// 用户流程信息
-			UserProcess up = new UserProcess();
+			UserProcessPO up = new UserProcessPO();
 			up.setUserId(userExamine.getUserId());
 			up.setProcessTime(userExamine.getExamineTime());
 			if (UserProcessState.addUserSubmitExamine.getValue() == ui.getState()) {
@@ -158,7 +158,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(UserExamine userExamine) throws LogicException {
+	public int delete(UserExaminePO userExamine) throws LogicException {
 		try {
 			return userExamineDao.delete(userExamine);
 		} catch (Exception e) {
@@ -192,22 +192,22 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(UserExamine userExamine) throws LogicException {
+	public int update(UserExaminePO userExamine) throws LogicException {
 		try {
 			// 设置审核时间
 			userExamine.setExamineTime(new Date());
 			// 审核是否通过
 			userExamine.setState(userExamine.getPass());
 			// 复制属性
-			UserExamineRecord uer = new UserExamineRecord();
+			UserExamineRecordPO uer = new UserExamineRecordPO();
 			BeanUtils.copyProperties(userExamine, uer);
 			int ueIndex = userExamineDao.update(userExamine);
 			int uerIndex = userExamineRecordDao.insert(uer);
 			// 修改用户基础信息和用户详细信息的状态
-			UserBase ub = userBaseDao.select(userExamine.getUserId());
-			UserInfo ui = userInfoDao.select(userExamine.getUserId());
+			UserBasePO ub = userBaseDao.select(userExamine.getUserId());
+			UserInfoPO ui = userInfoDao.select(userExamine.getUserId());
 			// 用户流程信息
-			UserProcess up = new UserProcess();
+			UserProcessPO up = new UserProcessPO();
 			up.setUserId(userExamine.getUserId());
 			up.setProcessTime(userExamine.getExamineTime());
 			if (UserProcessState.addUserSubmitExamine.getValue() == ui.getState()) {
@@ -259,7 +259,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#find(int)
 	 */
-	public UserExamine find(int id) throws LogicException {
+	public UserExaminePO find(int id) throws LogicException {
 		try {
 			return userExamineDao.select(id);
 		} catch (Exception e) {
@@ -274,7 +274,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findAll()
 	 */
-	public List<UserExamine> findAll() throws LogicException {
+	public List<UserExaminePO> findAll() throws LogicException {
 		try {
 			return userExamineDao.selectAll();
 		} catch (Exception e) {
@@ -289,7 +289,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findList(java.lang.Object)
 	 */
-	public List<UserExamine> findList(UserExamine userExamine) throws LogicException {
+	public List<UserExaminePO> findList(UserExaminePO userExamine) throws LogicException {
 		try {
 			return userExamineDao.selectList(userExamine);
 		} catch (Exception e) {
@@ -304,7 +304,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findNew()
 	 */
-	public UserExamine findNew() throws LogicException {
+	public UserExaminePO findNew() throws LogicException {
 		try {
 			return userExamineDao.selectNew();
 		} catch (Exception e) {
@@ -319,7 +319,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findNewList(int)
 	 */
-	public List<UserExamine> findNewList(int count) throws LogicException {
+	public List<UserExaminePO> findNewList(int count) throws LogicException {
 		try {
 			return userExamineDao.selectNewList(count);
 		} catch (Exception e) {
@@ -355,7 +355,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findPageList(com.jinlong.common.page.PageProperty)
 	 */
-	public PageList<UserExamine> findPageList(PageProperty pp)
+	public PageList<UserExaminePO> findPageList(PageProperty pp)
 			throws LogicException {
 		try {
 			int count = userExamineDao.getCount(pp.getParamMap());
@@ -364,7 +364,7 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExamine, IUserEx
 			pp.putParamMap("startRow", startRow - 1);
 			pp.putParamMap("endRow", endRow);
 			pp.putParamMap("pageSize", pp.getNpagesize());
-			return new PageList<UserExamine>(pp, count, userExamineDao.getSplitList(pp.getParamMap()));
+			return new PageList<UserExaminePO>(pp, count, userExamineDao.getSplitList(pp.getParamMap()));
 		} catch (Exception e) {
 			log.error("********** findPageList UserExamine ERROR ********** Exception = " + e);
 			e.printStackTrace();

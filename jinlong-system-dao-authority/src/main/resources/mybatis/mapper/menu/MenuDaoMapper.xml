@@ -6,7 +6,7 @@
 
 	<!-- *********************操作事务：曾、删、改操作************************ -->
 	<!-- 新增一条菜单信息 -->
-	<insert id="insert" parameterType="com.jinlong.system.model.po.menu.MenuInfo">
+	<insert id="insert" parameterType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		INSERT 
 		INTO 
 			tbl_jinlong_system_menu
@@ -35,7 +35,7 @@
 		)
 	</insert>
 	<!-- 通过条件删除一条菜单信息 -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.menu.MenuInfo">
+	<delete id="delete" parameterType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		DELETE 
 		FROM 
 			tbl_jinlong_system_menu
@@ -75,7 +75,7 @@
 		</where> 
  	</delete>
 	<!-- 通过菜单ID修改一条菜单信息 -->
-	<update id="update" parameterType="com.jinlong.system.model.po.menu.MenuInfo">
+	<update id="update" parameterType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		UPDATE 
 			tbl_jinlong_system_menu
 		<set>
@@ -107,7 +107,7 @@
  	
  	<!-- *********************不操作事务，查询 操作**************************-->
 	<!-- 通过菜单ID查询一条菜单信息 -->
-	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		SELECT
 			menu_id   	AS menuId,
 			type_id 	AS typeId,
@@ -129,7 +129,7 @@
 	</select>
 	
  	<!-- 查询所有菜单信息 -->
- 	<select id="selectAll" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+ 	<select id="selectAll" resultType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		SELECT
 			menu_id   	AS menuId,
 			type_id 	AS typeId,
@@ -147,7 +147,7 @@
  	</select>
  	
  	<!-- 通过条件查询一组菜单信息  -->
-	<select id="selectList" parameterType="com.jinlong.system.model.po.menu.MenuInfo" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+	<select id="selectList" parameterType="com.jinlong.system.model.po.menu.MenuInfoPO" resultType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		SELECT
 			menu_id   	AS menuId,
 			type_id 	AS typeId,
@@ -188,7 +188,7 @@
  	</select>
  	
  	<!-- 查询最新的一条菜单信息 -->
- 	<select id="selectNew" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+ 	<select id="selectNew" resultType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		SELECT
 			menu_id   	AS menuId,
 			type_id 	AS typeId,
@@ -207,7 +207,7 @@
  	</select>
  	
  	<!-- 查询最新的count条菜单信息 -->
- 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		SELECT
 			menu_id   	AS menuId,
 			type_id 	AS typeId,
@@ -237,7 +237,7 @@
 		</where>
 	</select>
 	<!-- 分页查菜单色信息-->
-	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.menu.MenuInfo">
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.menu.MenuInfoPO">
 		SELECT
 			menu_id   	AS menuId,
 			type_id 	AS typeId,

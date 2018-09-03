@@ -14,7 +14,7 @@ package com.jinlong.system.model.form.menu;
 
 import java.io.Serializable;
 
-import com.jinlong.system.model.po.page.JqPage;
+import com.jinlong.common.model.po.page.JqPage;
 import com.jinlong.system.model.vo.menu.MenuVO;
 
 import lombok.Data;

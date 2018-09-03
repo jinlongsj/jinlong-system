@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jinlong.system.dao.role.IRoleProcessDao">
+<mapper namespace="com.jinlong.system.dao.role.IRoleProcessPODao">
 
 	<!-- *********************操作事务：曾、删、改操作************************ -->
 	
 	<!-- 新增一条角色流程信息 -->
-	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleProcess" >
+	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleProcessPO" >
 		INSERT INTO 
 			tbl_jinlong_system_role_process
 		(
@@ -28,7 +28,7 @@
 	</insert>
 	
 	<!-- 通过角色流程条件删除一批角色流程信息 -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleProcess">
+	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleProcessPO">
 		DELETE FROM
 			tbl_jinlong_system_role_process
 		<where>
@@ -45,7 +45,7 @@
 	</delete>
 	
 	<!-- 通过角色流程ID删除一条角色流程信息 -->
-	<delete id="deleteById" parameterType="com.jinlong.system.model.po.role.RoleProcess">
+	<delete id="deleteById" parameterType="com.jinlong.system.model.po.role.RoleProcessPO">
 		DELETE FROM
 			tbl_jinlong_system_role_process
 		<where>
@@ -56,7 +56,7 @@
 	</delete>
 	
 	<!-- 通过角色流程ID修改一条角色流程信息 -->
-	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleProcess">
+	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleProcessPO">
 		UPDATE
 		<set>
 			<if test="roleId != null and roleId != 0">
@@ -82,8 +82,8 @@
  	<!-- *********************不操作事务，查询 操作************************** -->
  	
  	<!-- 通过角色流程ID查询单条角色流程信息 -->
- 	<select id="select" parameterType="com.jinlong.system.model.po.role.RoleProcess" 
- 		resultType="com.jinlong.system.model.po.role.RoleProcess">
+ 	<select id="select" parameterType="com.jinlong.system.model.po.role.RoleProcessPO" 
+ 		resultType="com.jinlong.system.model.po.role.RoleProcessPO">
  		SELECT
 			process_id 		AS processId,
 			role_id			AS roleId,
@@ -100,7 +100,7 @@
  	</select>
  	
  	<!-- 查询所有的角色流程信息 -->
- 	<select id="selectAll" resultType="com.jinlong.system.model.po.role.RoleProcess">
+ 	<select id="selectAll" resultType="com.jinlong.system.model.po.role.RoleProcessPO">
  		SELECT
 			process_id 		AS processId,
 			role_id			AS roleId,
@@ -112,8 +112,8 @@
  	</select>
  	
  	<!-- 通过条件查询一批角色流程信息 -->
- 	<select id="selectList" parameterType="com.jinlong.system.model.po.role.RoleProcess" 
- 		resultType="com.jinlong.system.model.po.role.RoleProcess">
+ 	<select id="selectList" parameterType="com.jinlong.system.model.po.role.RoleProcessPO" 
+ 		resultType="com.jinlong.system.model.po.role.RoleProcessPO">
  		SELECT
 			process_id 		AS processId,
 			role_id			AS roleId,
@@ -139,7 +139,7 @@
  	</select>
  	
  	<!-- 查询最新的一条角色流程信息 -->
- 	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleProcess">
+ 	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleProcessPO">
  		SELECT
 			process_id 		AS processId,
 			role_id			AS roleId,
@@ -152,7 +152,7 @@
  	</select>
  	
  	<!-- 查询最新的count条角色流程信息 -->
- 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleProcess">
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleProcessPO">
  		SELECT
 			process_id 		AS processId,
 			role_id			AS roleId,
@@ -189,7 +189,7 @@
  	</select>
  	
 	<!-- 分页查询角色流程信息-->
- 	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleProcess">
+ 	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleProcessPO">
  		SELECT
 			process_id 		AS processId,
 			role_id			AS roleId,

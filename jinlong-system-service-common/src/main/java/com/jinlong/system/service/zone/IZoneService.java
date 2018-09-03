@@ -2,10 +2,10 @@ package com.jinlong.system.service.zone;
 
 import java.util.List;
 
-import com.jinlong.system.common.utils.exception.LogicException;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.service.IBaseVOService;
 import com.jinlong.system.model.po.zone.ZoneInfo;
 import com.jinlong.system.model.vo.zone.ZoneVO;
-import com.jinlong.system.service.IBaseVOService;
 
 /**
  * 地区信息Service业务层接口

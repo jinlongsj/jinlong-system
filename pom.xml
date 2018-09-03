@@ -13,6 +13,16 @@
 		<!-- 设置字符编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- 公共Model工程版本号 -->
+		<jinlong-common-model.version>0.0.1-SNAPSHOT</jinlong-common-model.version>
+		<!-- 公共基础工程版本号 -->
+		<jinlong-common-core.version>0.0.1-SNAPSHOT</jinlong-common-core.version>
+		<!-- 公共Excel工具工程版本号 -->
+		<jinlong-common-excel.version>0.0.1-SNAPSHOT</jinlong-common-excel.version>
+		<!-- 公共异常工具工程版本号 -->
+		<jinlong-common-exception.version>0.0.1-SNAPSHOT</jinlong-common-exception.version>
+		<!-- 公共分页工具工程版本号 -->
+		<jinlong-common-page.version>0.0.1-SNAPSHOT</jinlong-common-page.version>
 		<!-- 本项目工程的版本号 -->
 		<project.version>0.0.1-SNAPSHOT</project.version>
 		<!-- jdk版本号 -->
@@ -189,19 +199,49 @@
 	
 	<dependencyManagement>
         <dependencies>
-            <!-- 引用jinlong-system-common子项目 -->
+        	<!-- 引用jinlong-common-model子工程 -->
+            <dependency>
+                <groupId>com.jinlong.common</groupId>
+                <artifactId>jinlong-common-model</artifactId>
+                <version>${jinlong-common-model.version}</version>
+            </dependency>
+        	<!-- 引用jinlong-common-core子工程 -->
+            <dependency>
+                <groupId>com.jinlong.common</groupId>
+                <artifactId>jinlong-common-core</artifactId>
+                <version>${jinlong-common-core.version}</version>
+            </dependency>
+        	<!-- 引用jinlong-common-excel子工程  -->
+            <dependency>
+                <groupId>com.jinlong.common</groupId>
+                <artifactId>jinlong-common-excel</artifactId>
+                <version>${jinlong-common-excel.version}</version>
+            </dependency>
+        	<!-- 引用jinlong-common-exception子工程  -->
+            <dependency>
+                <groupId>com.jinlong.common</groupId>
+                <artifactId>jinlong-common-exception</artifactId>
+                <version>${jinlong-common-exception.version}</version>
+            </dependency>
+        	<!-- 引用jinlong-common-page子工程  -->
+            <dependency>
+                <groupId>com.jinlong.common</groupId>
+                <artifactId>jinlong-common-page</artifactId>
+                <version>${jinlong-common-page.version}</version>
+            </dependency>
+            <!-- 引用jinlong-system-common子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-common-model子项目 -->
+            <!-- 引用jinlong-system-common-model子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-common-file子项目 -->
+            <!-- 引用jinlong-system-common-file子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-file</artifactId>
@@ -213,85 +253,73 @@
                 <artifactId>jinlong-system-excel</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-dao子项目 -->
-            <dependency>
-                <groupId>com.jinlong.system</groupId>
-                <artifactId>jinlong-system-dao</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-			<!-- 引用jinlong-system-dao-common子项目 -->
+			<!-- 引用jinlong-system-dao-common子工程 -->
 			<dependency>
 				<groupId>com.jinlong.system</groupId>
 				<artifactId>jinlong-system-dao-common</artifactId>
                 <version>${project.version}</version>
 			</dependency>
-            <!-- 引用jinlong-system-dao-user子项目 -->
+            <!-- 引用jinlong-system-dao-user子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-dao-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-dao-authority子项目 -->
+            <!-- 引用jinlong-system-dao-authority子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-dao-authority</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-service<子项目 -->
-            <dependency>
-                <groupId>com.jinlong.system</groupId>
-                <artifactId>jinlong-system-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- 引用jinlong-system-service-common子项目 -->
+            <!-- 引用jinlong-system-service-common子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-service-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-service-user子项目 -->
+            <!-- 引用jinlong-system-service-user子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-service-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-service-user子项目 -->
+            <!-- 引用jinlong-system-service-user子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-service-authority</artifactId>
                 <version>${project.version}</version>
             </dependency>
-			<!-- 引用jinlong-system-service-security子项目 -->
+			<!-- 引用jinlong-system-service-security子工程 -->
 			<dependency>
 				<groupId>com.jinlong.system</groupId>
 				<artifactId>jinlong-system-service-security</artifactId>
                 <version>${project.version}</version>
 			</dependency>
-            <!-- 引用jinlong-system-web子项目 -->
+            <!-- 引用jinlong-system-web子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-web-common子项目 -->
+            <!-- 引用jinlong-system-web-common子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-web-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-web-user子项目 -->
+            <!-- 引用jinlong-system-web-user子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-web-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-web-authority子项目 -->
+            <!-- 引用jinlong-system-web-authority子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-web-authority</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- 引用jinlong-system-web-security子项目 -->
+            <!-- 引用jinlong-system-web-security子工程 -->
             <dependency>
                 <groupId>com.jinlong.system</groupId>
                 <artifactId>jinlong-system-web-security</artifactId>
@@ -1377,11 +1405,9 @@
 		<module>jinlong-system-model</module>
 		<module>jinlong-system-common</module>
 		<module>jinlong-system-file</module>
-		<module>jinlong-system-dao</module>
 		<module>jinlong-system-dao-common</module>
 		<module>jinlong-system-dao-user</module>
 		<module>jinlong-system-dao-authority</module>
-		<module>jinlong-system-service</module>
 		<module>jinlong-system-service-common</module>
 		<module>jinlong-system-service-user</module>
 		<module>jinlong-system-service-authority</module>
@@ -1397,5 +1423,6 @@
 		<module>jinlong-system-web-authority</module>
 		<module>jinlong-system-web-security</module>
 		<module>jinlong-system-cache</module>
+		<module>jinlong-sysetm-kettle</module>
 	</modules>
 </project>

@@ -22,14 +22,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseServiceImpl;
 import com.jinlong.system.dao.role.IRoleExamineRecordDao;
-import com.jinlong.system.model.po.role.RoleExamineRecord;
-import com.jinlong.system.service.impl.BaseServiceImpl;
+import com.jinlong.system.model.po.role.RoleExamineRecordPO;
 import com.jinlong.system.service.role.IRoleExamineRecordService;
 
 /**
@@ -39,7 +39,7 @@ import com.jinlong.system.service.role.IRoleExamineRecordService;
  */
 @Service
 public class RoleExamineRecordServiceImpl extends
-		BaseServiceImpl<RoleExamineRecord, IRoleExamineRecordDao> implements
+		BaseServiceImpl<RoleExamineRecordPO, IRoleExamineRecordDao> implements
 		IRoleExamineRecordService {
 	
 	/**
@@ -71,7 +71,7 @@ public class RoleExamineRecordServiceImpl extends
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int add(RoleExamineRecord roleExamineRecord) throws LogicException {
+	public int add(RoleExamineRecordPO roleExamineRecord) throws LogicException {
 		try {
 			return roleExamineRecordDao.insert(roleExamineRecord);
 		} catch (Exception e) {
@@ -88,7 +88,7 @@ public class RoleExamineRecordServiceImpl extends
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int delete(RoleExamineRecord roleExamineRecord) throws LogicException {
+	public int delete(RoleExamineRecordPO roleExamineRecord) throws LogicException {
 		try {
 			return roleExamineRecordDao.delete(roleExamineRecord);
 		} catch (Exception e) {
@@ -128,7 +128,7 @@ public class RoleExamineRecordServiceImpl extends
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int update(RoleExamineRecord roleExamineRecord) throws LogicException {
+	public int update(RoleExamineRecordPO roleExamineRecord) throws LogicException {
 		try {
 			return roleExamineRecordDao.update(roleExamineRecord);
 		} catch (Exception e) {
@@ -144,7 +144,7 @@ public class RoleExamineRecordServiceImpl extends
 	 * @see com.jinlong.ssm.common.service.IBaseService#find(int)
 	 */
 	@Override
-	public RoleExamineRecord find(int id) throws LogicException {
+	public RoleExamineRecordPO find(int id) throws LogicException {
 		try {
 			return roleExamineRecordDao.select(id);
 		} catch (Exception e) {
@@ -160,7 +160,7 @@ public class RoleExamineRecordServiceImpl extends
 	 * @see com.jinlong.ssm.common.service.IBaseService#findAll()
 	 */
 	@Override
-	public List<RoleExamineRecord> findAll() throws LogicException {
+	public List<RoleExamineRecordPO> findAll() throws LogicException {
 		try {
 			return roleExamineRecordDao.selectAll();
 		} catch (Exception e) {
@@ -176,7 +176,7 @@ public class RoleExamineRecordServiceImpl extends
 	 * @see com.jinlong.ssm.common.service.IBaseService#findList(java.lang.Object)
 	 */
 	@Override
-	public List<RoleExamineRecord> findList(RoleExamineRecord roleExamineRecord)
+	public List<RoleExamineRecordPO> findList(RoleExamineRecordPO roleExamineRecord)
 			throws LogicException {
 		try {
 			return roleExamineRecordDao.selectList(roleExamineRecord);
@@ -193,7 +193,7 @@ public class RoleExamineRecordServiceImpl extends
 	 * @see com.jinlong.ssm.common.service.IBaseService#findNew()
 	 */
 	@Override
-	public RoleExamineRecord findNew() throws LogicException {
+	public RoleExamineRecordPO findNew() throws LogicException {
 		try {
 			return roleExamineRecordDao.selectNew();
 		} catch (Exception e) {
@@ -209,7 +209,7 @@ public class RoleExamineRecordServiceImpl extends
 	 * @see com.jinlong.ssm.common.service.IBaseService#findNewList(int)
 	 */
 	@Override
-	public List<RoleExamineRecord> findNewList(int count) throws LogicException {
+	public List<RoleExamineRecordPO> findNewList(int count) throws LogicException {
 		try {
 			return roleExamineRecordDao.selectNewList(count);
 		} catch (Exception e) {
@@ -247,7 +247,7 @@ public class RoleExamineRecordServiceImpl extends
 	 * @see com.jinlong.ssm.common.service.IBaseService#findPageList(com.jinlong.ssm.common.utils.page.PageProperty)
 	 */
 	@Override
-	public PageList<RoleExamineRecord> findPageList(PageProperty pp)
+	public PageList<RoleExamineRecordPO> findPageList(PageProperty pp)
 			throws LogicException {
 		try {
 			int count = roleExamineRecordDao.getCount(pp.getParamMap());
@@ -256,7 +256,7 @@ public class RoleExamineRecordServiceImpl extends
 			pp.putParamMap("startRow", startRow - 1);
 			pp.putParamMap("endRow", endRow);
 			pp.putParamMap("pageSize", pp.getNpagesize());
-			return new PageList<RoleExamineRecord>(pp, count, roleExamineRecordDao.getSplitList(pp.getParamMap()));
+			return new PageList<RoleExamineRecordPO>(pp, count, roleExamineRecordDao.getSplitList(pp.getParamMap()));
 		} catch (Exception e) {
 			log.error("********** findPageList RoleVO ERROR ********** Exception = " + e);
 			e.printStackTrace();

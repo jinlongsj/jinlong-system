@@ -2,21 +2,21 @@ package com.jinlong.system.service.menu;
 
 import java.util.List;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.model.po.menu.MenuInfo;
-import com.jinlong.system.model.po.role.RoleInfo;
-import com.jinlong.system.model.po.role.RoleMenu;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.service.IBaseVOService;
+import com.jinlong.system.model.po.menu.MenuInfoPO;
+import com.jinlong.system.model.po.role.RoleMenuPO;
+import com.jinlong.system.model.po.role.RoleInfoPO;
 import com.jinlong.system.model.vo.menu.MenuVO;
 import com.jinlong.system.model.vo.role.RoleVO;
-import com.jinlong.system.service.IBaseVOService;
 
 /**
  * 菜单信息服务层Service接口
  * @author 肖学进
  */
-public interface IMenuService extends IBaseVOService<MenuInfo, MenuVO> {
+public interface IMenuService extends IBaseVOService<MenuInfoPO, MenuVO> {
 	
 	/*
 	 * 不操作事务，查询 操作的方法
@@ -120,7 +120,7 @@ public interface IMenuService extends IBaseVOService<MenuInfo, MenuVO> {
 	 * @param menuIds
 	 * @return
 	 */
-	public List<Integer> iteratorMenuIds(List<MenuVO> menuList, List<RoleMenu> rmList, List<Integer> menuIds) throws LogicException; 
+	public List<Integer> iteratorMenuIds(List<MenuVO> menuList, List<RoleMenuPO> rmList, List<Integer> menuIds) throws LogicException; 
 	
 	/**
 	 * @Description:分配菜单
@@ -129,7 +129,7 @@ public interface IMenuService extends IBaseVOService<MenuInfo, MenuVO> {
 	 * @return
 	 * @throws Exception
 	 */
-	public int distributeMenu(RoleInfo role, List<Integer> menuIds) throws LogicException;
+	public int distributeMenu(RoleInfoPO role, List<Integer> menuIds) throws LogicException;
 	
 	/**
 	 * @Description:循环迭代菜单信息，将选择的角色菜单管理信息付给他的子菜单
@@ -138,6 +138,6 @@ public interface IMenuService extends IBaseVOService<MenuInfo, MenuVO> {
 	 * @param menuIds
 	 * @return
 	 */
-	public List<RoleMenu> iteratorMenuList(MenuVO menu, RoleInfo role, List<RoleMenu> rmList) throws LogicException; 
+	public List<RoleMenuPO> iteratorMenuList(MenuVO menu, RoleInfoPO role, List<RoleMenuPO> rmList) throws LogicException; 
 
 }

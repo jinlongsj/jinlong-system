@@ -9,37 +9,42 @@
 	<artifactId>jinlong-system-service-authority</artifactId>
 	<name>jinlong-system-service-authority</name>
 	<description>金龙系统管理平台authority权限service业务层接口和实现类工程</description>
-	
+
 	<dependencies>
-       	<!-- 引用jinlong-system-common子项目 -->
-       	<dependency>
-        	<groupId>com.jinlong.system</groupId>
-           	<artifactId>jinlong-system-common</artifactId>
-        </dependency>
-    	<!-- 引用jinlong-system-common-model子项目 -->
-        <dependency>
-        	<groupId>com.jinlong.system</groupId>
-            <artifactId>jinlong-system-model</artifactId>
-        </dependency>
-		<!-- 引用jinlong-system-dao子项目 -->
+		<!-- 引用jinlong-common-core子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-core</artifactId>
+		</dependency>
+		<!-- 引用jinlong-common-exception子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-exception</artifactId>
+		</dependency>
+		<!-- 引用jinlong-common-page子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-page</artifactId>
+		</dependency>
+		<!-- 引用jinlong-system-common子工程 -->
 		<dependency>
 			<groupId>com.jinlong.system</groupId>
-			<artifactId>jinlong-system-dao</artifactId>
+			<artifactId>jinlong-system-common</artifactId>
 		</dependency>
-		<!-- 引用jinlong-system-dao-user子项目 -->
+		<!-- 引用jinlong-system-common-model子工程 -->
+		<dependency>
+			<groupId>com.jinlong.system</groupId>
+			<artifactId>jinlong-system-model</artifactId>
+		</dependency>
+		<!-- 引用jinlong-system-dao-user子工程 -->
 		<dependency>
 			<groupId>com.jinlong.system</groupId>
 			<artifactId>jinlong-system-dao-user</artifactId>
 		</dependency>
-		<!-- 引用jinlong-system-dao-authority子项目 -->
+		<!-- 引用jinlong-system-dao-authority子工程 -->
 		<dependency>
 			<groupId>com.jinlong.system</groupId>
 			<artifactId>jinlong-system-dao-authority</artifactId>
-		</dependency>
-		<!-- 引用jinlong-system-service<子项目 -->
-		<dependency>
-			<groupId>com.jinlong.system</groupId>
-			<artifactId>jinlong-system-service</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -48,14 +53,14 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
 		<dependency>
-	  		<groupId>javax</groupId>
-	  		<artifactId>javaee-api</artifactId>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <scope>provided</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
@@ -75,12 +80,12 @@
 		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
-		    <artifactId>mybatis</artifactId>
+			<artifactId>mybatis</artifactId>
 		</dependency>
-    	<!-- https://mvnrepository.com/artifact/com.googlecode.xmemcached/xmemcached -->
+		<!-- https://mvnrepository.com/artifact/com.googlecode.xmemcached/xmemcached -->
 		<dependency>
-      		<groupId>com.googlecode.xmemcached</groupId>
-      		<artifactId>xmemcached</artifactId>
+			<groupId>com.googlecode.xmemcached</groupId>
+			<artifactId>xmemcached</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
@@ -128,7 +133,7 @@
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 	<!-- 本工程当中应用到的所有插件 -->
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -147,5 +152,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

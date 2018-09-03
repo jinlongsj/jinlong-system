@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseServiceImpl;
 import com.jinlong.system.dao.user.IUserInfoDao;
-import com.jinlong.system.model.po.user.UserInfo;
-import com.jinlong.system.service.impl.BaseServiceImpl;
+import com.jinlong.system.model.po.user.UserInfoPO;
 import com.jinlong.system.service.user.IUserInfoService;
 
 /**
@@ -26,7 +26,7 @@ import com.jinlong.system.service.user.IUserInfoService;
  */
 @Service
 public class UserInfoServiceImpl extends
-		BaseServiceImpl<UserInfo, IUserInfoDao> implements IUserInfoService {
+		BaseServiceImpl<UserInfoPO, IUserInfoDao> implements IUserInfoService {
 	
 	/**
 	 * 本业务层实现类所在的包的位置和类名称
@@ -57,7 +57,7 @@ public class UserInfoServiceImpl extends
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(UserInfo user) throws LogicException {
+	public int add(UserInfoPO user) throws LogicException {
 		try {
 			return userInfoDao.insert(user);
 		} catch (Exception e) {
@@ -74,7 +74,7 @@ public class UserInfoServiceImpl extends
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(UserInfo user) throws LogicException {
+	public int delete(UserInfoPO user) throws LogicException {
 		try {
 			return userInfoDao.delete(user);
 		} catch (Exception e) {
@@ -108,7 +108,7 @@ public class UserInfoServiceImpl extends
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(UserInfo user) throws LogicException {
+	public int update(UserInfoPO user) throws LogicException {
 		try {
 			return userInfoDao.update(user);
 		} catch (Exception e) {
@@ -130,7 +130,7 @@ public class UserInfoServiceImpl extends
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#find(int)
 	 */
 	@Override
-	public UserInfo find(int id) throws LogicException {
+	public UserInfoPO find(int id) throws LogicException {
 		try {
 			return userInfoDao.select(id);
 		} catch (Exception e) {
@@ -146,7 +146,7 @@ public class UserInfoServiceImpl extends
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findAll()
 	 */
 	@Override
-	public List<UserInfo> findAll() throws LogicException {
+	public List<UserInfoPO> findAll() throws LogicException {
 		try {
 			return userInfoDao.selectAll();
 		} catch (Exception e) {
@@ -162,7 +162,7 @@ public class UserInfoServiceImpl extends
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findList(java.lang.Object)
 	 */
 	@Override
-	public List<UserInfo> findList(UserInfo user) throws LogicException {
+	public List<UserInfoPO> findList(UserInfoPO user) throws LogicException {
 		try {
 			return userInfoDao.selectList(user);
 		} catch (Exception e) {
@@ -178,7 +178,7 @@ public class UserInfoServiceImpl extends
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findNew()
 	 */
 	@Override
-	public UserInfo findNew() throws LogicException {
+	public UserInfoPO findNew() throws LogicException {
 		try {
 			return userInfoDao.selectNew();
 		} catch (Exception e) {
@@ -194,7 +194,7 @@ public class UserInfoServiceImpl extends
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findNewList(int)
 	 */
 	@Override
-	public List<UserInfo> findNewList(int count) throws LogicException {
+	public List<UserInfoPO> findNewList(int count) throws LogicException {
 		try {
 			return userInfoDao.selectNewList(count);
 		} catch (Exception e) {
@@ -232,7 +232,7 @@ public class UserInfoServiceImpl extends
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findPageList(com.jinlong.common.page.PageProperty)
 	 */
 	@Override
-	public PageList<UserInfo> findPageList(PageProperty pp)
+	public PageList<UserInfoPO> findPageList(PageProperty pp)
 			throws LogicException {
 		try {
 			int count = userInfoDao.getCount(pp.getParamMap());
@@ -241,7 +241,7 @@ public class UserInfoServiceImpl extends
 			pp.putParamMap("startRow", startRow - 1);
 			pp.putParamMap("endRow", endRow);
 			pp.putParamMap("pageSize", pp.getNpagesize());
-			return new PageList<UserInfo>(pp, count, userInfoDao.getSplitList(pp.getParamMap()));
+			return new PageList<UserInfoPO>(pp, count, userInfoDao.getSplitList(pp.getParamMap()));
 		} catch (Exception e) {
 			log.error("********** findPageList UserInfo ERROR ********** Exception = " + e);
 			e.printStackTrace();

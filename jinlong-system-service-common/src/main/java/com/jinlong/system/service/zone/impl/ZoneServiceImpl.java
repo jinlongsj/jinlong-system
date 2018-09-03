@@ -8,13 +8,13 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.zone.IZoneDao;
 import com.jinlong.system.dao.zone.IZoneVODao;
 import com.jinlong.system.model.po.zone.ZoneInfo;
 import com.jinlong.system.model.vo.zone.ZoneVO;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.service.zone.IZoneService;
 
 /**

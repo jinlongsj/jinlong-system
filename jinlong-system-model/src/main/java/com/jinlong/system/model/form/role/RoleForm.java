@@ -2,7 +2,7 @@ package com.jinlong.system.model.form.role;
 
 import java.io.Serializable;
 
-import com.jinlong.system.model.po.role.RoleInfo;
+import com.jinlong.system.model.po.role.RoleInfoPO;
 
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class RoleForm implements Serializable {
 	/**
 	 * 角色信息
 	 */
-	private RoleInfo role;
+	private RoleInfoPO role;
 	
 	/**
 	 * 角色菜单细关系细信息

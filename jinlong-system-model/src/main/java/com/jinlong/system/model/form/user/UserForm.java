@@ -2,8 +2,8 @@ package com.jinlong.system.model.form.user;
 
 import java.io.Serializable;
 
-import com.jinlong.system.model.po.user.UserBase;
-import com.jinlong.system.model.po.user.UserInfo;
+import com.jinlong.system.model.po.user.UserBasePO;
+import com.jinlong.system.model.po.user.UserInfoPO;
 
 import lombok.Data;
 
@@ -22,11 +22,11 @@ public class UserForm implements Serializable {
 	/**
 	 * 用户基础类
 	 */
-	private UserBase userBase;
+	private UserBasePO userBase;
 	
 	/**
 	 * 用户信息类
 	 */
-	private UserInfo userInfo;
+	private UserInfoPO userInfo;
 
 }

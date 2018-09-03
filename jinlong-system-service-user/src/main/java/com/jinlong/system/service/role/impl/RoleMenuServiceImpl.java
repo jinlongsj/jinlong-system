@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.rolemenu.IRoleMenuDao;
 import com.jinlong.system.dao.rolemenu.IRoleMenuVODao;
-import com.jinlong.system.model.po.role.RoleMenu;
+import com.jinlong.system.model.po.role.RoleMenuPO;
 import com.jinlong.system.model.vo.role.RoleMenuVO;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.service.role.IRoleMenuService;
 
 /**
@@ -27,7 +27,7 @@ import com.jinlong.system.service.role.IRoleMenuService;
  * @author 肖学进
  */
 @Service
-public class RoleMenuServiceImpl extends BaseVOServiceImpl<RoleMenu, IRoleMenuDao, RoleMenuVO, IRoleMenuVODao>
+public class RoleMenuServiceImpl extends BaseVOServiceImpl<RoleMenuPO, IRoleMenuDao, RoleMenuVO, IRoleMenuVODao>
 		implements IRoleMenuService {
 	
 	/**
@@ -63,7 +63,7 @@ public class RoleMenuServiceImpl extends BaseVOServiceImpl<RoleMenu, IRoleMenuDa
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(RoleMenu roleMenu) throws LogicException {
+	public int add(RoleMenuPO roleMenu) throws LogicException {
 		try {
 			return roleMenuDao.insert(roleMenu);
 		} catch (Exception e) {
@@ -79,7 +79,7 @@ public class RoleMenuServiceImpl extends BaseVOServiceImpl<RoleMenu, IRoleMenuDa
 	 * @see com.jinlongshiji.service.RoleMenuService#bathAdd(java.util.List)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int bathAdd(List<RoleMenu> rmList) throws Exception {
+	public int bathAdd(List<RoleMenuPO> rmList) throws Exception {
 		try {
 			return roleMenuDao.bathInsert(rmList);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class RoleMenuServiceImpl extends BaseVOServiceImpl<RoleMenu, IRoleMenuDa
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(RoleMenu roleMenu) throws LogicException {
+	public int delete(RoleMenuPO roleMenu) throws LogicException {
 		try {
 			return roleMenuDao.delete(roleMenu);
 		} catch (Exception e) {
@@ -130,7 +130,7 @@ public class RoleMenuServiceImpl extends BaseVOServiceImpl<RoleMenu, IRoleMenuDa
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(RoleMenu roleMenu) throws LogicException {
+	public int update(RoleMenuPO roleMenu) throws LogicException {
 		try {
 			return roleMenuDao.update(roleMenu);
 		} catch (Exception e) {

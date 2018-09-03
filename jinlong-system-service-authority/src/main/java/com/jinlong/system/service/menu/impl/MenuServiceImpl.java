@@ -13,21 +13,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.model.po.page.JqPage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.menu.IMenuDao;
 import com.jinlong.system.dao.menu.IMenuVODao;
 import com.jinlong.system.dao.rolemenu.IRoleMenuDao;
-import com.jinlong.system.model.po.menu.MenuInfo;
-import com.jinlong.system.model.po.page.JqPage;
-import com.jinlong.system.model.po.role.RoleInfo;
-import com.jinlong.system.model.po.role.RoleMenu;
+import com.jinlong.system.model.po.menu.MenuInfoPO;
+import com.jinlong.system.model.po.role.RoleMenuPO;
+import com.jinlong.system.model.po.role.RoleInfoPO;
 import com.jinlong.system.model.vo.menu.MenuVO;
 import com.jinlong.system.model.vo.role.RoleVO;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.service.menu.IMenuService;
 
 /**
@@ -35,7 +35,7 @@ import com.jinlong.system.service.menu.IMenuService;
  * @author 肖学进
  */
 @Service
-public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuVO, IMenuVODao> implements
+public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfoPO, IMenuDao, MenuVO, IMenuVODao> implements
 		IMenuService {
 	
 	/**
@@ -77,7 +77,7 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(MenuInfo menu) throws LogicException {
+	public int add(MenuInfoPO menu) throws LogicException {
 		try {
 			return menuDao.insert(menu);
 		} catch (Exception e) {
@@ -94,7 +94,7 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(MenuInfo menu) throws LogicException {
+	public int delete(MenuInfoPO menu) throws LogicException {
 		try {
 			return menuDao.delete(menu);
 		} catch (Exception e) {
@@ -128,7 +128,7 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(MenuInfo menu) throws LogicException {
+	public int update(MenuInfoPO menu) throws LogicException {
 		try {
 			return menuDao.update(menu);
 		} catch (Exception e) {
@@ -471,7 +471,7 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 	@Override
 	public List<MenuVO> findAll() throws LogicException {
 		List<MenuVO> firstMenuList = new ArrayList<MenuVO>();
-		RoleMenu roleMenu = new RoleMenu();
+		RoleMenuPO roleMenu = new RoleMenuPO();
 		try {
 			List<MenuVO> menuList = menuVODao.selectAll();
 			for (MenuVO menu : menuList) {
@@ -479,7 +479,7 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 					// 删除菜单之前，先判断此菜单是否已经分配给了角色
 					// 分配给角色的菜单，不能被删除，除非先删除此菜单对应的所有角色菜单分配信息
 					roleMenu.setMenuId(menu.getMenuId());
-					List<RoleMenu> rmListOne = roleMenuDao.selectList(roleMenu);
+					List<RoleMenuPO> rmListOne = roleMenuDao.selectList(roleMenu);
 					menu.setSize(rmListOne.size());
 					firstMenuList.add(menu);
 					this.orderByMenuList(menu, menuList);
@@ -551,10 +551,10 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 	public List<Integer> findDistributeMenu(RoleVO role) throws LogicException {
 		List<MenuVO> menuList = null;
 		try {
-			RoleMenu roleMenu = new RoleMenu();
+			RoleMenuPO roleMenu = new RoleMenuPO();
 			roleMenu.setRoleId(role.getRoleId());
 			menuList = this.findAll();
-			List<RoleMenu> rmList = roleMenuDao.selectList(roleMenu);
+			List<RoleMenuPO> rmList = roleMenuDao.selectList(roleMenu);
 			List<Integer> menuIds = new ArrayList<Integer>();
 			// 迭代菜单列表
 			if (CollectionUtils.isNotEmpty(rmList)) {
@@ -574,13 +574,13 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 	 * @see com.jinlongshiji.service.MenuService#iteratorMenu(java.util.List, java.util.List, java.util.List)
 	 */
 	@Override
-	public List<Integer> iteratorMenuIds(List<MenuVO> menuList, List<RoleMenu> rmList, List<Integer> menuIds) 
+	public List<Integer> iteratorMenuIds(List<MenuVO> menuList, List<RoleMenuPO> rmList, List<Integer> menuIds) 
 			throws LogicException{
 		try {
 			if (CollectionUtils.isNotEmpty(menuList) && CollectionUtils.isNotEmpty(rmList)) {
 				for (MenuVO menu : menuList) {
 					// 如果此角色菜单关系里面有此菜单ID，则证明此角色分配了此菜单
-					for (RoleMenu rm : rmList) {
+					for (RoleMenuPO rm : rmList) {
 						if (menu.getMenuId() == rm.getMenuId()) {
 							menuIds.add(menu.getMenuId());
 							// 迭代下一级级菜单列表
@@ -633,17 +633,17 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 	 * @see com.jinlongshiji.service.MenuService#distributeMenu(com.jinlongshiji.modle.Role, java.util.List)
 	 */
 	@Override
-	public int distributeMenu(RoleInfo role, List<Integer> menuIds) throws LogicException {
+	public int distributeMenu(RoleInfoPO role, List<Integer> menuIds) throws LogicException {
 		try {
-			RoleMenu roleMenu = new RoleMenu();
+			RoleMenuPO roleMenu = new RoleMenuPO();
 			roleMenu.setRoleId(role.getRoleId());
 			// 删除原来的角色菜单关系
 			roleMenuDao.delete(roleMenu);
 			// 原先分配的角色菜单关系列表
-			List<RoleMenu> rmList = new ArrayList<RoleMenu>();
+			List<RoleMenuPO> rmList = new ArrayList<RoleMenuPO>();
 			// 分配菜单
 			for (int menuId : menuIds) {
-				RoleMenu rm = new RoleMenu();
+				RoleMenuPO rm = new RoleMenuPO();
 				rm.setMenuId(menuId);
 				rm.setRoleId(role.getRoleId());
 				rmList.add(rm);
@@ -666,12 +666,12 @@ public class MenuServiceImpl extends BaseVOServiceImpl<MenuInfo, IMenuDao, MenuV
 	 * @see com.jinlongshiji.service.MenuService#iteratorMenuList(com.jinlongshiji.modle.Menu, com.jinlongshiji.modle.Role, java.util.List)
 	 */
 	@Override
-	public List<RoleMenu> iteratorMenuList(MenuVO menu, RoleInfo role, List<RoleMenu> rmList) throws LogicException {
+	public List<RoleMenuPO> iteratorMenuList(MenuVO menu, RoleInfoPO role, List<RoleMenuPO> rmList) throws LogicException {
 		try {
 			List<MenuVO> sonList = this.findSon(menu.getMenuId());
 			if (sonList != null && sonList.size() != 0) {
 				for (MenuVO son : sonList) {
-					RoleMenu r = new RoleMenu();
+					RoleMenuPO r = new RoleMenuPO();
 					r.setMenuId(son.getMenuId());
 					r.setRoleId(role.getRoleId());
 					rmList.add(r);

@@ -14,14 +14,14 @@ package com.jinlong.system.dao.user;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.jinlong.system.dao.IBasicDao;
-import com.jinlong.system.model.po.user.UserProcess;
+import com.jinlong.common.dao.IBasicDao;
+import com.jinlong.system.model.po.user.UserProcessPO;
 
 /**
  * 用户流程信息数据持久化层DAO接口
  * @author 肖学进
  */
 @Mapper
-public interface IUserProcessDao extends IBasicDao<UserProcess> {
+public interface IUserProcessDao extends IBasicDao<UserProcessPO> {
 
 }

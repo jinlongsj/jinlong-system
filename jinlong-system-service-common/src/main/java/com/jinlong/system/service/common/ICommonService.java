@@ -3,7 +3,7 @@ package com.jinlong.system.service.common;
 import java.util.List;
 import java.util.Map;
 
-import com.jinlong.system.common.utils.exception.LogicException;
+import com.jinlong.common.exception.LogicException;
 
 /**
  * @description 公共字典表查询的Service业务层接口

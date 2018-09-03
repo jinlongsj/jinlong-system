@@ -2,7 +2,7 @@ package com.jinlong.system.model.form.role;
 
 import java.io.Serializable;
 
-import com.jinlong.system.model.po.page.JqPage;
+import com.jinlong.common.model.po.page.JqPage;
 import com.jinlong.system.model.vo.role.RoleVO;
 
 import lombok.Data;

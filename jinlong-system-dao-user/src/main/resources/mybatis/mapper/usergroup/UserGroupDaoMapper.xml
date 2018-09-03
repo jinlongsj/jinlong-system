@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jinlong.system.dao.usergroup.IUserGroupDao">
+<mapper namespace="com.jinlong.system.dao.usergroup.IUserGroupPODao">
 	
 	<!-- *********************操作事务：曾、删、改操作************************ -->
 	<!-- 增加单条用户组信息 -->
-	<insert id="insert" parameterType="com.jinlong.system.model.po.usergroup.UserGroup">
+	<insert id="insert" parameterType="com.jinlong.system.model.po.usergroup.UserGroupPO">
 		INSERT INTO 
 			t_jinlong_user_group
 		(
@@ -24,7 +24,7 @@
 		)
 	</insert>
 	<!-- 通过用户组ID删除单条用户组信息 -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.usergroup.UserGroup">
+	<delete id="delete" parameterType="com.jinlong.system.model.po.usergroup.UserGroupPO">
 		DELETE FROM 
 			t_jinlong_user_group 
 		<where>
@@ -34,7 +34,7 @@
 		</where>
  	</delete>
 	<!-- 通过用户组ID修改单条用户组信息 -->
-	<update id="update" parameterType="com.jinlong.system.model.po.usergroup.UserGroup">
+	<update id="update" parameterType="com.jinlong.system.model.po.usergroup.UserGroupPO">
 		update t_jinlong_user_group 
 		<set>
 			<if test="userGroupName != null">user_group_name = #{userGroupName},</if>
@@ -50,7 +50,7 @@
  	
  	<!-- *********************不操作事务，查询 操作**************************-->
  	<!-- 通过用户组ID查询单条用户组信息 -->
- 	<select id="select" parameterType="com.jinlong.system.model.po.usergroup.UserGroup" resultType="com.jinlong.system.model.po.usergroup.UserGroup">
+ 	<select id="select" parameterType="com.jinlong.system.model.po.usergroup.UserGroupPO" resultType="com.jinlong.system.model.po.usergroup.UserGroupPO">
 	    select 
 	    	ug.user_group_id as userGroupId,
 	    	ug.parent_id as parentId,
@@ -65,7 +65,7 @@
 		</where>
  	</select>
  	<!-- 查询所有的用户组信息 -->
-	<select id="selectAll" resultType="com.jinlong.system.model.po.usergroup.UserGroup">
+	<select id="selectAll" resultType="com.jinlong.system.model.po.usergroup.UserGroupPO">
 	    select 
 	    	ug.user_group_id as userGroupId,
 	    	ug.parent_id as parentId,
@@ -76,7 +76,7 @@
 	    order by u.user_id
  	</select>
  	<!-- 通过用户组的条件查询单条用户组对象 -->
- 	<select id="selectList" resultType="com.jinlong.system.model.po.usergroup.UserGroup">
+ 	<select id="selectList" resultType="com.jinlong.system.model.po.usergroup.UserGroupPO">
 	    select 
 	    	ug.user_group_id as userGroupId,
 	    	ug.parent_id as parentId,
@@ -95,7 +95,7 @@
 		from t_jinlong_user_group ug
 	</select>
 	<!-- 分页查询所有用户组信息 -->
-	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.usergroup.UserGroup">
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.usergroup.UserGroupPO">
 		select 
 	    	user_group_id as userGroupId,
 	    	parent_id as parentId,
@@ -150,7 +150,7 @@
 		)
 	</select>
 	<!-- 通过当前登录用户组ID分页查询用户组信息 -->
-	<select id="selectSplitListByUserId" parameterType="Map" resultType="com.jinlong.system.model.po.usergroup.UserGroup">
+	<select id="selectSplitListByUserId" parameterType="Map" resultType="com.jinlong.system.model.po.usergroup.UserGroupPO">
 		select 
 	    	user_group_id as userGroupId,
 	    	parent_id as parentId,

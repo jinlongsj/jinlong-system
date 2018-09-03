@@ -17,7 +17,7 @@ package com.jinlong.system.model.form.menu;
 
 import java.io.Serializable;
 
-import com.jinlong.system.model.po.menu.MenuInfo;
+import com.jinlong.system.model.po.menu.MenuInfoPO;
 
 import lombok.Data;
 
@@ -36,6 +36,6 @@ public class MenuForm implements Serializable {
 	/**
 	 * 菜单实体类
 	 */
-	private MenuInfo menu;
+	private MenuInfoPO menu;
 
 }

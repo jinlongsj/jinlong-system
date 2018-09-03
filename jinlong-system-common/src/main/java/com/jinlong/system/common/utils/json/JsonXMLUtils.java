@@ -3,8 +3,8 @@ package com.jinlong.system.common.utils.json;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
 
 /**
  * @description：JSON工具类

@@ -14,6 +14,11 @@
 	</properties>
 	
 	<dependencies>
+        <!-- 引用jinlong-common-excel子工程  -->
+        <dependency>
+        	<groupId>com.jinlong.common</groupId>
+            <artifactId>jinlong-common-excel</artifactId>
+        </dependency>
     	<!-- 引用jinlong-system-common-model子项目 -->
         <dependency>
         	<groupId>com.jinlong.system</groupId>

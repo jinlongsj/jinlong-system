@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
-@ComponentScan(basePackages={"com.jinlong.system.dao",
+@ComponentScan(basePackages={"com.jinlong.common.dao.config", "com.jinlong.system.dao",
 		"com.jinlong.system.service", "com.jinlong.system.web"})
 @MapperScan(basePackages={"com.jinlong.system.dao"})
 public class JinlongSystemWebApplication {

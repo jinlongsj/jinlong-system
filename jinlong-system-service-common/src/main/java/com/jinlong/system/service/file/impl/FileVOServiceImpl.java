@@ -8,24 +8,24 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.file.IFileDao;
 import com.jinlong.system.dao.file.IFileVODao;
-import com.jinlong.system.model.po.file.FileInfo;
+import com.jinlong.system.model.po.file.FileInfoPO;
 import com.jinlong.system.model.vo.file.FileVO;
 import com.jinlong.system.service.file.IFileVOService;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 
 /**
  * 文件视图类业务层实现类
  * @author 肖学进
  */
 @Service
-public class FileVOServiceImpl extends BaseVOServiceImpl<FileInfo, IFileDao, FileVO, IFileVODao>
+public class FileVOServiceImpl extends BaseVOServiceImpl<FileInfoPO, IFileDao, FileVO, IFileVODao>
 		implements IFileVOService {
 	
 	/**

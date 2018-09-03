@@ -5,35 +5,35 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.jinlong.system.dao.IBasicDao;
-import com.jinlong.system.model.po.file.FileInfo;
+import com.jinlong.common.dao.IBasicDao;
+import com.jinlong.system.model.po.file.FileInfoPO;
 
 /**
  * 文件信息DAO数据持久层接口
  * @author 肖学进
  */
 @Mapper
-public interface IFileDao extends IBasicDao<FileInfo> {
+public interface IFileDao extends IBasicDao<FileInfoPO> {
 	
 	/**
 	 * 通过用户ID查询此用户最新添加的一条文件信息 
 	 * @param userId
 	 * @return
 	 */
-	public FileInfo selectNewFileByUser(@Param(value = "userId") int userId) throws Exception;
+	public FileInfoPO selectNewFileByUser(@Param(value = "userId") int userId) throws Exception;
 	
 	/**
 	 * 通过文件ID查询一条文件信息
 	 * @param fileId
 	 * @return
 	 */
-	public FileInfo selectFileInfoById(@Param(value = "fileId") int fileId) throws Exception;
+	public FileInfoPO selectFileInfoById(@Param(value = "fileId") int fileId) throws Exception;
 	
 	/**
 	 * 通过文件ID集合查询一组文件信息集合
 	 * @param fileIdList
 	 * @return
 	 */
-	public List<FileInfo> selectFileInfoByFileIds(List<Integer> fileIdList) throws Exception;
+	public List<FileInfoPO> selectFileInfoByFileIds(List<Integer> fileIdList) throws Exception;
 
 }

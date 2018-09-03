@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseServiceImpl;
 import com.jinlong.system.dao.user.IUserExamineRecordDao;
-import com.jinlong.system.model.po.user.UserExamineRecord;
-import com.jinlong.system.service.impl.BaseServiceImpl;
+import com.jinlong.system.model.po.user.UserExamineRecordPO;
 import com.jinlong.system.service.user.IUserExamineRecordService;
 
 /**
@@ -25,7 +25,7 @@ import com.jinlong.system.service.user.IUserExamineRecordService;
  * @author 肖学进
  */
 @Service
-public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRecord, IUserExamineRecordDao> implements
+public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRecordPO, IUserExamineRecordDao> implements
 	IUserExamineRecordService {
 	
 	/**
@@ -57,7 +57,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(UserExamineRecord userExamineProcess) throws LogicException {
+	public int add(UserExamineRecordPO userExamineProcess) throws LogicException {
 		try {
 			return userExamineProcessDao.insert(userExamineProcess);
 		} catch (Exception e) {
@@ -74,7 +74,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(UserExamineRecord userExamineProcess) throws LogicException {
+	public int delete(UserExamineRecordPO userExamineProcess) throws LogicException {
 		try {
 			return userExamineProcessDao.delete(userExamineProcess);
 		} catch (Exception e) {
@@ -108,7 +108,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(UserExamineRecord userExamineProcess) throws LogicException {
+	public int update(UserExamineRecordPO userExamineProcess) throws LogicException {
 		try {
 			return userExamineProcessDao.update(userExamineProcess);
 		} catch (Exception e) {
@@ -129,7 +129,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#find(int)
 	 */
-	public UserExamineRecord find(int id) throws LogicException {
+	public UserExamineRecordPO find(int id) throws LogicException {
 		try {
 			return userExamineProcessDao.select(id);
 		} catch (Exception e) {
@@ -144,7 +144,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findAll()
 	 */
-	public List<UserExamineRecord> findAll() throws LogicException {
+	public List<UserExamineRecordPO> findAll() throws LogicException {
 		try {
 			return userExamineProcessDao.selectAll();
 		} catch (Exception e) {
@@ -159,7 +159,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findList(java.lang.Object)
 	 */
-	public List<UserExamineRecord> findList(UserExamineRecord userExamineProcess) throws LogicException {
+	public List<UserExamineRecordPO> findList(UserExamineRecordPO userExamineProcess) throws LogicException {
 		try {
 			return userExamineProcessDao.selectList(userExamineProcess);
 		} catch (Exception e) {
@@ -174,7 +174,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findNew()
 	 */
-	public UserExamineRecord findNew() throws LogicException {
+	public UserExamineRecordPO findNew() throws LogicException {
 		try {
 			return userExamineProcessDao.selectNew();
 		} catch (Exception e) {
@@ -189,7 +189,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findNewList(int)
 	 */
-	public List<UserExamineRecord> findNewList(int count) throws LogicException {
+	public List<UserExamineRecordPO> findNewList(int count) throws LogicException {
 		try {
 			return userExamineProcessDao.selectNewList(count);
 		} catch (Exception e) {
@@ -225,7 +225,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.impl.BaseServiceImpl#findPageList(com.jinlong.common.page.PageProperty)
 	 */
-	public PageList<UserExamineRecord> findPageList(PageProperty pp)
+	public PageList<UserExamineRecordPO> findPageList(PageProperty pp)
 			throws LogicException {
 		try {
 			int count = userExamineProcessDao.getCount(pp.getParamMap());
@@ -234,7 +234,7 @@ public class UserExamineRecordServiceImpl extends BaseServiceImpl<UserExamineRec
 			pp.putParamMap("startRow", startRow - 1);
 			pp.putParamMap("endRow", endRow);
 			pp.putParamMap("pageSize", pp.getNpagesize());
-			return new PageList<UserExamineRecord>(pp, count, userExamineProcessDao.getSplitList(pp.getParamMap()));
+			return new PageList<UserExamineRecordPO>(pp, count, userExamineProcessDao.getSplitList(pp.getParamMap()));
 		} catch (Exception e) {
 			log.error("********** findPageList UserExamineProcess ERROR ********** Exception = " + e);
 			e.printStackTrace();

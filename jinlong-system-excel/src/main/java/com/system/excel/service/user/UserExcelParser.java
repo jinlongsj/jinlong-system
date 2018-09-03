@@ -11,11 +11,11 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.system.excel.constant.ParseFileContentError;
-import com.system.excel.constant.ParseFileError;
-import com.system.excel.model.po.FileParseResult;
-import com.system.excel.model.singletion.FileContentError;
-import com.system.excel.parser.CommonExcelParser;
+import com.jinlong.common.excel.constant.ParseFileContentError;
+import com.jinlong.common.excel.constant.ParseFileError;
+import com.jinlong.common.excel.model.po.FileParseResult;
+import com.jinlong.common.excel.model.singletion.FileContentError;
+import com.jinlong.common.excel.parser.CommonExcelParser;
 
 /**
  * 测试用例模块解析器

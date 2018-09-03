@@ -7,7 +7,7 @@
 	<!-- ********************************操作事务：增、删、改操作**********************************-->
 	   
    	<!-- 新增一条角色信息 -->
-   	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleInfo">
+   	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleInfoPO">
 		<!-- 返回主键 -->
 		<selectKey keyProperty="roleId" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID() AS roleId
@@ -37,7 +37,7 @@
    	</insert>
    	
 	<!-- 通过条件删除一条角色信息 -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleInfo">  
+	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleInfoPO">  
     	DELETE
     	FROM 
     		tbl_jinlong_system_role 
@@ -61,7 +61,7 @@
    	</delete>
    	
    	<!-- 通过角色ID修改一条角色信息 -->
-   	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleInfo">
+   	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleInfoPO">
 		UPDATE 
 			tbl_jinlong_system_role 
 		<set>
@@ -94,7 +94,7 @@
 	<!-- ********************************** 不操作事务、查询操作 *************************************** -->
 	
    	<!-- 通过角色ID查询一条角色信息 -->
-   	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleInfo">  
+   	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleInfoPO">  
     	SELECT
   			role_id 		AS roleId,
   			type_id			AS typeId,
@@ -113,7 +113,7 @@
    	</select>
    	
    	<!-- 查询所有的角色信息 -->
-   	<select id="selectAll" parameterType="com.jinlong.system.model.po.role.RoleInfo" resultType="com.jinlong.system.model.po.role.RoleInfo">  
+   	<select id="selectAll" parameterType="com.jinlong.system.model.po.role.RoleInfoPO" resultType="com.jinlong.system.model.po.role.RoleInfoPO">  
     	SELECT
   			role_id 		AS roleId,
   			type_id			AS typeId,
@@ -128,7 +128,7 @@
     </select>
     
    	<!-- 通过条件查询一批角色信息 -->
-   	<select id="selectList" parameterType="com.jinlong.system.model.po.role.RoleInfo" resultType="com.jinlong.system.model.po.role.RoleInfo">
+   	<select id="selectList" parameterType="com.jinlong.system.model.po.role.RoleInfoPO" resultType="com.jinlong.system.model.po.role.RoleInfoPO">
     	SELECT
   			role_id 		AS roleId,
   			type_id			AS typeId,
@@ -148,7 +148,7 @@
    	</select>
    	
    	<!-- 查询最新的一条有角色信息 -->
-   	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleInfo" >  
+   	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleInfoPO" >  
     	SELECT
   			role_id 		AS roleId,
   			type_id			AS typeId,
@@ -164,7 +164,7 @@
     </select>
     
    	<!-- 查询最新的count条角色信息 -->
-   	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleInfo" >  
+   	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleInfoPO" >  
     	SELECT
   			role_id 		AS roleId,
   			type_id			AS typeId,
@@ -196,7 +196,7 @@
 	</select>
 	
 	<!-- 分页查询角色信息 -->
-	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleInfo">
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleInfoPO">
 		SELECT
   			role_id 		AS roleId,
   			type_id			AS typeId,

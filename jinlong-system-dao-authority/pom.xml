@@ -9,21 +9,21 @@
 	<artifactId>jinlong-system-dao-authority</artifactId>
 	<name>jinlong-system-dao-authority</name>
 	<description>金龙系统管理平台authority权限DAO数据持久化层工程</description>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<dependencies>
-    	<!-- 引用jinlong-system-common-model子项目 -->
-        <dependency>
-        	<groupId>com.jinlong.system</groupId>
-            <artifactId>jinlong-system-model</artifactId>
-        </dependency>
-		<!-- 引用jinlong-system-dao子项目 -->
+		<!-- 引用jinlong-common-core子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-core</artifactId>
+		</dependency>
+		<!-- 引用jinlong-system-common-model子项目 -->
 		<dependency>
 			<groupId>com.jinlong.system</groupId>
-			<artifactId>jinlong-system-dao</artifactId>
+			<artifactId>jinlong-system-model</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -32,14 +32,14 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
 		<dependency>
-	  		<groupId>javax</groupId>
-	  		<artifactId>javaee-api</artifactId>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <scope>provided</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
@@ -59,7 +59,7 @@
 		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
-		    <artifactId>mybatis</artifactId>
+			<artifactId>mybatis</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<dependency>
@@ -76,10 +76,10 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 		</dependency>
-    	<!-- https://mvnrepository.com/artifact/com.googlecode.xmemcached/xmemcached -->
+		<!-- https://mvnrepository.com/artifact/com.googlecode.xmemcached/xmemcached -->
 		<dependency>
-      		<groupId>com.googlecode.xmemcached</groupId>
-      		<artifactId>xmemcached</artifactId>
+			<groupId>com.googlecode.xmemcached</groupId>
+			<artifactId>xmemcached</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
@@ -127,7 +127,7 @@
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 	<!-- 本工程当中应用到的所有插件 -->
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -155,12 +155,12 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-                    <include>**/*.xml</include>
+					<include>**/*.xml</include>
 				</includes>
-                <!-- 是否替换资源中的属性-->  
-                <!-- <filtering>true</filtering> -->
+				<!-- 是否替换资源中的属性 -->
+				<!-- <filtering>true</filtering> -->
 			</resource>
 		</resources>
 	</build>
-	
+
 </project>

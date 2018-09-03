@@ -12,14 +12,14 @@
 
 package com.jinlong.system.service.role;
 
-import com.jinlong.system.model.po.role.RoleExamineRecord;
-import com.jinlong.system.service.IBaseService;
+import com.jinlong.common.service.IBaseService;
+import com.jinlong.system.model.po.role.RoleExamineRecordPO;
 
 /**
  * 角色审核记录Service业务层接口
  * @author:	肖学进
  * @date: 2018年6月5日 下午6:10:33
  */
-public interface IRoleExamineRecordService extends IBaseService<RoleExamineRecord> {
+public interface IRoleExamineRecordService extends IBaseService<RoleExamineRecordPO> {
 
 }

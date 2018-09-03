@@ -14,8 +14,8 @@ package com.jinlong.system.dao.usergroup;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.jinlong.system.dao.IBasicDao;
-import com.jinlong.system.model.po.usergroup.UserGroup;
+import com.jinlong.common.dao.IBasicDao;
+import com.jinlong.system.model.po.usergroup.UserGroupPO;
 
 /**
  * 用户组DAO接口
@@ -23,6 +23,6 @@ import com.jinlong.system.model.po.usergroup.UserGroup;
  * @date: 2018年7月17日 下午5:44:58
  */
 @Mapper
-public interface IUserGroupDao extends IBasicDao<UserGroup> {
+public interface IUserGroupDao extends IBasicDao<UserGroupPO> {
 
 }

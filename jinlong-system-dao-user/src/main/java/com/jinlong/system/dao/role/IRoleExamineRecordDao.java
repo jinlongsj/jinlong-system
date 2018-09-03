@@ -14,8 +14,8 @@ package com.jinlong.system.dao.role;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.jinlong.system.dao.IBasicDao;
-import com.jinlong.system.model.po.role.RoleExamineRecord;
+import com.jinlong.common.dao.IBasicDao;
+import com.jinlong.system.model.po.role.RoleExamineRecordPO;
 
 /**
  * 角色审核记录信息DAO接口
@@ -23,6 +23,6 @@ import com.jinlong.system.model.po.role.RoleExamineRecord;
  * @date: 2018年6月5日 下午3:25:25
  */
 @Mapper
-public interface IRoleExamineRecordDao extends IBasicDao<RoleExamineRecord> {
+public interface IRoleExamineRecordDao extends IBasicDao<RoleExamineRecordPO> {
 
 }

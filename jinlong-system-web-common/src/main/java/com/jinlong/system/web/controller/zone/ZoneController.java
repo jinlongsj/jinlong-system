@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jinlong.common.exception.LogicException;
 import com.jinlong.system.common.constant.ControllerConstant;
-import com.jinlong.system.common.utils.exception.LogicException;
 import com.jinlong.system.model.dto.ResultDTO;
 import com.jinlong.system.model.vo.zone.ZoneVO;
 import com.jinlong.system.service.zone.IZoneService;

@@ -11,30 +11,35 @@
 	<description>金龙系统管理平台Service公共业务层接口和实现类工程</description>
 	
 	<dependencies>
-       	<!-- 引用jinlong-system-common子项目 -->
+		<!-- 引用jinlong-common-core子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-core</artifactId>
+		</dependency>
+		<!-- 引用jinlong-common-exception子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-exception</artifactId>
+		</dependency>
+		<!-- 引用jinlong-common-page子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-page</artifactId>
+		</dependency>
+       	<!-- 引用jinlong-system-common子工程 -->
        	<dependency>
         	<groupId>com.jinlong.system</groupId>
            	<artifactId>jinlong-system-common</artifactId>
         </dependency>
-    	<!-- 引用jinlong-system-common-model子项目 -->
+    	<!-- 引用jinlong-system-common-model子工程 -->
         <dependency>
         	<groupId>com.jinlong.system</groupId>
             <artifactId>jinlong-system-model</artifactId>
         </dependency>
-		<!-- 引用jinlong-system-dao子项目 -->
-		<dependency>
-			<groupId>com.jinlong.system</groupId>
-			<artifactId>jinlong-system-dao</artifactId>
-		</dependency>
-		<!-- 引用jinlong-system-dao-common子项目 -->
+		<!-- 引用jinlong-system-dao-common子工程 -->
 		<dependency>
 			<groupId>com.jinlong.system</groupId>
 			<artifactId>jinlong-system-dao-common</artifactId>
-		</dependency>
-		<!-- 引用jinlong-system-service<子项目 -->
-		<dependency>
-			<groupId>com.jinlong.system</groupId>
-			<artifactId>jinlong-system-service</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

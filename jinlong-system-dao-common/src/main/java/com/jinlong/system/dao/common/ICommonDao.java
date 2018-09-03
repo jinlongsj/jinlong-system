@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.jinlong.system.dao.IBasicDao;
+import com.jinlong.common.dao.IBasicDao;
 
 /**
  * @description 公共字典表查询的DAO数据持久化层接口

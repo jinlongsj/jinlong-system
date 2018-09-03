@@ -14,8 +14,8 @@ package com.jinlong.system.dao.role;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.jinlong.system.dao.IBasicDao;
-import com.jinlong.system.model.po.role.RoleProcess;
+import com.jinlong.common.dao.IBasicDao;
+import com.jinlong.system.model.po.role.RoleProcessPO;
 
 /**
  * 角色流程信息DAO接口
@@ -23,6 +23,6 @@ import com.jinlong.system.model.po.role.RoleProcess;
  * @date: 2018年6月5日 下午3:30:58
  */
 @Mapper
-public interface IRoleProcessDao extends IBasicDao<RoleProcess> {
+public interface IRoleProcessDao extends IBasicDao<RoleProcessPO> {
 
 }

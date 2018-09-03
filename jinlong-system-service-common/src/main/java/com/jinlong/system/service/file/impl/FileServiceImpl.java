@@ -11,25 +11,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.model.po.page.JqPage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.file.IFileDao;
 import com.jinlong.system.dao.file.IFileVODao;
-import com.jinlong.system.model.po.file.FileInfo;
-import com.jinlong.system.model.po.page.JqPage;
+import com.jinlong.system.model.po.file.FileInfoPO;
 import com.jinlong.system.model.vo.file.FileVO;
 import com.jinlong.system.service.file.IFileService;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 
 /**
  * 文件信息类业务层实现类
  * @author 肖学进
  */
 @Service
-public class FileServiceImpl extends BaseVOServiceImpl<FileInfo, IFileDao, FileVO, IFileVODao>
+public class FileServiceImpl extends BaseVOServiceImpl<FileInfoPO, IFileDao, FileVO, IFileVODao>
 		implements IFileService {
 	
 	/**
@@ -67,7 +67,7 @@ public class FileServiceImpl extends BaseVOServiceImpl<FileInfo, IFileDao, FileV
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(FileInfo file) throws LogicException {
+	public int add(FileInfoPO file) throws LogicException {
 		try {
 			return fileDao.insert(file);
 		} catch (Exception e) {
@@ -84,7 +84,7 @@ public class FileServiceImpl extends BaseVOServiceImpl<FileInfo, IFileDao, FileV
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(FileInfo file) throws LogicException {
+	public int delete(FileInfoPO file) throws LogicException {
 		try {
 			return fileDao.delete(file);
 		} catch (Exception e) {
@@ -134,7 +134,7 @@ public class FileServiceImpl extends BaseVOServiceImpl<FileInfo, IFileDao, FileV
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(FileInfo file) throws LogicException {
+	public int update(FileInfoPO file) throws LogicException {
 		try {
 			return fileDao.update(file);
 		} catch (Exception e) {
@@ -230,7 +230,7 @@ public class FileServiceImpl extends BaseVOServiceImpl<FileInfo, IFileDao, FileV
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.file.IFileService#findNewFileByUser(int)
 	 */
-	public FileInfo findNewFileByUser(int userId) throws LogicException{
+	public FileInfoPO findNewFileByUser(int userId) throws LogicException{
 		try {
 			return fileDao.selectNewFileByUser(userId);
 		} catch (Exception e) {
@@ -245,7 +245,7 @@ public class FileServiceImpl extends BaseVOServiceImpl<FileInfo, IFileDao, FileV
 	 * (non-Javadoc)
 	 * @see com.jinlong.common.service.file.IFileService#findFileInfoByFileIds(java.util.List)
 	 */
-	public List<FileInfo> findFileInfoByFileIds(List<Integer> fileIdList) throws LogicException{
+	public List<FileInfoPO> findFileInfoByFileIds(List<Integer> fileIdList) throws LogicException{
 		try {
 			return fileDao.selectFileInfoByFileIds(fileIdList);
 		} catch (Exception e) {

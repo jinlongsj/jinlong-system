@@ -23,17 +23,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.model.po.page.JqPage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.role.IRoleProcessDao;
 import com.jinlong.system.dao.role.IRoleProcessVODao;
-import com.jinlong.system.model.po.page.JqPage;
-import com.jinlong.system.model.po.role.RoleProcess;
+import com.jinlong.system.model.po.role.RoleProcessPO;
 import com.jinlong.system.model.vo.role.RoleProcessVO;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.service.role.IRoleProcessService;
 
 /**
@@ -43,7 +43,7 @@ import com.jinlong.system.service.role.IRoleProcessService;
  */
 @Service
 public class RoleProcessServiceImpl extends
-		BaseVOServiceImpl<RoleProcess, IRoleProcessDao, RoleProcessVO, IRoleProcessVODao> implements
+		BaseVOServiceImpl<RoleProcessPO, IRoleProcessDao, RoleProcessVO, IRoleProcessVODao> implements
 		IRoleProcessService {
 	
 	/**
@@ -81,7 +81,7 @@ public class RoleProcessServiceImpl extends
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int add(RoleProcess roleProcess) throws LogicException {
+	public int add(RoleProcessPO roleProcess) throws LogicException {
 		try {
 			return roleProcessDao.insert(roleProcess);
 		} catch (Exception e) {
@@ -98,7 +98,7 @@ public class RoleProcessServiceImpl extends
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int delete(RoleProcess roleProcess) throws LogicException {
+	public int delete(RoleProcessPO roleProcess) throws LogicException {
 		try {
 			return roleProcessDao.delete(roleProcess);
 		} catch (Exception e) {
@@ -132,7 +132,7 @@ public class RoleProcessServiceImpl extends
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int update(RoleProcess roleProcess) throws LogicException {
+	public int update(RoleProcessPO roleProcess) throws LogicException {
 		try {
 			return roleProcessDao.update(roleProcess);
 		} catch (Exception e) {

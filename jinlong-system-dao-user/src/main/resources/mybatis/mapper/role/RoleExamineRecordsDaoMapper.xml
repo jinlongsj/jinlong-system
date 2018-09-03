@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jinlong.system.dao.role.IRoleExamineRecordDao">
+<mapper namespace="com.jinlong.system.dao.role.IRoleExamineRecordPODao">
 
 	<!-- *********************操作事务：曾、删、改操作************************ -->
 	
 	<!-- 新增一条角色审核记录信息 -->
-	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<insert id="insert" parameterType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		INSERT INTO 
 			tbl_jinlong_system_role_examine_record
 		(
@@ -30,7 +30,7 @@
 	</insert>
 	
 	<!-- 通过条件删除一批角色审核记录信息 -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<delete id="delete" parameterType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		DELETE FROM
 			tbl_jinlong_system_role_examine_record
 		<where>
@@ -53,7 +53,7 @@
 	</delete>
 	
 	<!-- 通过ID删除一批角色审核记录信息 -->
-	<delete id="deleteById" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<delete id="deleteById" parameterType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		DELETE FROM
 			tbl_jinlong_system_role_examine_record
 		<where>
@@ -64,7 +64,7 @@
 	</delete>
 	
 	<!-- 通过角色ID修改一条角色审核记录信息  -->
-	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<update id="update" parameterType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		UPDATE
 			tbl_jinlong_system_role_examine_record
 		<set>
@@ -94,7 +94,7 @@
  	<!-- *********************不操作事务，查询 操作************************** -->
  	
 	<!-- 通过角色ID查询一条角色审核记录信息 -->
-	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		SELECT 
 			examine_id		AS examineId,
 			role_id			AS roleId,
@@ -113,7 +113,7 @@
 	</select>
 	
 	<!-- 查询所有的角色审核记录信息 -->
-	<select id="selectAll" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<select id="selectAll" resultType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		SELECT 
 			examine_id		AS examineId,
 			role_id			AS roleId,
@@ -128,8 +128,8 @@
 	</select>
 	
 	<!-- 通过条件查询一批的角色审核记录信息 -->
-	<select id="selectList" parameterType="com.jinlong.system.model.po.role.RoleExamineRecord" 
-		resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<select id="selectList" parameterType="com.jinlong.system.model.po.role.RoleExamineRecordPO" 
+		resultType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		SELECT 
 			examine_id		AS examineId,
 			role_id			AS roleId,
@@ -161,7 +161,7 @@
 	</select>
 	
 	<!-- 查询最新的一条角色审核记录信息 -->
-	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<select id="selectNew" resultType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		SELECT 
 			examine_id		AS examineId,
 			role_id			AS roleId,
@@ -177,7 +177,7 @@
 	</select>
 	
 	<!-- 查询最新的数条角色审核记录信息 -->
-	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		SELECT 
 			examine_id		AS examineId,
 			role_id			AS roleId,
@@ -221,7 +221,7 @@
 	</select>
 	
 	<!-- 通过条件分页查询一批角色审核记录信息 -->
-	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleExamineRecord">
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.role.RoleExamineRecordPO">
 		SELECT 
 			examine_id		AS examineId,
 			role_id			AS roleId,

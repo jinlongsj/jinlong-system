@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jinlong.common.exception.LogicException;
 import com.jinlong.system.common.constant.ControllerConstant;
-import com.jinlong.system.common.utils.exception.LogicException;
 import com.jinlong.system.model.dto.ResultDTO;
 import com.jinlong.system.model.form.role.RoleForm;
 import com.jinlong.system.model.form.role.RoleVOForm;
-import com.jinlong.system.model.po.role.RoleInfo;
+import com.jinlong.system.model.po.role.RoleInfoPO;
 import com.jinlong.system.model.vo.menu.MenuVO;
 import com.jinlong.system.model.vo.role.RoleVO;
 import com.jinlong.system.service.menu.IMenuService;
@@ -382,7 +382,7 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value = "/distribute", method = RequestMethod.POST)
-	public ResultDTO distribute(@RequestBody RoleInfo role, @RequestBody MenuVO menu) {
+	public ResultDTO distribute(@RequestBody RoleInfoPO role, @RequestBody MenuVO menu) {
 		log.info("Role distribute start! Parameter role = " + role);
 		ResultDTO result = new ResultDTO();
 		try {

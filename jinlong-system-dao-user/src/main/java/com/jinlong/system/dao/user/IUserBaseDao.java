@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.jinlong.system.dao.IBasicDao;
-import com.jinlong.system.model.po.user.UserBase;
+import com.jinlong.common.dao.IBasicDao;
+import com.jinlong.system.model.po.user.UserBasePO;
 
 /**
  * 用户基础信息DAO持久化接口
  * @author 肖学进
  */
 @Mapper
-public interface IUserBaseDao extends IBasicDao<UserBase> {
+public interface IUserBaseDao extends IBasicDao<UserBasePO> {
 	
 	/**
 	 * @Description:新增一条用户基础信息
@@ -28,7 +28,7 @@ public interface IUserBaseDao extends IBasicDao<UserBase> {
 	 * @return
 	 * @throws Exception
 	 */
-	public int bathInsert(List<UserBase> userBaseList) throws Exception;
+	public int bathInsert(List<UserBasePO> userBaseList) throws Exception;
 	
 	/**
 	 * @Description:删除一条用户基础信息

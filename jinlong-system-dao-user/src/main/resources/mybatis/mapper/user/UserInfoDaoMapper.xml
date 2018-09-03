@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jinlong.system.dao.user.IUserInfoDao">
+<mapper namespace="com.jinlong.system.dao.user.IUserInfoPODao">
 
 	<!-- *********************操作事务：曾、删、改操作************************ -->
 	<!-- 增加用户主信息 -->
-	<insert id="insert" parameterType="com.jinlong.system.model.po.user.UserInfo">
+	<insert id="insert" parameterType="com.jinlong.system.model.po.user.UserInfoPO">
 		INSERT 
 			INTO tbl_jinlong_system_user_info
 		(
@@ -48,7 +48,7 @@
 	  	)
 	</insert>
  	<!-- 通过用户属性条件删除一组用户主信息 -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.user.UserInfo">
+	<delete id="delete" parameterType="com.jinlong.system.model.po.user.UserInfoPO">
 		DELETE 
 		FROM 
 			tbl_jinlong_system_user_info
@@ -89,7 +89,7 @@
 		</where>
  	</delete>
  	<!-- 通过用户ID删除单条用户主信息 -->
-	<delete id="deleteById" parameterType="com.jinlong.system.model.po.user.UserInfo">
+	<delete id="deleteById" parameterType="com.jinlong.system.model.po.user.UserInfoPO">
 		DELETE 
 		FROM 
 			tbl_jinlong_system_user_info
@@ -100,7 +100,7 @@
 		</where>
  	</delete>
 	<!-- 通过用户ID修改单条用户主信息 -->
-	<update id="update" parameterType="com.jinlong.system.model.po.user.UserInfo">
+	<update id="update" parameterType="com.jinlong.system.model.po.user.UserInfoPO">
 		UPDATE 
 			tbl_jinlong_system_user_info
 		<set>
@@ -159,7 +159,7 @@
  	
  	<!-- *********************不操作事务，查询 操作************************** -->
  	<!-- 通过用户ID查询单条用户主信息 -->
- 	<select id="select" parameterType="com.jinlong.system.model.po.user.UserInfo" resultType="com.jinlong.system.model.po.user.UserInfo">
+ 	<select id="select" parameterType="com.jinlong.system.model.po.user.UserInfoPO" resultType="com.jinlong.system.model.po.user.UserInfoPO">
 	    SELECT 
 	    	user_id			AS userId,
 			real_name		AS realName,
@@ -186,7 +186,7 @@
 		</where>
  	</select>
  	<!-- 查询所有的用户主信息 -->
-	<select id="selectAll" resultType="com.jinlong.system.model.po.user.UserInfo">
+	<select id="selectAll" resultType="com.jinlong.system.model.po.user.UserInfoPO">
 	    SELECT 
 	    	user_id			AS userId,
 			real_name		AS realName,
@@ -209,7 +209,7 @@
 	    ORDER BY user_id
  	</select>
  	<!-- 通过条件查询一批用户主信息 -->
- 	<select id="selectList" parameterType="com.jinlong.system.model.po.user.UserInfo" resultType="com.jinlong.system.model.po.user.UserInfo">
+ 	<select id="selectList" parameterType="com.jinlong.system.model.po.user.UserInfoPO" resultType="com.jinlong.system.model.po.user.UserInfoPO">
 	    SELECT 
 	    	user_id			AS userId,
 			real_name		AS realName,
@@ -264,7 +264,7 @@
 		ORDER BY user_id
  	</select>
  	<!-- 查询最新的一条用户主信息 -->
- 	<select id="selectNew" resultType="com.jinlong.system.model.po.user.UserInfo">
+ 	<select id="selectNew" resultType="com.jinlong.system.model.po.user.UserInfoPO">
 	    SELECT 
 	    	user_id			AS userId,
 			real_name		AS realName,
@@ -288,7 +288,7 @@
 	    LIMIT 1
  	</select>
  	<!-- 查询最新的count条用户主信息 -->
- 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.user.UserInfo">
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.user.UserInfoPO">
 	    SELECT 
 	    	user_id			AS userId,
 			real_name		AS realName,
@@ -353,7 +353,7 @@
 		</where>
 	</select>
 	<!-- 分页查询用户主信息-->
-	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.user.UserInfo">
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.user.UserInfoPO">
 	    SELECT 
 	    	user_id			AS userId,
 			real_name		AS realName,

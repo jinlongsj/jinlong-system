@@ -1,12 +1,12 @@
 /**
- * 添加角色
+ * 添加菜单
  */
 window.MenuAdd = (function($, module) {
 	
 	/**
 	 * 标题信息
 	 */
-	var title = "添加角色信息";
+	var title = "添加菜单信息";
 
 	/**
 	 * @description：初始化validationEngine验证框架
@@ -20,7 +20,7 @@ window.MenuAdd = (function($, module) {
             onkeyup : true,   
             submitHandler : function(form) {
             	// 表单提交句柄,为一回调函数，带一个参数：form   
-            	jAlert("添加角色", "添加角色");   
+            	jAlert("添加菜单", "添加菜单");   
                 form.submit();   //提交表单   
             },
 			rules: {
@@ -31,7 +31,7 @@ window.MenuAdd = (function($, module) {
 				"menuName" : {
 					required : true, 
 					rangelength : [1, 50],
-					// 验证角色名称是否存在
+					// 验证菜单名称是否存在
 					remote : {
 						url : "Menu/checkAdd",
 						type : "POST",
@@ -60,21 +60,21 @@ window.MenuAdd = (function($, module) {
 			},
 			messages: {
 				"menuName" : {
-					required : "角色名称不能为空！",
-					rangelength : jQuery.validator.format("角色名称位数必须在{0}到{1}字符之间！"),
-					remote : jQuery.validator.format("此角色已经存在！")
+					required : "菜单名称不能为空！",
+					rangelength : jQuery.validator.format("菜单名称位数必须在{0}到{1}字符之间！"),
+					remote : jQuery.validator.format("此菜单已经存在！")
 				},
 				"typeId" : {
-					required : "角色类型必选！",
-					range : "角色类型必选！"
+					required : "菜单类型必选！",
+					range : "菜单类型必选！"
 				},
 				"description" : {
-					required : "角色详情不能为空！",
-					rangelength : jQuery.validator.format("角色详情的长度必须大于等于10个字符，小于500个字符！")
+					required : "菜单详情不能为空！",
+					rangelength : jQuery.validator.format("菜单详情的长度必须大于等于10个字符，小于500个字符！")
 				},
 				"state" : {
-					required : "角色状态必选！",
-					range : "角色状态必选！"
+					required : "菜单状态必选！",
+					range : "菜单状态必选！"
 				}
 			},
 			// 失去焦点进行验证
@@ -89,20 +89,20 @@ window.MenuAdd = (function($, module) {
 	}
 	
 	/**
-	 * 绑定角色类别下拉框
+	 * 绑定菜单类别下拉框
 	 */
 	function showMenuType() {
 		url = "common/showMenuType";
-		errorMsg = "查询角色类别信息错误！";
+		errorMsg = "查询菜单类别信息错误！";
 		CommonDirectory.showSelectOptionData(url, "typeId", null, null, errorMsg);
 	}
 
 	/**
-	 * 绑定角色状态下拉框
+	 * 绑定菜单状态下拉框
 	 */
 	function showMenuState() {
 		url = "common/showMenuState";
-		errorMsg = "查询角色状态信息错误！";
+		errorMsg = "查询菜单状态信息错误！";
 		CommonDirectory.showSelectOptionData(url, "state", null, null, errorMsg);
 	}
 	
@@ -124,18 +124,16 @@ window.MenuAdd = (function($, module) {
 	function init() {
 		// 初始化validationEngine验证框架
 		initValidate()
-		// 绑定角色类别下拉框（只有显示下拉文本框的时候应用）
+		// 绑定菜单类别下拉框（只有显示下拉文本框的时候应用）
 		showMenuType();
-		// 绑定角色状态下拉框（只有显示下拉文本框的时候应用）
+		// 绑定菜单状态下拉框（只有显示下拉文本框的时候应用）
 		showMenuState();
 		// 导入文本编辑器
 		showTextArea();
-		// 菜单树结构
-		showMenuList();
 	}
 	
 	/**
-	 * 添加角色信息
+	 * 添加菜单信息
 	 */
 	function add() {
 		if ($("#add_form").valid()) {
@@ -154,10 +152,10 @@ window.MenuAdd = (function($, module) {
 				} else if (null != data && !data.flag) {
 					jAlert(data.msg, title);
 				} else {
-					jAlert("角色信息添加失败！", data.flag);
+					jAlert("菜单信息添加失败！", data.flag);
 				}
 			}).fail(function() {
-				jAlert("角色信息添加失败", data.flag);
+				jAlert("菜单信息添加失败", data.flag);
 			});
 		} else {
 			addMenuFormValidate.form();
@@ -187,12 +185,12 @@ window.MenuAdd = (function($, module) {
 $(function() {
 	
 	/**
-	 * 初始添加角色的页面
+	 * 初始添加菜单的页面
 	 */
 	MenuAdd.init();
 	
 	/**
-	 * 添加角色信息
+	 * 添加菜单信息
 	 */
 	$("#add").on("click", function() {
 		MenuAdd.add();

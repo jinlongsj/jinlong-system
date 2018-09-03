@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jinlong.common.exception.LogicException;
 import com.jinlong.system.common.constant.ControllerConstant;
-import com.jinlong.system.common.utils.exception.LogicException;
 import com.jinlong.system.model.dto.ResultDTO;
 import com.jinlong.system.model.form.menu.MenuVOForm;
-import com.jinlong.system.model.po.menu.MenuInfo;
+import com.jinlong.system.model.po.menu.MenuInfoPO;
 import com.jinlong.system.model.vo.menu.MenuVO;
 import com.jinlong.system.service.menu.IMenuService;
 
@@ -102,7 +102,7 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResultDTO add(@RequestBody MenuInfo menu) {
+	public ResultDTO add(@RequestBody MenuInfoPO menu) {
 		log.info("add Menu start! Parameter menu = " + menu);
 		ResultDTO result = new ResultDTO();
 		try {
@@ -159,7 +159,7 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public ResultDTO update(@RequestBody MenuInfo menu) {
+	public ResultDTO update(@RequestBody MenuInfoPO menu) {
 		log.info("update Menu start! Parameter menu = " + menu);
 		ResultDTO result = new ResultDTO();
 		try {

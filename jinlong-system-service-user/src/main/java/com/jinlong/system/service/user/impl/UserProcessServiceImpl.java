@@ -23,17 +23,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.model.po.page.JqPage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.user.IUserProcessDao;
 import com.jinlong.system.dao.user.IUserProcessVODao;
-import com.jinlong.system.model.po.page.JqPage;
-import com.jinlong.system.model.po.user.UserProcess;
+import com.jinlong.system.model.po.user.UserProcessPO;
 import com.jinlong.system.model.vo.user.UserProcessVO;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.service.user.IUserProcessService;
 
 /**
@@ -42,7 +42,7 @@ import com.jinlong.system.service.user.IUserProcessService;
  */
 @Service
 public class UserProcessServiceImpl extends
-		BaseVOServiceImpl<UserProcess, IUserProcessDao, UserProcessVO, IUserProcessVODao> implements
+		BaseVOServiceImpl<UserProcessPO, IUserProcessDao, UserProcessVO, IUserProcessVODao> implements
 		IUserProcessService {
 	
 	/**
@@ -82,7 +82,7 @@ public class UserProcessServiceImpl extends
 	 * @see com.jinlong.system.service.user.IUserProcessService#add(com.jinlong.system.model.pojo.user.UserProcess)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(UserProcess UserProcess) throws LogicException {
+	public int add(UserProcessPO UserProcess) throws LogicException {
 		try {
 			return userProcessDao.insert(UserProcess);
 		} catch (Exception e) {
@@ -98,7 +98,7 @@ public class UserProcessServiceImpl extends
 	 * @see com.jinlong.system.service.user.IUserProcessService#delete(com.jinlong.system.model.pojo.user.UserProcess)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(UserProcess UserProcess) throws LogicException {
+	public int delete(UserProcessPO UserProcess) throws LogicException {
 		try {
 			return userProcessDao.delete(UserProcess);
 		} catch (Exception e) {
@@ -130,7 +130,7 @@ public class UserProcessServiceImpl extends
 	 * @see com.jinlong.system.service.user.IUserProcessService#update(com.jinlong.system.model.pojo.user.UserProcess)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(UserProcess UserProcess) throws LogicException {
+	public int update(UserProcessPO UserProcess) throws LogicException {
 		try {
 			return userProcessDao.update(UserProcess);
 		} catch (Exception e) {

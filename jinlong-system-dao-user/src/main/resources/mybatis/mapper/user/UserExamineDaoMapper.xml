@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jinlong.system.dao.user.IUserExamineDao">
+<mapper namespace="com.jinlong.system.dao.user.IUserExaminePODao">
 
 	<!-- *********************操作事务：曾、删、改操作************************ -->
 	<!-- 新增一条用户审核信息 -->
-	<insert id="insert" parameterType="com.jinlong.system.model.po.user.UserExamine">
+	<insert id="insert" parameterType="com.jinlong.system.model.po.user.UserExaminePO">
 		INSERT INTO 
 			tbl_jinlong_system_user_examine
 		(
@@ -28,7 +28,7 @@
 		)
 	</insert>
 	<!-- 通过条件删除一批用户审核信息 -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.user.UserExamine">
+	<delete id="delete" parameterType="com.jinlong.system.model.po.user.UserExaminePO">
 		DELETE FROM
 			tbl_jinlong_system_user_examine
 		<where>
@@ -47,7 +47,7 @@
 		</where>
 	</delete>
 	<!-- 通过ID删除一批用户审核信息 -->
-	<delete id="deleteById" parameterType="com.jinlong.system.model.po.user.UserExamine">
+	<delete id="deleteById" parameterType="com.jinlong.system.model.po.user.UserExaminePO">
 		DELETE FROM
 			tbl_jinlong_system_user_examine
 		<where>
@@ -57,7 +57,7 @@
 		</where>
 	</delete>
 	<!-- 通过用户ID修改一条用户审核信息  -->
-	<update id="update" parameterType="com.jinlong.system.model.po.user.UserExamine">
+	<update id="update" parameterType="com.jinlong.system.model.po.user.UserExaminePO">
 		UPDATE
 			tbl_jinlong_system_user_examine
 		<set>
@@ -86,7 +86,7 @@
  	
  	<!-- *********************不操作事务，查询 操作************************** -->
 	<!-- 通过用户ID查询一条用户审核信息 -->
-	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.user.UserExamine">
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.user.UserExaminePO">
 		SELECT 
 			user_id			AS userId,
 			examine_user_id AS examineUserId,
@@ -103,7 +103,7 @@
 		</where>
 	</select>
 	<!-- 查询所有的用户审核信息 -->
-	<select id="selectAll" resultType="com.jinlong.system.model.po.user.UserExamine">
+	<select id="selectAll" resultType="com.jinlong.system.model.po.user.UserExaminePO">
 		SELECT 
 			user_id			AS userId,
 			examine_user_id AS examineUserId,
@@ -116,8 +116,8 @@
 		ORDER BY user_id
 	</select>
 	<!-- 通过条件查询一批的用户审核信息 -->
-	<select id="selectList" parameterType="com.jinlong.system.model.po.user.UserExamine" 
-		resultType="com.jinlong.system.model.po.user.UserExamine">
+	<select id="selectList" parameterType="com.jinlong.system.model.po.user.UserExaminePO" 
+		resultType="com.jinlong.system.model.po.user.UserExaminePO">
 		SELECT 
 			user_id			AS userId,
 			examine_user_id AS examineUserId,
@@ -144,7 +144,7 @@
 		ORDER BY user_id DESC
 	</select>
 	<!-- 查询最新的一条用户审核信息 -->
-	<select id="selectNew" resultType="com.jinlong.system.model.po.user.UserExamine">
+	<select id="selectNew" resultType="com.jinlong.system.model.po.user.UserExaminePO">
 		SELECT 
 			user_id			AS userId,
 			examine_user_id AS examineUserId,
@@ -158,7 +158,7 @@
 		LIMIT 1
 	</select>
 	<!-- 查询最新的数条用户审核信息 -->
-	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.user.UserExamine">
+	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.user.UserExaminePO">
 		SELECT 
 			user_id			AS userId,
 			examine_user_id AS examineUserId,
@@ -196,7 +196,7 @@
 		ORDER BY user_id DESC
 	</select>
 	<!-- 通过条件分页查询一批的用户审核信息 -->
-	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.user.UserExamine">
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.user.UserExaminePO">
 		SELECT 
 			user_id			AS userId,
 			examine_user_id AS examineUserId,

@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jinlong.common.exception.LogicException;
 import com.jinlong.system.common.constant.ControllerConstant;
-import com.jinlong.system.common.utils.exception.LogicException;
 import com.jinlong.system.model.dto.ResultDTO;
 import com.jinlong.system.model.form.user.UserForm;
 import com.jinlong.system.model.form.user.UserVOForm;
-import com.jinlong.system.model.po.user.UserBase;
-import com.jinlong.system.model.po.user.UserExamine;
+import com.jinlong.system.model.po.user.UserBasePO;
+import com.jinlong.system.model.po.user.UserExaminePO;
 import com.jinlong.system.model.vo.role.RoleVO;
 import com.jinlong.system.model.vo.user.UserVO;
 import com.jinlong.system.service.role.IRoleService;
@@ -131,9 +131,9 @@ public class UserController {
 		boolean flag = true;
 		try {
 			if (StringUtils.isNotBlank(userName)) {
-				UserBase user = new UserBase();
+				UserBasePO user = new UserBasePO();
 				user.setUserName(userName.trim());
-				List<UserBase> userList = userBaseService.findList(user);
+				List<UserBasePO> userList = userBaseService.findList(user);
 				if (null != userList) {
 					if (0 < userList.size()) {
 						flag = false;
@@ -160,7 +160,7 @@ public class UserController {
 		boolean flag = true;
 		try {
 			if (StringUtils.isNotBlank(mobilePhone)) {
-				UserBase user = new UserBase();
+				UserBasePO user = new UserBasePO();
 				user.setMobilePhone(mobilePhone.trim());
 				if (0 < userBaseService.findList(user).size()) {
 					flag = false;
@@ -186,7 +186,7 @@ public class UserController {
 		boolean flag = true;
 		try {
 			if (StringUtils.isNotBlank(email)) {
-				UserBase user = new UserBase();
+				UserBasePO user = new UserBasePO();
 				// 强制转码成utf-8，防止@被转码成%40的问题
 				user.setEmail(URLDecoder.decode(email.trim(), "utf-8"));
 				if (0 < userBaseService.findList(user).size()) {
@@ -276,9 +276,9 @@ public class UserController {
 		boolean flag = true;
 		try {
 			if (StringUtils.isNotBlank(userName) && 0 != userId) {
-				UserBase u = new UserBase();
+				UserBasePO u = new UserBasePO();
 				u.setUserName(userName.trim());
-				List<UserBase> uList = userBaseService.findList(u);
+				List<UserBasePO> uList = userBaseService.findList(u);
 				if (CollectionUtils.isNotEmpty(uList)) {
 					u = uList.get(0);
 					if (null != u && u.getUserId() != userId) {
@@ -309,9 +309,9 @@ public class UserController {
 		boolean flag = true;
 		try {
 			if (0 != userId && !StringUtils.isNotBlank(mobilePhone)) {
-				UserBase u = new UserBase();
+				UserBasePO u = new UserBasePO();
 				u.setMobilePhone(mobilePhone.trim());
-				List<UserBase> uList = userBaseService.findList(u);
+				List<UserBasePO> uList = userBaseService.findList(u);
 				if (CollectionUtils.isNotEmpty(uList)) {
 					u = uList.get(0);
 					if (null != u && userId != u.getUserId()) {
@@ -342,10 +342,10 @@ public class UserController {
 		boolean flag = true;
 		try {
 			if (0 != userId && !StringUtils.isNotBlank(email)) {
-				UserBase u = new UserBase();
+				UserBasePO u = new UserBasePO();
 				// 强制转码成utf-8，防止@被转码成%40的问题
 				u.setEmail(URLDecoder.decode(email.trim(), "utf-8"));
-				List<UserBase> uList = userBaseService.findList(u);
+				List<UserBasePO> uList = userBaseService.findList(u);
 				if (CollectionUtils.isNotEmpty(uList)) {
 					u = uList.get(0);
 					if (null != u && userId != u.getUserId()) {
@@ -397,7 +397,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-	public ResultDTO updatePassword(@RequestBody UserBase user) {
+	public ResultDTO updatePassword(@RequestBody UserBasePO user) {
 		log.info("User updatePassword start! Parameter user = " + user);
 		ResultDTO result = new ResultDTO();
 		try {
@@ -425,7 +425,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/examine", method = RequestMethod.POST)
-	public ResultDTO examine(@RequestBody UserExamine userExamine) {
+	public ResultDTO examine(@RequestBody UserExaminePO userExamine) {
 		log.info("User examine start! Parameter userExamine = " + userExamine);
 		ResultDTO result = new ResultDTO(); 
 		try {

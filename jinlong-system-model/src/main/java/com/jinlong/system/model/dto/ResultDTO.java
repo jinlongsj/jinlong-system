@@ -2,7 +2,7 @@ package com.jinlong.system.model.dto;
 
 import java.io.Serializable;
 
-import com.jinlong.system.model.po.page.JqPage;
+import com.jinlong.common.model.po.page.JqPage;
 
 import lombok.Data;
 

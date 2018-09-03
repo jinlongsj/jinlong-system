@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.jinlong.system.dao.IBasicDao;
+import com.jinlong.common.dao.IBasicDao;
 import com.jinlong.system.model.vo.zone.ZoneVO;
 
 /**

@@ -8,13 +8,13 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.system.excel.constant.ParseFileContentError;
-import com.system.excel.constant.ParseFileError;
+import com.jinlong.common.excel.constant.ParseFileContentError;
+import com.jinlong.common.excel.constant.ParseFileError;
+import com.jinlong.common.excel.model.po.FileParseResult;
+import com.jinlong.common.excel.model.singletion.FileContentError;
+import com.jinlong.common.excel.validate.CommonExcelValidate;
 import com.system.excel.model.enu.CommonLevel;
 import com.system.excel.model.enu.CommonType;
-import com.system.excel.model.po.FileParseResult;
-import com.system.excel.model.singletion.FileContentError;
-import com.system.excel.validate.CommonExcelValidate;
 
 /**
  * @description 测试用例模块Excel校验器

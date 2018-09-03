@@ -2,7 +2,7 @@ package com.jinlong.system.dao.user;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.jinlong.system.dao.IBasicDao;
+import com.jinlong.common.dao.IBasicDao;
 import com.jinlong.system.model.vo.user.UserVO;
 
 /**

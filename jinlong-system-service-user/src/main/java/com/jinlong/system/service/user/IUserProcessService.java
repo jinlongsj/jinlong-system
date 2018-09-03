@@ -12,14 +12,14 @@
 
 package com.jinlong.system.service.user;
 
-import com.jinlong.system.model.po.user.UserProcess;
+import com.jinlong.common.service.IBaseVOService;
+import com.jinlong.system.model.po.user.UserProcessPO;
 import com.jinlong.system.model.vo.user.UserProcessVO;
-import com.jinlong.system.service.IBaseVOService;
 
 /**
  * 用户流程信息POJO实体类、VO视图类Service业务层接口
  * @author 肖学进
  */
-public interface IUserProcessService extends IBaseVOService<UserProcess, UserProcessVO> {
+public interface IUserProcessService extends IBaseVOService<UserProcessPO, UserProcessVO> {
 
 }

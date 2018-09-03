@@ -13,23 +13,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.model.po.page.JqPage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.role.IRoleDao;
 import com.jinlong.system.dao.role.IRoleProcessDao;
 import com.jinlong.system.dao.role.IRoleVODao;
 import com.jinlong.system.dao.rolemenu.IRoleMenuDao;
 import com.jinlong.system.model.enums.role.RoleProcessState;
 import com.jinlong.system.model.enums.role.RoleState;
-import com.jinlong.system.model.po.page.JqPage;
-import com.jinlong.system.model.po.role.RoleInfo;
-import com.jinlong.system.model.po.role.RoleMenu;
-import com.jinlong.system.model.po.role.RoleProcess;
+import com.jinlong.system.model.po.role.RoleMenuPO;
+import com.jinlong.system.model.po.role.RoleInfoPO;
+import com.jinlong.system.model.po.role.RoleProcessPO;
 import com.jinlong.system.model.vo.role.RoleVO;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.service.role.IRoleService;
 
 /**
@@ -37,7 +37,7 @@ import com.jinlong.system.service.role.IRoleService;
  * @author 肖学进
  */
 @Service
-public class RoleServiceImpl extends BaseVOServiceImpl<RoleInfo, IRoleDao, RoleVO, IRoleVODao> implements IRoleService {
+public class RoleServiceImpl extends BaseVOServiceImpl<RoleInfoPO, IRoleDao, RoleVO, IRoleVODao> implements IRoleService {
 	
 	/**
 	 * 本业务层实现类所在的包的位置和类名称
@@ -89,7 +89,7 @@ public class RoleServiceImpl extends BaseVOServiceImpl<RoleInfo, IRoleDao, RoleV
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int add(RoleInfo role, List<Integer> menuIds) throws LogicException {
+	public int add(RoleInfoPO role, List<Integer> menuIds) throws LogicException {
 		try {
 			// 设置角色详细信息的流程状态
 			if (RoleState.notActive.getValue() == role.getState()) {
@@ -113,17 +113,17 @@ public class RoleServiceImpl extends BaseVOServiceImpl<RoleInfo, IRoleDao, RoleV
 			// 插入角色信息
 			roleDao.insert(role);
 			// 角色流程信息
-			RoleProcess rp = new RoleProcess();
+			RoleProcessPO rp = new RoleProcessPO();
 			rp.setRoleId(role.getRoleId());
 			rp.setProcessTime(new Date());
 			rp.setState(role.getProcessState());
 			// 查询流程信息
 			roleProcessDao.insert(rp);
 			// 原先分配的角色菜单关系列表
-			List<RoleMenu> rmList = new ArrayList<RoleMenu>();
+			List<RoleMenuPO> rmList = new ArrayList<RoleMenuPO>();
 			// 分配菜单
 			for (int menuId : menuIds) {
-				RoleMenu rm = new RoleMenu();
+				RoleMenuPO rm = new RoleMenuPO();
 				rm.setMenuId(menuId);
 				rm.setRoleId(role.getRoleId());
 				rmList.add(rm);
@@ -143,7 +143,7 @@ public class RoleServiceImpl extends BaseVOServiceImpl<RoleInfo, IRoleDao, RoleV
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int delete(RoleInfo role) throws LogicException {
+	public int delete(RoleInfoPO role) throws LogicException {
 		try {
 			return roleDao.delete(role);
 		} catch (Exception e) {
@@ -177,7 +177,7 @@ public class RoleServiceImpl extends BaseVOServiceImpl<RoleInfo, IRoleDao, RoleV
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public int update(RoleInfo role, List<Integer> menuIds) throws LogicException {
+	public int update(RoleInfoPO role, List<Integer> menuIds) throws LogicException {
 		try {
 			// 设置用户基本信息的状态：只有审核通过，才能够更改用户的状态
 			if ((RoleState.alreadyActivated.getValue() == role.getState() && RoleProcessState.addRoleSubmitExamine.getValue() != role.getProcessState())
@@ -185,7 +185,7 @@ public class RoleServiceImpl extends BaseVOServiceImpl<RoleInfo, IRoleDao, RoleV
 					|| (RoleState.logoffRole.getValue() == role.getState() && RoleProcessState.logoffRoleSubmitExamine.getValue() != role.getProcessState())) {
 				role.setState(RoleState.notActive.getValue());
 				// 角色流程信息
-				RoleProcess rp = new RoleProcess();
+				RoleProcessPO rp = new RoleProcessPO();
 				rp.setRoleId(role.getRoleId());
 				rp.setProcessTime(new Date());
 				rp.setState(role.getProcessState());
@@ -209,10 +209,10 @@ public class RoleServiceImpl extends BaseVOServiceImpl<RoleInfo, IRoleDao, RoleV
 			// 删除原来的角色菜单关系
 			roleMenuDao.deleteById(role.getRoleId());
 			// 原先分配的角色菜单关系列表
-			List<RoleMenu> rmList = new ArrayList<RoleMenu>();
+			List<RoleMenuPO> rmList = new ArrayList<RoleMenuPO>();
 			// 分配菜单
 			for (int menuId : menuIds) {
-				RoleMenu rm = new RoleMenu();
+				RoleMenuPO rm = new RoleMenuPO();
 				rm.setMenuId(menuId);
 				rm.setRoleId(role.getRoleId());
 				rmList.add(rm);

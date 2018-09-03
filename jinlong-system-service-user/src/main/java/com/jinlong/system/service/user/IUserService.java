@@ -2,19 +2,19 @@ package com.jinlong.system.service.user;
 
 import java.util.List;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.model.po.page.JqPage;
-import com.jinlong.system.model.po.user.UserBase;
-import com.jinlong.system.model.po.user.UserInfo;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.model.po.page.JqPage;
+import com.jinlong.common.service.IBaseVOService;
+import com.jinlong.system.model.po.user.UserBasePO;
+import com.jinlong.system.model.po.user.UserInfoPO;
 import com.jinlong.system.model.vo.user.UserVO;
-import com.jinlong.system.service.IBaseVOService;
 
 
 /**
  * @description 用户总信息VO视图类Service业务层实现类
  * @author 肖学进
  */
-public interface IUserService extends IBaseVOService<UserBase, UserVO>{
+public interface IUserService extends IBaseVOService<UserBasePO, UserVO>{
 	
 	/**
 	 * @description 新增一条用户信息
@@ -23,7 +23,7 @@ public interface IUserService extends IBaseVOService<UserBase, UserVO>{
 	 * @return
 	 * @throws LogicException
 	 */
-	public int add(UserBase ub, UserInfo ui) throws LogicException;
+	public int add(UserBasePO ub, UserInfoPO ui) throws LogicException;
 	
 	/**
 	 * @description 删除一条用户信息
@@ -32,7 +32,7 @@ public interface IUserService extends IBaseVOService<UserBase, UserVO>{
 	 * @return
 	 * @throws LogicException
 	 */
-	public int delete(UserBase ub, UserInfo ui) throws LogicException;
+	public int delete(UserBasePO ub, UserInfoPO ui) throws LogicException;
 	
 	/**
 	 * @description 通过用户ID删除一条用户信息
@@ -58,7 +58,7 @@ public interface IUserService extends IBaseVOService<UserBase, UserVO>{
 	 * @return
 	 * @throws LogicException
 	 */
-	public int update(UserBase ub, UserInfo ui) throws LogicException;
+	public int update(UserBasePO ub, UserInfoPO ui) throws LogicException;
 	
 	/**
 	 * @description 修改用户密码
@@ -66,7 +66,7 @@ public interface IUserService extends IBaseVOService<UserBase, UserVO>{
 	 * @return
 	 * @throws LogicException
 	 */
-	public int updatePassword(UserBase ub) throws LogicException;
+	public int updatePassword(UserBasePO ub) throws LogicException;
 	
 	/**
 	 * JQgrid分页查询

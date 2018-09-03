@@ -12,24 +12,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.common.utils.exception.LogicExceptionMessage;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.common.exception.LogicExceptionMessage;
+import com.jinlong.common.model.po.page.JqPage;
+import com.jinlong.common.page.PageList;
+import com.jinlong.common.page.PageProperty;
+import com.jinlong.common.page.PageUtil;
+import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.common.utils.md5.MD5;
-import com.jinlong.system.common.utils.page.PageList;
-import com.jinlong.system.common.utils.page.PageProperty;
-import com.jinlong.system.common.utils.page.PageUtil;
 import com.jinlong.system.dao.user.IUserBaseDao;
 import com.jinlong.system.dao.user.IUserInfoDao;
 import com.jinlong.system.dao.user.IUserProcessDao;
 import com.jinlong.system.dao.user.IUserVODao;
 import com.jinlong.system.model.enums.user.UserProcessState;
 import com.jinlong.system.model.enums.user.UserState;
-import com.jinlong.system.model.po.page.JqPage;
-import com.jinlong.system.model.po.user.UserBase;
-import com.jinlong.system.model.po.user.UserInfo;
-import com.jinlong.system.model.po.user.UserProcess;
+import com.jinlong.system.model.po.user.UserBasePO;
+import com.jinlong.system.model.po.user.UserInfoPO;
+import com.jinlong.system.model.po.user.UserProcessPO;
 import com.jinlong.system.model.vo.user.UserVO;
-import com.jinlong.system.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.service.user.IUserService;
 
 /**
@@ -37,7 +37,7 @@ import com.jinlong.system.service.user.IUserService;
  * @author 肖学进
  */
 @Service
-public class UserServiceImpl extends BaseVOServiceImpl<UserBase, IUserBaseDao, UserVO, IUserVODao> implements IUserService {
+public class UserServiceImpl extends BaseVOServiceImpl<UserBasePO, IUserBaseDao, UserVO, IUserVODao> implements IUserService {
 	
 	/**
 	 * 本业务层实现类所在的包的位置和类名称
@@ -85,7 +85,7 @@ public class UserServiceImpl extends BaseVOServiceImpl<UserBase, IUserBaseDao, U
 	 * @see com.jinlong.system.service.user.IUserService#add(com.jinlong.system.model.pojo.user.UserBase, com.jinlong.system.model.pojo.user.UserInfo)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int add(UserBase ub, UserInfo ui) throws LogicException {
+	public int add(UserBasePO ub, UserInfoPO ui) throws LogicException {
 		try {
 			ub.setRegisterTime(new Date());
 			// 密码加密为MDF + 时间戳
@@ -113,7 +113,7 @@ public class UserServiceImpl extends BaseVOServiceImpl<UserBase, IUserBaseDao, U
 			// 给用户详细信息设置用户ID
 			ui.setUserId(ub.getUserId());
 			// 用户流程信息
-			UserProcess up = new UserProcess();
+			UserProcessPO up = new UserProcessPO();
 			// 设置用户ID
 			up.setUserId(ub.getUserId());
 			// 设置流程时间
@@ -135,7 +135,7 @@ public class UserServiceImpl extends BaseVOServiceImpl<UserBase, IUserBaseDao, U
 	 * @see com.jinlong.system.service.user.IUserService#delete(com.jinlong.system.model.pojo.user.UserBase, com.jinlong.system.model.pojo.user.UserInfo)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int delete(UserBase ub, UserInfo ui) throws LogicException {
+	public int delete(UserBasePO ub, UserInfoPO ui) throws LogicException {
 		try {
 			return userBaseDao.delete(ub) + userInfoDao.delete(ui) - 1;
 		} catch (Exception e) {
@@ -184,7 +184,7 @@ public class UserServiceImpl extends BaseVOServiceImpl<UserBase, IUserBaseDao, U
 	 * @see com.jinlong.system.service.user.IUserService#update(com.jinlong.system.model.pojo.user.UserBase, com.jinlong.system.model.pojo.user.UserInfo)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(UserBase ub, UserInfo ui) throws LogicException {
+	public int update(UserBasePO ub, UserInfoPO ui) throws LogicException {
 		try {
 			// 查询流程状态
 			int processState = userInfoDao.select(ui.getUserId()).getState();
@@ -208,7 +208,7 @@ public class UserServiceImpl extends BaseVOServiceImpl<UserBase, IUserBaseDao, U
 					|| (UserState.logoffUser.getValue() == ub.getState() && UserProcessState.logoffUserSubmitExamine.getValue() != processState)) {
 				ub.setState(UserState.notActive.getValue());
 				// 用户流程信息
-				UserProcess up = new UserProcess();
+				UserProcessPO up = new UserProcessPO();
 				// 设置用户ID
 				up.setUserId(ub.getUserId());
 				// 设置流程时间
@@ -232,7 +232,7 @@ public class UserServiceImpl extends BaseVOServiceImpl<UserBase, IUserBaseDao, U
 	 * @see com.jinlong.ssm.service.user.IUserService#updatePassword(com.jinlong.ssm.common.model.pojp.UserBase)
 	 */
 	@Override
-	public int updatePassword(UserBase ub) throws LogicException {
+	public int updatePassword(UserBasePO ub) throws LogicException {
 		try {
 			// 密码加密为MDF + 时间戳
 			ub.setPassword(MD5.md5crypt(ub.getPassword().trim()) + userBaseDao.select(ub.getUserId()).getRegisterTime().toString());

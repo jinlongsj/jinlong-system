@@ -17,8 +17,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.jinlong.system.common.utils.exception.LogicException;
-import com.jinlong.system.model.po.file.FileInfo;
+import com.jinlong.common.exception.LogicException;
+import com.jinlong.system.model.po.file.FileInfoPO;
 import com.jinlong.system.model.vo.file.FileVO;
 import com.jinlong.system.service.file.IFileService;
 
@@ -83,7 +83,7 @@ public class FileManager {
 				String.valueOf(fileVO.getUserId()), fileVO.getState(),
 				FileMangeConfig.getInstance().fileNameGenerater(fileVO));
 
-		FileInfo fileInfo = new FileInfo();
+		FileInfoPO fileInfo = new FileInfoPO();
 		fileInfo.setFileName(FileMangeConfig.getInstance().fileNameGenerater(
 				fileVO));
 		fileInfo.setFilePath(fileVO.getAbsolutePath());
@@ -144,7 +144,7 @@ public class FileManager {
 		} catch (Exception e) {
 			streamFile = null;
 		}
-		FileInfo fileInfo = new FileInfo();
+		FileInfoPO fileInfo = new FileInfoPO();
 		fileInfo.setFileName(FileMangeConfig.getInstance().fileNameGenerater(
 				fileVO));
 		fileInfo.setFilePath(streamFile.getAbsolutePath());
@@ -197,7 +197,7 @@ public class FileManager {
 		} catch (Exception e) {
 			streamFile = null;
 		}
-		FileInfo fileInfo = new FileInfo();
+		FileInfoPO fileInfo = new FileInfoPO();
 		fileInfo.setFileName(FileMangeConfig.getInstance().fileNameGenerater(
 				fileVO));
 		fileInfo.setFilePath(streamFile.getAbsolutePath());

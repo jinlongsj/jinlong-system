@@ -14,7 +14,7 @@ package com.jinlong.system.dao.zone;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.jinlong.system.dao.IBasicDao;
+import com.jinlong.common.dao.IBasicDao;
 import com.jinlong.system.model.po.zone.ZoneInfo;
 
 /**

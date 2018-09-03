@@ -5,7 +5,7 @@
 <mapper namespace="com.jinlong.system.dao.file.IFileDao">
 
 	<!-- 新增上传下载文件 -->
-	<insert id="insert" parameterType="com.jinlong.system.model.po.file.FileInfo" >
+	<insert id="insert" parameterType="com.jinlong.system.model.po.file.FileInfoPO" >
 		<!-- 影响列 -->
 		<selectKey keyProperty="fileId" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
@@ -35,7 +35,7 @@
 		)
 	</insert>
 	<!-- 通过条件删除一条上传下载文件 -->
-	<delete id="delete" parameterType="com.jinlong.system.model.po.file.FileInfo">
+	<delete id="delete" parameterType="com.jinlong.system.model.po.file.FileInfoPO">
 		DELETE 
 		FROM 
 			tbl_jinlong_common_file_info 
@@ -81,7 +81,7 @@
 		</where>
 	</delete>
 	<!-- 修改一条上传下载文件 -->
-	<update id="update" parameterType="com.jinlong.system.model.po.file.FileInfo">
+	<update id="update" parameterType="com.jinlong.system.model.po.file.FileInfoPO">
 		UPDATE 
 			tbl_jinlong_common_file_info
 		<set>
@@ -100,7 +100,7 @@
 	</update>
 	
 	<!-- 通过条件查询一条上传下载文件 -->
-	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfo">
+	<select id="select" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfoPO">
 		SELECT
 			file_id 		AS fileId,
 			file_type_id 	AS fileTypeId,
@@ -120,7 +120,7 @@
 		</where>
 	</select>
 	<!-- 查询所有的文件信息 -->
-	<select id="selectAll" resultType="com.jinlong.system.model.po.file.FileInfo">
+	<select id="selectAll" resultType="com.jinlong.system.model.po.file.FileInfoPO">
 		SELECT
 			file_id 		AS fileId,
 			file_type_id 	AS fileTypeId,
@@ -136,7 +136,7 @@
 		ORDER BY file_id
 	</select>
 	<!-- 通过文件ID查询一条上传下载文件 -->
-	<select id="selectList" parameterType="com.jinlong.system.model.po.file.FileInfo" resultType="com.jinlong.system.model.po.file.FileInfo">
+	<select id="selectList" parameterType="com.jinlong.system.model.po.file.FileInfoPO" resultType="com.jinlong.system.model.po.file.FileInfoPO">
 		SELECT
 			file_id 		AS fileId,
 			file_type_id 	AS fileTypeId,
@@ -159,7 +159,7 @@
 		</where>
 	</select>
 	<!-- 查询最新添加的一条文件信息 -->
-	<select id="selectNew" resultType="com.jinlong.system.model.po.file.FileInfo">
+	<select id="selectNew" resultType="com.jinlong.system.model.po.file.FileInfoPO">
 		SELECT
 			file_id 		AS fileId,
 			file_type_id 	AS fileTypeId,
@@ -176,7 +176,7 @@
 		LIMIT 1
 	</select>
 	<!-- 查询最新添加的count条文件信息 -->
-	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfo">
+	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfoPO">
 		SELECT
 			file_id 		AS fileId,
 			file_type_id 	AS fileTypeId,
@@ -193,7 +193,7 @@
 		LIMIT #{count}
 	</select>
 	<!-- 通过用户ID，查询最新添加的一条文件信息 -->
-	<select id="selectNewFileByUser" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfo">
+	<select id="selectNewFileByUser" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfoPO">
 		SELECT
 			file_id 		AS fileId,
 			file_type_id 	AS fileTypeId,
@@ -214,8 +214,8 @@
 		</where>
 		LIMIT 1
 	</select>
-	<!-- 根据fileId集合得到FileInfo集合 -->
-	<select id="selectFileInfoByFileIds" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfo">
+	<!-- 根据fileId集合得到FileInfoPO集合 -->
+	<select id="selectFileInfoPOByFileIds" parameterType="int" resultType="com.jinlong.system.model.po.file.FileInfoPO">
 		SELECT
 			file_id 		AS fileId,
 			file_type_id 	AS fileTypeId,
@@ -261,7 +261,7 @@
 		</where>
 	</select>
 	<!-- 分页查询上传下载文件 -->
-	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.file.FileInfo">
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.po.file.FileInfoPO">
 		SELECT
 			file_id 		AS fileId,
 			file_type_id 	AS fileTypeId,

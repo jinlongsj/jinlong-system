@@ -15,16 +15,26 @@
 	</properties>
 	
 	<dependencies>
+		<!-- 引用jinlong-common-core子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-core</artifactId>
+		</dependency>
+		<!-- 引用jinlong-common-exception子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-exception</artifactId>
+		</dependency>
+		<!-- 引用jinlong-common-page子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-page</artifactId>
+		</dependency>
         <!-- 引用jinlong-system-common子项目 -->
         <dependency>
             <groupId>com.jinlong.system</groupId>
             <artifactId>jinlong-system-common</artifactId>
         </dependency>
-		<!-- 引用jinlong-system-service<子项目 -->
-		<dependency>
-			<groupId>com.jinlong.system</groupId>
-			<artifactId>jinlong-system-service</artifactId>
-		</dependency>
 		<!-- 引用jinlong-system-service-common子项目 -->
 		<dependency>
 			<groupId>com.jinlong.system</groupId>

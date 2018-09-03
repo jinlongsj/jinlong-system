@@ -9,12 +9,17 @@
 	<artifactId>jinlong-system-common</artifactId>
 	<name>jinlong-system-common</name>
 	<description>金龙系统管理平台common公共工具类工程</description>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<dependencies>
+		<!-- 引用jinlong-common-exception子工程 -->
+		<dependency>
+			<groupId>com.jinlong.common</groupId>
+			<artifactId>jinlong-common-exception</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -22,14 +27,14 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <scope>provided</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
 		<dependency>
-	  		<groupId>javax</groupId>
-	  		<artifactId>javaee-api</artifactId>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
@@ -41,10 +46,10 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
-    	<!-- https://mvnrepository.com/artifact/com.googlecode.xmemcached/xmemcached -->
+		<!-- https://mvnrepository.com/artifact/com.googlecode.xmemcached/xmemcached -->
 		<dependency>
-      		<groupId>com.googlecode.xmemcached</groupId>
-      		<artifactId>xmemcached</artifactId>
+			<groupId>com.googlecode.xmemcached</groupId>
+			<artifactId>xmemcached</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
@@ -54,7 +59,7 @@
 		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
-		    <artifactId>mybatis</artifactId>
+			<artifactId>mybatis</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
 		<dependency>
@@ -97,7 +102,7 @@
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 	<!-- 本工程当中应用到的所有插件 -->
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -116,5 +121,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>
