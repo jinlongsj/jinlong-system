@@ -1424,5 +1424,6 @@
 		<module>jinlong-system-web-security</module>
 		<module>jinlong-system-cache</module>
 		<module>jinlong-sysetm-kettle</module>
+		<module>jinlong-system-kettle</module>
 	</modules>
 </project>

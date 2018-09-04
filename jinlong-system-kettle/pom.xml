@@ -1,0 +1,11 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.jinlong.system</groupId>
+    <artifactId>jinlong-system</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>jinlong-system-kettle</artifactId>
+  <name>jinlong-system-kettle</name>
+  <description>金龙系统项目Kettle数据库ETL抽取脚本子工程</description>
+</project>
