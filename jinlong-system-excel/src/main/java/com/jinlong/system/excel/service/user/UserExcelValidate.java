@@ -1,4 +1,4 @@
-package com.system.excel.service.user;
+package com.jinlong.system.excel.service.user;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +13,6 @@ import com.jinlong.common.excel.constant.ParseFileError;
 import com.jinlong.common.excel.model.po.FileParseResult;
 import com.jinlong.common.excel.model.singletion.FileContentError;
 import com.jinlong.common.excel.validate.CommonExcelValidate;
-import com.system.excel.model.enu.CommonLevel;
-import com.system.excel.model.enu.CommonType;
 
 /**
  * @description 测试用例模块Excel校验器
@@ -187,13 +185,7 @@ public class UserExcelValidate extends CommonExcelValidate {
 	protected void validateFileFormatByCommonLevel(String field, Integer row,
 			Integer column) {
 		try {
-			if ((!field.equals(""))
-					&& (!field.equals(CommonLevel.LEVEL_VALUE_MAP
-							.get(CommonLevel.FATAL)))
-					&& (!field.equals(CommonLevel.LEVEL_VALUE_MAP
-							.get(CommonLevel.CRITICAL)))
-					&& (!field.equals(CommonLevel.LEVEL_VALUE_MAP
-							.get(CommonLevel.MINER)))) {
+			if ((!field.equals(""))) {
 				this.parseResult.getContentErrors().add(
 						new FileContentError(row, column, field,
 								ParseFileContentError.FIELD_FORMAT_ERROR));
@@ -217,15 +209,7 @@ public class UserExcelValidate extends CommonExcelValidate {
 	protected void validateFileFormatByCommonType(String field, Integer row,
 			Integer column) {
 		try {
-			if ((!field.equals(""))
-					&& (!field.equals(CommonType.TYPE_VALUE_MAP.get(Integer
-							.valueOf(1))))
-					&& (!field.equals(CommonType.TYPE_VALUE_MAP.get(Integer
-							.valueOf(2))))
-					&& (!field.equals(CommonType.TYPE_VALUE_MAP.get(Integer
-							.valueOf(3))))
-					&& (!field.equals(CommonType.TYPE_VALUE_MAP.get(Integer
-							.valueOf(4))))) {
+			if ((!field.equals(""))) {
 				this.parseResult.getContentErrors().add(
 						new FileContentError(row, column, field,
 								ParseFileContentError.FIELD_FORMAT_ERROR));

@@ -19,7 +19,7 @@
         	<groupId>com.jinlong.common</groupId>
             <artifactId>jinlong-common-excel</artifactId>
         </dependency>
-    	<!-- 引用jinlong-system-common-model子项目 -->
+    	<!-- 引用jinlong-system-common-model子工程 -->
         <dependency>
         	<groupId>com.jinlong.system</groupId>
             <artifactId>jinlong-system-model</artifactId>
