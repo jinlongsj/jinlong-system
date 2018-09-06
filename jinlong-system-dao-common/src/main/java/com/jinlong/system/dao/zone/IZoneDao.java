@@ -15,7 +15,7 @@ package com.jinlong.system.dao.zone;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.jinlong.common.dao.IBasicDao;
-import com.jinlong.system.model.po.zone.ZoneInfo;
+import com.jinlong.system.model.po.zone.ZoneInfoPO;
 
 /**
  * 地区信息Dao接口
@@ -23,6 +23,6 @@ import com.jinlong.system.model.po.zone.ZoneInfo;
  * @date: 2018年6月6日 下午4:26:02
  */
 @Mapper
-public interface IZoneDao extends IBasicDao<ZoneInfo> {
+public interface IZoneDao extends IBasicDao<ZoneInfoPO> {
 
 }

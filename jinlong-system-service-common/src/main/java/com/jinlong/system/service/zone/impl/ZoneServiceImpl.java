@@ -13,7 +13,7 @@ import com.jinlong.common.exception.LogicExceptionMessage;
 import com.jinlong.common.service.impl.BaseVOServiceImpl;
 import com.jinlong.system.dao.zone.IZoneDao;
 import com.jinlong.system.dao.zone.IZoneVODao;
-import com.jinlong.system.model.po.zone.ZoneInfo;
+import com.jinlong.system.model.po.zone.ZoneInfoPO;
 import com.jinlong.system.model.vo.zone.ZoneVO;
 import com.jinlong.system.service.zone.IZoneService;
 
@@ -22,7 +22,7 @@ import com.jinlong.system.service.zone.IZoneService;
  * @author 肖学进
  */
 @Service
-public class ZoneServiceImpl extends BaseVOServiceImpl<ZoneInfo, IZoneDao, ZoneVO, IZoneVODao> implements
+public class ZoneServiceImpl extends BaseVOServiceImpl<ZoneInfoPO, IZoneDao, ZoneVO, IZoneVODao> implements
 		IZoneService {
 	
 	/**

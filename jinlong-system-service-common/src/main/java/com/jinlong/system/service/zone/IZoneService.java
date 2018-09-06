@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.jinlong.common.exception.LogicException;
 import com.jinlong.common.service.IBaseVOService;
-import com.jinlong.system.model.po.zone.ZoneInfo;
+import com.jinlong.system.model.po.zone.ZoneInfoPO;
 import com.jinlong.system.model.vo.zone.ZoneVO;
 
 /**
  * 地区信息Service业务层接口
  * @author 肖学进
  */
-public interface IZoneService extends IBaseVOService<ZoneInfo, ZoneVO> {
+public interface IZoneService extends IBaseVOService<ZoneInfoPO, ZoneVO> {
 	
 	/*
 	 * 不操作事务，查询 操作的方法
