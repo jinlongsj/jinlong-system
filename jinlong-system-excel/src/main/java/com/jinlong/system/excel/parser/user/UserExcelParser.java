@@ -1,4 +1,4 @@
-package com.jinlong.system.excel.service.user;
+package com.jinlong.system.excel.parser.user;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +16,7 @@ import com.jinlong.common.excel.constant.ParseFileError;
 import com.jinlong.common.excel.model.po.FileParseResult;
 import com.jinlong.common.excel.model.singletion.FileContentError;
 import com.jinlong.common.excel.parser.CommonExcelParser;
+import com.jinlong.system.excel.validate.user.UserExcelValidate;
 
 /**
  * 测试用例模块解析器

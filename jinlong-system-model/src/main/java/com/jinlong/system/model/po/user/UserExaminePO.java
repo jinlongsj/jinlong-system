@@ -18,12 +18,12 @@ public class UserExaminePO implements Serializable {
 	private static final long serialVersionUID = 5094174385261503161L;
 	
 	/**
-	 * 审核的用户ID
+	 * 被审核的用户ID
 	 */
 	private Integer userId;
 	
 	/**
-	 * 审核人ID
+	 * 审核人的用户ID
 	 */
 	private Integer examineUserId;
 	
