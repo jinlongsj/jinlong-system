@@ -1,9 +1,9 @@
--- 表28 ：菜单流程表
-DROP TABLE IF exists tbl_jinlong_system_menu_process;
-CREATE TABLE tbl_jinlong_system_menu_process
+-- 表6 ：用户组流程表
+DROP TABLE IF exists tbl_jinlong_system_user_group_process;
+CREATE TABLE tbl_jinlong_system_user_group_process
 (
 	process_id		INT(11)			AUTO_INCREMENT	COMMENT '菜单流程ID',
-	menu_id			INT(11)			NOT NULL		COMMENT	'菜单ID',
+	user_group_id	INT(11)			NOT NULL		COMMENT	'菜单ID',
 	record_id		INT(11)			NOT NULL		COMMENT '审核记录信息ID',
 	process_time 	DATETIME						COMMENT	'流程节点时间',
 	state			INT(1) 	  		NOT NULL 		COMMENT '菜单流程状态',
