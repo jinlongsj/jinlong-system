@@ -1,4 +1,4 @@
--- 表7 ：用户组流程状态字典表 
+-- 表37 ：用户组流程状态字典表 
 DROP TABLE IF exists dic_jinlong_system_user_group_process_state;
 CREATE TABLE dic_jinlong_system_user_group_process_state
 (

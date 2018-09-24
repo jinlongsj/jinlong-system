@@ -150,7 +150,7 @@ public class UserVO implements Serializable {
 	 */
 	
 	/**
-	 * 用户图片IDID
+	 * 用户图片ID
 	 */
 	private Integer fileId;
 	

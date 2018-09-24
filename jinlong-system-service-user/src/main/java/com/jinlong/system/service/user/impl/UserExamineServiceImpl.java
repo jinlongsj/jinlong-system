@@ -51,18 +51,6 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExaminePO, IUser
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	/**
-	 * 用户审核信息DAO接口
-	 */
-	@Autowired
-	private IUserExamineDao userExamineDao;
-	
-	/**
-	 * 用户审核历史记录信息DAO
-	 */ 
-	@Autowired
-	private IUserExamineRecordDao userExamineRecordDao;
-	
-	/**
 	 * 注入用户基础信息和用户主信息DAO
 	 */
 	@Autowired
@@ -73,6 +61,18 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExaminePO, IUser
 	 */
 	@Autowired
 	private IUserInfoDao userInfoDao;
+	
+	/**
+	 * 用户审核信息DAO接口
+	 */
+	@Autowired
+	private IUserExamineDao userExamineDao;
+	
+	/**
+	 * 用户审核历史记录信息DAO
+	 */ 
+	@Autowired
+	private IUserExamineRecordDao userExamineRecordDao;
 	
 	/**
 	 * 注入用户流程信息DAO
@@ -119,25 +119,22 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExaminePO, IUser
 					ub.setState(UserState.alreadyActivated.getValue());
 					ui.setState(UserProcessState.addUserSubmitExaminePass.getValue());
 				} else {
-					ub.setState(UserState.notActive.getValue());
 					ui.setState(UserProcessState.addUserSubmitExamineNoPass.getValue());
 				}
 			} else if (UserProcessState.lockUserSubmitExamine.getValue() == ui.getState()) {
 				// 当用户流程状态是：锁定用户提交审核
 				if (UserExamineState.passExamine.getValue() == userExamine.getState()) {
-					ub.setState(UserProcessState.lockUserSubmitExamine.getValue());
+					ub.setState(UserState.lockUser.getValue());
 					ui.setState(UserProcessState.lockUserSubmitExaminePass.getValue());
 				} else {
-					ub.setState(UserState.notActive.getValue());
 					ui.setState(UserProcessState.lockUserSubmitExamineNoPass.getValue());
 				}
 			} else if (UserProcessState.logoffUserSubmitExamine.getValue() == ui.getState()) {
 				// 当用户流程状态是：注销用户提交审核
 				if (UserExamineState.passExamine.getValue() == userExamine.getState()) {
-					ub.setState(UserProcessState.logoffUserSubmitExamine.getValue());
+					ub.setState(UserState.logoffUser.getValue());
 					ui.setState(UserProcessState.lockUserSubmitExaminePass.getValue());
 				} else {
-					ub.setState(UserState.notActive.getValue());
 					ui.setState(UserProcessState.lockUserSubmitExamineNoPass.getValue());
 				}
 			}
@@ -216,25 +213,22 @@ public class UserExamineServiceImpl extends BaseServiceImpl<UserExaminePO, IUser
 					ub.setState(UserState.alreadyActivated.getValue());
 					ui.setState(UserProcessState.addUserSubmitExaminePass.getValue());
 				} else {
-					ub.setState(UserState.notActive.getValue());
 					ui.setState(UserProcessState.addUserSubmitExamineNoPass.getValue());
 				}
 			} else if (UserProcessState.lockUserSubmitExamine.getValue() == ui.getState()) {
 				// 当用户流程状态是：锁定用户提交审核
 				if (UserExamineState.passExamine.getValue() == userExamine.getState()) {
-					ub.setState(UserProcessState.lockUserSubmitExamine.getValue());
+					ub.setState(UserState.lockUser.getValue());
 					ui.setState(UserProcessState.lockUserSubmitExaminePass.getValue());
 				} else {
-					ub.setState(UserState.notActive.getValue());
 					ui.setState(UserProcessState.lockUserSubmitExamineNoPass.getValue());
 				}
 			} else if (UserProcessState.logoffUserSubmitExamine.getValue() == ui.getState()) {
 				// 当用户流程状态是：注销用户提交审核
 				if (UserExamineState.passExamine.getValue() == userExamine.getState()) {
-					ub.setState(UserProcessState.logoffUserSubmitExamine.getValue());
+					ub.setState(UserState.logoffUser.getValue());
 					ui.setState(UserProcessState.lockUserSubmitExaminePass.getValue());
 				} else {
-					ub.setState(UserState.notActive.getValue());
 					ui.setState(UserProcessState.lockUserSubmitExamineNoPass.getValue());
 				}
 			}

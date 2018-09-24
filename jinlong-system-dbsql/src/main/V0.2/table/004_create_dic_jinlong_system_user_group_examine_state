@@ -1,4 +1,4 @@
--- 表4 ：用户组审核状态字典表 
+-- 表34 ：用户组审核状态字典表 
 DROP TABLE IF exists dic_jinlong_system_user_group_examine_state;
 CREATE TABLE dic_jinlong_system_user_group_examine_state
 (

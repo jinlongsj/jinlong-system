@@ -1,4 +1,4 @@
--- 表6 ：用户组流程表
+-- 表36 ：用户组流程表
 DROP TABLE IF exists tbl_jinlong_system_user_group_process;
 CREATE TABLE tbl_jinlong_system_user_group_process
 (

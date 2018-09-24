@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinlong.system.dao.usergroup.IUserGroupVODao">
+ 	
+ 	<!-- *********************不操作事务，查询 操作**************************-->
+ 	
+ 	<!-- 通过用户组ID查询单条用户组信息 -->
+ 	<select id="select" parameterType="com.jinlong.system.model.vo.usergroup.UserGroupVO" 
+ 		resultType="com.jinlong.system.model.vo.usergroup.UserGroupVO">
+	    SELECT 
+	    	u.user_group_id		AS userGroupId,
+			u.parent_id			AS parentId,
+			u.user_group_name	AS userGroupName,
+			u.create_time		AS createTime,
+			u.description		AS description,
+			u.state				AS state,
+			s.name				AS stateName,
+			u.proccess_state	AS processState,
+			p.name				AS processStateName
+	    FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+		<where>
+			<if test="userGroupId != null and userGroupId != 0">
+				u.user_group_id = #{userGroupId}
+			</if>
+		</where>
+ 	</select>
+ 	
+ 	<!-- 查询所有的用户组信息 -->
+	<select id="selectAll" resultType="com.jinlong.system.model.vo.usergroup.UserGroupVO">
+	    SELECT 
+	    	u.user_group_id		AS userGroupId,
+			u.parent_id			AS parentId,
+			u.user_group_name	AS userGroupName,
+			u.create_time		AS createTime,
+			u.description		AS description,
+			u.state				AS state,
+			s.name				AS stateName,
+			u.proccess_state	AS processState,
+			p.name				AS processStateName
+	    FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+	    ORDER BY u.user_group_id
+ 	</select>
+ 	
+ 	<!-- 通过用户组的条件查询单条用户组对象 -->
+ 	<select id="selectList" resultType="com.jinlong.system.model.vo.usergroup.UserGroupVO">
+	    SELECT 
+	    	u.user_group_id		AS userGroupId,
+			u.parent_id			AS parentId,
+			u.user_group_name	AS userGroupName,
+			u.create_time		AS createTime,
+			u.description		AS description,
+			u.state				AS state,
+			s.name				AS stateName,
+			u.proccess_state	AS processState,
+			p.name				AS processStateName
+	    FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+	    ORDER BY u.user_group_id
+ 	</select>
+ 	
+ 	<!-- 查询最新的一条用户组信息 -->
+ 	<select id="selectNew" resultType="com.jinlong.system.model.vo.usergroup.UserGroupVO">
+	    SELECT 
+	    	u.user_group_id		AS userGroupId,
+			u.parent_id			AS parentId,
+			u.user_group_name	AS userGroupName,
+			u.create_time		AS createTime,
+			u.description		AS description,
+			u.state				AS state,
+			s.name				AS stateName,
+			u.proccess_state	AS processState,
+			p.name				AS processStateName
+	    FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+	    ORDER BY u.user_group_id DESC
+	    LIMIT 1
+ 	</select>
+ 	
+ 	<!-- 查询最新的count条用户组信息 -->
+ 	<select id="selectNewList" parameterType="int" resultType="com.jinlong.system.model.vo.usergroup.UserGroupVO">
+	    SELECT 
+	    	u.user_group_id		AS userGroupId,
+			u.parent_id			AS parentId,
+			u.user_group_name	AS userGroupName,
+			u.create_time		AS createTime,
+			u.description		AS description,
+			u.state				AS state,
+			s.name				AS stateName,
+			u.proccess_state	AS processState,
+			p.name				AS processStateName
+	    FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+	    ORDER BY u.user_group_id DESC
+	    LIMIT #{count}
+ 	</select>
+ 	
+ 	<!-- ***************************分页操作******************************** -->
+ 	
+	<!-- 查询所有用户组的总条数 -->
+	<select id="getCount" parameterType="Map" resultType="integer">
+		SELECT 
+			COUNT(1) 
+		FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+		<where>
+			<if test="userGroupName != null and userGroupName != ''">
+				user_group_name = #{userGroupName}
+			</if>
+			<if test="createTime != null">
+				AND create_time = #{createTime}
+			</if>
+			<if test="description != null and description != ''">
+				AND description = #{description}
+			</if>
+			<if test="state != null and state != 0">
+				AND state = #{state}
+			</if>
+			<if test="processState != null and processState != 0">
+				AND proccess_state = #{processState}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询所有用户组信息 -->
+	<select id="getSplitList" parameterType="Map" resultType="com.jinlong.system.model.vo.usergroup.UserGroupVO">
+		SELECT 
+	    	u.user_group_id		AS userGroupId,
+			u.parent_id			AS parentId,
+			u.user_group_name	AS userGroupName,
+			u.create_time		AS createTime,
+			u.description		AS description,
+			u.state				AS state,
+			s.name				AS stateName,
+			u.proccess_state	AS processState,
+			p.name				AS processStateName
+	    FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+		<where>
+			<if test="userGroupName != null and userGroupName != ''">
+				u.user_group_name = #{userGroupName}
+			</if>
+			<if test="createTime != null">
+				AND u.create_time = #{createTime}
+			</if>
+			<if test="description != null and description != ''">
+				AND u.description = #{description}
+			</if>
+			<if test="state != null and state != 0">
+				AND u.state = #{state}
+			</if>
+			<if test="processState != null and processState != 0">
+				AND u.proccess_state = #{processState}
+			</if>
+		</where>
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+	
+	<!-- 查询通过当前登录用户组ID查询得到用户组数据的总条数  -->
+	<select id="selectCountByUserId" parameterType="Map" resultType="integer">
+		SELECT 
+			COUNT(1) 
+		FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+		<where>
+			<if test="userGroupId != null and userGroupId != 0">
+				u.user_group_id = #{userGroupId}
+			</if>
+			<if test="userGroupName != null and userGroupName != ''">
+				AND u.user_group_name = #{userGroupName}
+			</if>
+			<if test="createTime != null">
+				AND u.create_time = #{createTime}
+			</if>
+			<if test="description != null and description != ''">
+				AND u.description = #{description}
+			</if>
+			<if test="state != null and state != 0">
+				AND u.state = #{state}
+			</if>
+			<if test="processState != null and processState != 0">
+				AND u.u.proccess_state = #{processState}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 通过当前登录用户组ID分页查询用户组信息 -->
+	<select id="selectSplitListByUserId" parameterType="Map" resultType="com.jinlong.system.model.vo.usergroup.UserGroupVO">
+		SELECT 
+	    	u.user_group_id		AS userGroupId,
+			u.parent_id			AS parentId,
+			u.user_group_name	AS userGroupName,
+			u.create_time		AS createTime,
+			u.description		AS description,
+			u.state				AS state,
+			s.name				AS stateName,
+			u.proccess_state	AS processState,
+			p.name				AS processStateName
+	    FROM 
+	    	t_jinlong_system_user_group u
+    		INNER JOIN dic_jinlong_system_role_state s ON u.state = s.value
+		    INNER JOIN dic_jinlong_system_role_process_state p ON u.process_state = p.value
+		<where>
+			<if test="userGroupId != null and userGroupId != 0">
+				u.user_group_id = #{userGroupId}
+			</if>
+			<if test="userGroupName != null and userGroupName != ''">
+				AND u.user_group_name = #{userGroupName}
+			</if>
+			<if test="createTime != null">
+				AND u.create_time = #{createTime}
+			</if>
+			<if test="description != null and description != ''">
+				AND u.description = #{description}
+			</if>
+			<if test="state != null and state != 0">
+				AND u.state = #{state}
+			</if>
+			<if test="processState != null and processState != 0">
+				AND u.proccess_state = #{processState}
+			</if>
+		</where>
+	    <if test="startRow != null and pageSize != null and pageSize != 0">
+	    	LIMIT #{startRow} , #{pageSize}
+	    </if>
+	</select>
+	
+</mapper>
